@@ -1,0 +1,20 @@
+{
+    "name": "logica",
+    "version": "0.0.1",
+    "description": "",
+    "main": "logica.js",
+    "author": "Claudia Torres Cruz",
+    "scripts": {
+        "test": "node ./node_modules/mocha/bin/mocha",
+        "ayuda": "echo ejecuta esto: npm test"
+    },
+    "dependencies": {
+        "mysql2": "*",
+        "sequelize": "*"
+    },
+    "devDependencies": {
+        "mocha": "*",
+        "request": "*",
+        "sequelize-cli": "^6.5.2"
+    }
+}
