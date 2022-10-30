@@ -1,0 +1,4 @@
+src/servidorREST/node_modules
+src/servidorREST/package-lock.json
+src/logica/node_modules
+src/logica/package-lock.json
