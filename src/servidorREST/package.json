@@ -1,0 +1,21 @@
+{
+    "name": "gti3a-backend",
+    "version": "0.0.1",
+    "description": "Proyecto GTI 3A. Parte del backend",
+    "main": "servidor.js",
+    "directories": {
+        "test": "test"
+    },
+    "scripts": {
+        "servidor": "node servidor.js"
+    },
+    "author": "Claudia Torres Cruz",
+    "dependencies": {
+        "dotenv": "*",
+        "express": "*",
+        "sqlite3": "^5.1.2"
+    },
+    "devDependencies": {
+        "mocha": "*"
+    }
+}
