@@ -16,10 +16,12 @@ module.exports = (sequelize, DataTypes) => {
   Usuario.init({
     Nombre: DataTypes.STRING,
     Contraseña: DataTypes.STRING,
-    Correo: DataTypes.STRING
+    Correo: DataTypes.STRING,
   }, {
     sequelize,
     modelName: 'Usuario',
+    timestamps: false,
+    freezeTableName: true,
   });
   return Usuario;
 };

@@ -52,7 +52,7 @@ describe("Test 1, probando GET y POST", function () {
     ) // .post
 }) // it
   //------------------------------------------------------------------------------
-  // probar que obtiene mediciones
+  // probar que obtiene usuarios
   //------------------------------------------------------------------------------
   it("probando GET /obtenerUsuarios", function (hecho) {
     request.get(
@@ -73,4 +73,42 @@ describe("Test 1, probando GET y POST", function () {
       }
     );
   }); //it()
+    //------------------------------------------------------------------------------
+  // probar que busca usuarios
+  //------------------------------------------------------------------------------
+  it("probando GET /buscarUsuario", function (hecho) {
+    request.get(
+      {
+        url: PUERTO_IP+"/buscarUsuario?Correo=prueba@prueba.com&Contraseña=1234",
+        headers: { "User-Agent": "ClaudiaTorresCruz" },
+      },
+      function (err, res, carga) {
+        assert.equal(err, null, "¿Ha fallado algo?");
+        assert.equal(res.statusCode, 200, "¿El código no es 200 (OK)");
+        var cargaJSON = JSON.parse(carga);
+        assert.equal(
+          cargaJSON.Nombre.toString(),
+          "Claudia",
+          "¿El nombre no es Claudia?"
+        );
+        hecho();
+      }
+    );
+  }); //it()
+    //------------------------------------------------------------------------------
+  // probar que elimina usuarios
+  //------------------------------------------------------------------------------
+  it("probar POST /borrarUsuario", function (hecho) {
+    var datos = {id:"",Nombre:"Claudia",Contraseña:"1234",Correo:"prueba@prueba.com"}
+    request.post({ url : PUERTO_IP+"/borrarUsuario",
+        headers : { "User-Agent" : "ClaudiaTorresCruz" , "Content-Type" : "application/json" },
+        body : JSON.stringify( datos )
+        },
+        function( err, respuesta, carga ) {
+            assert.equal( err, null, "¿ha habido un error?" )
+            assert.equal( respuesta.statusCode, 200, "¿El código no es 200 (OK)" )
+            hecho()
+        } // callback
+    ) // .post
+}) // it
 }); //()

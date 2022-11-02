@@ -37,8 +37,7 @@ module.exports = class Logica {
   }
   //------------------------------------------------------------------------------
   /**
-   * @brief este método se encarga de obtener todas las mediciones
-   * @param Medicion (tabla de la base de datos)
+   * @brief este método se encarga de obtener todos los usuarios
    * @return mediciones
    * Diseño:  --> obtenerUsuarios() --> [{id: int, nombre: string, contraseña: string, correo:string}]
    **/
@@ -56,6 +55,39 @@ module.exports = class Logica {
    */
   async insertarUsuario(body) {
     await modeloUsuario.create(body);
+  }
+    //------------------------------------------------------------------------------
+  /**
+   * *
+   * @brief este método se encarga de buscar si un usuario existe
+   * @param correo correo a buscar
+   * @param contraseña contraseña del usuario a buscar
+   * Diseño: correo:Texto, contraseña:Texto --> buscarUsuario() --> [{id: int, nombre: string, contraseña: string, correo:string}] | 404
+   */
+   async buscarUsuario(correo, contraseña) {
+    // SELECT * FROM Usuario WHERE Correo = $correo AND Contraseña = $contraseña;
+    return await modeloUsuario.findAll({
+      where: {
+        Correo: correo,
+        Contraseña: contraseña
+      },
+      raw:true
+    })
+  }
+      //------------------------------------------------------------------------------
+  /**
+   * *
+   * @brief este método se encarga de eliminar un usuario
+   * @param correo correo del usuario a eliminar
+   * Diseño: correo:Texto --> borrarUsuario() --> 200 | 404
+   */
+   async borrarUsuario(correo) {
+    // DELETE * FROM Usuario WHERE Correo = $correo
+    await modeloUsuario.destroy({
+      where:{
+        Correo: correo
+      }
+    })
   }
   //------------------------------------------------------------------------------
   /**

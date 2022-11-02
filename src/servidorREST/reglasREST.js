@@ -40,14 +40,49 @@ module.exports.cargar = function (servidor, logica) {
    * POST /usuario
    */
   //------------------------------------------------------------------------------
-    servidor.post("/usuario", async function (peticion, respuesta) {
-      console.log(" * POST /usuario ")
-      const data = peticion.body;
-      try {
-          await logica.insertarUsuario(data);
-          respuesta.sendStatus(201);
-      } catch {
-          respuesta.sendStatus(400);
-      }
-  }) // post /medicion
+  servidor.post("/usuario", async function (peticion, respuesta) {
+    console.log(" * POST /usuario ");
+    const data = peticion.body;
+    console.log(data);
+    try {
+      await logica.insertarUsuario(data);
+      respuesta.sendStatus(201);
+    } catch {
+      respuesta.sendStatus(400);
+    }
+  }); // post /medicion
+  //------------------------------------------------------------------------------
+  /**
+   * GET /buscarUsuario/?Correo=<texto>&Contraseña=<texto>
+   */
+  //------------------------------------------------------------------------------
+  servidor.get("/buscarUsuario", async function (peticion, respuesta) {
+    console.log(" * GET /buscarUsuario ");
+    var correo = peticion.query.Correo;
+    console.log(correo);
+    var contraseña = peticion.query.Contraseña;
+    console.log(contraseña);
+    if (correo == null && contraseña == null) {
+      respuesta.sendStatus(404).send("no puedo encontrar ese usuario");
+      return;
+    } else {
+      var usuario = await logica.buscarUsuario(correo, contraseña);
+      respuesta.send(JSON.stringify(usuario[0]));
+    }
+  }); // post /medicion
+  //------------------------------------------------------------------------------
+  /**
+   * POST /borrarUsuario/?correo=<texto>
+   */
+  //------------------------------------------------------------------------------
+  servidor.post("/borrarUsuario", async function (peticion, respuesta) {
+    console.log(" * GET /borrarUsuario ");
+    var correo = peticion.body.Correo;
+    try {
+      await logica.borrarUsuario(correo);
+      respuesta.sendStatus(200);
+    } catch {
+      respuesta.sendStatus(400);
+    }
+  }); // post /medicion
 }; //()
