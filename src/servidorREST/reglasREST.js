@@ -60,7 +60,7 @@ module.exports.cargar = function (servidor, logica) {
     console.log(" * GET /buscarUsuario ");
     var correo = peticion.query.Correo;
     console.log(correo);
-    var contraseña = peticion.query.Contraseña;
+    var contraseña = peticion.query.Contrasena;
     console.log(contraseña);
     if (correo == null && contraseña == null) {
       respuesta.sendStatus(404).send("no puedo encontrar ese usuario");
