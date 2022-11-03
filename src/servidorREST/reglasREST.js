@@ -50,7 +50,7 @@ module.exports.cargar = function (servidor, logica) {
     } catch {
       respuesta.sendStatus(400);
     }
-  }); // post /medicion
+  }); // post /usuario
   //------------------------------------------------------------------------------
   /**
    * GET /buscarUsuario/?Correo=<texto>&Contraseña=<texto>
@@ -69,7 +69,7 @@ module.exports.cargar = function (servidor, logica) {
       var usuario = await logica.buscarUsuario(correo, contrasena);
       respuesta.send(JSON.stringify(usuario[0]));
     }
-  }); // post /medicion
+  }); // GET /buscarUsuario/?Correo=<texto>&Contraseña=<texto>
   //------------------------------------------------------------------------------
   /**
    * POST /borrarUsuario/?correo=<texto>
@@ -84,5 +84,5 @@ module.exports.cargar = function (servidor, logica) {
     } catch {
       respuesta.sendStatus(400);
     }
-  }); // post /medicion
+  }); // POST /borrarUsuario/?correo=<texto>
 }; //()

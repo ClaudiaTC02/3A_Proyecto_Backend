@@ -38,14 +38,15 @@ module.exports = class Logica {
   //------------------------------------------------------------------------------
   /**
    * @brief este método se encarga de obtener todos los usuarios
-   * @return mediciones
+   * @return usuarios
    * Diseño:  --> obtenerUsuarios() --> [{id: int, nombre: string, contraseña: string, correo:string}]
    **/
   //------------------------------------------------------------------------------
   async obtenerUsuarios() {
+    // SELECT * FROM Usuario
     const usuarios = await modeloUsuario.findAll();
     return usuarios;
-  }
+  } //obtenerUsuarios()
   //------------------------------------------------------------------------------
   /**
    * *
@@ -54,8 +55,9 @@ module.exports = class Logica {
    * Diseño: body: [{id: int, nombre: string, contraseña: string, correo:string}] --> insertarUsuario() --> 201 | 404
    */
   async insertarUsuario(body) {
+    // INSERT INTO Usuario ('id', 'nombre', 'contraseña', 'correo') VALUES ()
     await modeloUsuario.create(body);
-  }
+  } // insertarUsuario()
     //------------------------------------------------------------------------------
   /**
    * *
@@ -73,7 +75,7 @@ module.exports = class Logica {
       },
       raw:true
     })
-  }
+  } //buscarUsuario()
       //------------------------------------------------------------------------------
   /**
    * *
@@ -88,7 +90,7 @@ module.exports = class Logica {
         Correo: correo
       }
     })
-  }
+  } //borrarUsuario()
   //------------------------------------------------------------------------------
   /**
    * @brief este método se encarga de comprobar que la conexión con la base de datos de phpmyadmin esté establecida
@@ -102,5 +104,5 @@ module.exports = class Logica {
     } catch (error) {
       console.error("No se puede conectar con la base de datos: ", error);
     }
-  }
-};
+  }//testConexion()
+}; //class()
