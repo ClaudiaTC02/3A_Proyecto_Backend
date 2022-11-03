@@ -61,15 +61,15 @@ module.exports = class Logica {
    * *
    * @brief este método se encarga de buscar si un usuario existe
    * @param correo correo a buscar
-   * @param contraseña contraseña del usuario a buscar
+   * @param contrasena contraseña del usuario a buscar
    * Diseño: correo:Texto, contraseña:Texto --> buscarUsuario() --> [{id: int, nombre: string, contraseña: string, correo:string}] | 404
    */
-   async buscarUsuario(correo, contraseña) {
+   async buscarUsuario(correo, contrasena) {
     // SELECT * FROM Usuario WHERE Correo = $correo AND Contraseña = $contraseña;
     return await modeloUsuario.findAll({
       where: {
         Correo: correo,
-        Contraseña: contraseña
+        Contrasena: contrasena
       },
       raw:true
     })

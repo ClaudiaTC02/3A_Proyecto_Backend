@@ -60,13 +60,13 @@ module.exports.cargar = function (servidor, logica) {
     console.log(" * GET /buscarUsuario ");
     var correo = peticion.query.Correo;
     console.log(correo);
-    var contraseña = peticion.query.Contrasena;
-    console.log(contraseña);
-    if (correo == null && contraseña == null) {
+    var contrasena = peticion.query.Contrasena;
+    console.log(contrasena);
+    if (correo == null && contrasena == null) {
       respuesta.sendStatus(404).send("no puedo encontrar ese usuario");
       return;
     } else {
-      var usuario = await logica.buscarUsuario(correo, contraseña);
+      var usuario = await logica.buscarUsuario(correo, contrasena);
       respuesta.send(JSON.stringify(usuario[0]));
     }
   }); // post /medicion
