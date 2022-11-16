@@ -1,0 +1,58 @@
+body{
+    margin:0;
+    padding:0;
+}
+#logo_header{
+    margin-top: 10px;
+    height: 2.5rem;
+    width: 3.6rem;
+    padding-left: 20px;
+}
+
+#contenedor_header{
+    border-bottom: 1px solid black;
+}
+
+
+a{
+    text-decoration: none;
+}
+
+#contenedor_panel{
+    float: right
+}
+
+#enlace{
+    font-size: 18px;
+    color: black;
+    display: inline-block;
+	margin-right: 1.6vw;
+ 
+}
+
+#diseño_texto_header{
+    color: black;
+    font-weight: bold;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+#diseño_texto_header:hover{
+    text-decoration: underline;
+}
+
+#boton_iniciar_sesion{
+    font-size: 18px;
+    color: white;
+    height: 26px;
+    width: 140px;
+    background-color: #9EB4B4;
+    border: 0px;
+    border-radius: 12px; 
+    font-weight: bold;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    box-shadow: 4px 4px 4px #6c6c6b ;
+}
+
+#boton_iniciar_sesion:hover{
+    background-color: #8a9d9d;
+}
+
