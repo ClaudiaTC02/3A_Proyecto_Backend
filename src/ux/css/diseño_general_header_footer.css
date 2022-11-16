@@ -1,5 +1,15 @@
 .header{
     border: 0px;
     width: 100% !important;
-    height: 60px;
+    height: 60px !important;
+}
+
+.footer{
+    border: 0px;
+    border-top: 1px solid black;
+    bottom: 0;
+    position: absolute;
+    width: 100% !important;
+    height: 70px;
+
 }
