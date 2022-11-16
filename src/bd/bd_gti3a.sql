@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 02-11-2022 a las 18:20:20
+-- Tiempo de generación: 16-11-2022 a las 13:47:44
 -- Versión del servidor: 10.4.25-MariaDB
 -- Versión de PHP: 8.1.10
 
@@ -24,12 +24,25 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `ciudad`
+--
+
+CREATE TABLE `ciudad` (
+  `Id` int(11) NOT NULL,
+  `Nombre` text CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  `Id_Admin` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `dispositivo`
 --
 
 CREATE TABLE `dispositivo` (
   `Id` int(11) NOT NULL,
-  `Nombre` text CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL
+  `Nombre` text CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  `Id_Ciudad` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -56,8 +69,9 @@ CREATE TABLE `medida` (
 CREATE TABLE `usuario` (
   `Id` int(11) NOT NULL,
   `Nombre` text CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
-  `Contraseña` text CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
-  `Correo` text CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL
+  `Contrasena` text CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  `Correo` text CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  `EsAdmin` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -76,10 +90,18 @@ CREATE TABLE `usuario_dispositivo` (
 --
 
 --
+-- Indices de la tabla `ciudad`
+--
+ALTER TABLE `ciudad`
+  ADD PRIMARY KEY (`Id`),
+  ADD KEY `Id_Admin` (`Id_Admin`);
+
+--
 -- Indices de la tabla `dispositivo`
 --
 ALTER TABLE `dispositivo`
-  ADD PRIMARY KEY (`Id`);
+  ADD PRIMARY KEY (`Id`),
+  ADD KEY `Id_Ciudad` (`Id_Ciudad`);
 
 --
 -- Indices de la tabla `medida`
@@ -107,6 +129,12 @@ ALTER TABLE `usuario_dispositivo`
 --
 
 --
+-- AUTO_INCREMENT de la tabla `ciudad`
+--
+ALTER TABLE `ciudad`
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `dispositivo`
 --
 ALTER TABLE `dispositivo`
@@ -127,6 +155,18 @@ ALTER TABLE `usuario`
 --
 -- Restricciones para tablas volcadas
 --
+
+--
+-- Filtros para la tabla `ciudad`
+--
+ALTER TABLE `ciudad`
+  ADD CONSTRAINT `ciudad_ibfk_1` FOREIGN KEY (`Id_Admin`) REFERENCES `usuario` (`Id`);
+
+--
+-- Filtros para la tabla `dispositivo`
+--
+ALTER TABLE `dispositivo`
+  ADD CONSTRAINT `dispositivo_ibfk_1` FOREIGN KEY (`Id_Ciudad`) REFERENCES `ciudad` (`Id`);
 
 --
 -- Filtros para la tabla `medida`
