@@ -20,7 +20,9 @@ body{
 #texto_footer{
     text-decoration: none;
     color: black;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
+
 
 #enlace_footer{
     margin-top: 0px;

@@ -5,10 +5,10 @@
 }
 
 .footer{
+    width: 100% !important;
+    height: 80px !important;
+    position:absolute;
     border: 0px;
     border-top: 1px solid black;
-    bottom: 0;
-    position: absolute;
-    width: 100% !important;
-    height: 80px;
+    bottom: 0;   
 }
