@@ -31,6 +31,10 @@ a{
  
 }
 
+#color_texto{
+    color: white;
+}
+
 #diseño_texto_header{
     color: black;
     font-weight: bold;

@@ -39,7 +39,7 @@ describe("Test 1, probar insertar, ver y borrar usuarios", function () {
   // probar que añade usuarios
   //------------------------------------------------------------------------------
   it("probar POST /usuario", function (hecho) {
-    var datos = {id:"",Nombre:"Claudia",Contrasena:"1234",Correo:"prueba@prueba.com"}
+    var datos = {id:"",Nombre:"Claudia",Contrasena:"1234",Correo:"prueba@prueba.com", EsAdmin: "0"}
     request.post({ url : PUERTO_IP+"/usuario",
         headers : { "User-Agent" : "ClaudiaTorresCruz" , "Content-Type" : "application/json" },
         body : JSON.stringify( datos )
@@ -99,7 +99,7 @@ describe("Test 1, probar insertar, ver y borrar usuarios", function () {
   // probar que elimina usuarios
   //------------------------------------------------------------------------------
   it("probar POST /borrarUsuario", function (hecho) {
-    var datos = {id:"",Nombre:"Claudia",Contraseña:"1234",Correo:"prueba@prueba.com"}
+    var datos = {id:"",Nombre:"Claudia",Contraseña:"1234",Correo:"prueba@prueba.com", EsAdmin: "0"}
     request.post({ url : PUERTO_IP+"/borrarUsuario",
         headers : { "User-Agent" : "ClaudiaTorresCruz" , "Content-Type" : "application/json" },
         body : JSON.stringify( datos )
