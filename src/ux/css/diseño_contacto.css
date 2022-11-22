@@ -1,56 +1,54 @@
-#contenedor_iniciar_sesion{
+#contenedor_contacto{
     position: absolute;
-    height: 100%;
     width: 100%;
+    height: 100%;
     background: linear-gradient(to right,#59A8A8, #a4d0d0);
 }
+
 #contenedor_formulario{
-    margin-top: 40px;
+    margin-top: 20px;
     width: 50%;
-    margin-left: 180px;
+    margin-left: 140px;
 }
 
 #formulario{
-    margin-top: 40px;
     width: 60%;
     float: left;
     flex-direction: column;
 }
 
-#texto_iniciar{
+#texto_contacto{
     font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-size: 35px;
     text-align: center;
 }
-
-#texto_iniciar_sesion{
+#texto_info{
     margin-top: 0px;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-size: 20px;
-    margin-bottom: 15px;
+    margin-bottom: 8px;
 }
-#correo{
-    margin-bottom: 30px;
+
+#input1{
+    margin-bottom: 6px;
     border-radius: 8px;
     height: 20px;
     width:100%;
 }
 
-#contrasenya{
+#mensaje{
     border-radius: 8px;
-    height: 20px;
+    height: 100px;
     width:100%;
 }
 
-#imagen_inciar_sesion{
+#imagen_contacto{
     margin-top: 22px;
     height: 500px;
     width: 500px;
-    margin-left: 150px;
+    margin-left: 200px;
 }
-
-
-#boton_login{
+#boton_enviar{
     display: flex;
     justify-content: center;
     margin:0 auto;
@@ -66,9 +64,8 @@
     font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     box-shadow: 4px 4px 4px #6c6c6b ;
 }
-
 @media (max-width: 600px){
-    #imagen_inciar_sesion{
+    #imagen_contacto{
         height: 0px;
         width: 0px;
         visibility: hidden;
@@ -84,7 +81,7 @@
 }
 @media (min-width: 600px) and (max-width:1000px) {
 
-    #imagen_inciar_sesion{
+    #imagen_contacto{
         height: 0px;
         width: 0px;
         visibility: hidden;
@@ -99,18 +96,12 @@
     }
 }
 @media (min-width:1000px) and (max-width:1260px){
-    #imagen_inciar_sesion{
+    #imagen_contacto{
         height: 380px;
         width: 380px;
         margin-top: 100px;
         margin-left: 100px;
     }
-    #contenedor_formulario{
-        width: 50%;
-    }
+
 
 }
-
-
-
-
