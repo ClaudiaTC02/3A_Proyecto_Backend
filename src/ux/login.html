@@ -7,28 +7,36 @@
   <link rel="stylesheet" href="css/diseño_general_header_footer.css">
   <link rel="stylesheet" href="css/header.css">
   <link rel="stylesheet" href="css/footer.css">
+  <link rel="stylesheet" href="css/diseño_iniciar_sesion.css">
 </head>
 	
 <body>
+  <iframe src="header.html" class="header"></iframe> <!--Importar archivo de header-->
 	<!--Inicio inicio de sesión-->
-	<div id="contenedor_landing_page">
+	<div id="contenedor_iniciar_sesion">
 		
-		<iframe src="header.html" class="header"></iframe> <!--Importar archivo de header-->
+		
 		
 		<!--Componentes de inicio de sesión-->
-		<div id="">
-			<form action="" method="get">
-                <input name="correo" type="text" id="correo">
-                <input name="contraseña" type="password" id="contrasenya">
-                <input type="submit" value="iniciar sesion" id="boton_login" onclick="login()">
-                <script src="../scripts/login.js">
-                </script>
-            </form>
-		</div>
-
-		<iframe src="footer.html" class="footer"></iframe> <!--Importar archivo de header-->
 		
+        <div id="contenedor_formulario">
+			    <form action="" method="get" id="formulario">
+                
+                <h4 id="texto_iniciar">INICIAR SESIÓN</h5>
+                <h5 id="texto_iniciar_sesion">Correo electrónico:</h5>
+                <input name="correo" type="text" id="correo">
+              
+                <h5 id="texto_iniciar_sesion">Contraseña:</h5>
+                <input name="contraseña" type="password" id="contrasenya">
+                
+                <input type="submit" value="INICIAR SESIÓN" id="boton_login" onclick="login()">
+                
+            </form>
+          </div>
+          
+          <div id="contenedor_imagen"><img id="imagen_inciar_sesion" src="images/login.png"></div>
 	</div>
+  <iframe src="footer.html" class="footer"></iframe> <!--Importar archivo de header-->
 	<!--Fin inicio sesión-->
 </body>
 

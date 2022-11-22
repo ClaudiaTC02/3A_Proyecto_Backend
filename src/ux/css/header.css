@@ -2,6 +2,7 @@ body{
     margin:0;
     padding:0;
 }
+
 #logo_header{
     margin-top: 10px;
     height: 2.5rem;
@@ -10,7 +11,7 @@ body{
 }
 
 #contenedor_header{
-    border-bottom: 1px solid black;
+    height: 60px;
     background-color: white;
 }
 
