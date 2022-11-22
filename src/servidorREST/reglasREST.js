@@ -85,4 +85,25 @@ module.exports.cargar = function (servidor, logica) {
       respuesta.sendStatus(400);
     }
   }); // POST /borrarUsuario/?correo=<texto>
+  servidor.get("/actualizarUsuario", async function (peticion, respuesta) {
+    var correo = peticion.query.Correo;
+    var nombre = peticion.query.Nombre;
+    var id = peticion.query.id;
+    var contra = peticion.query.Contrasena;
+    var admin = peticion.query.EsAdmin;
+    //var foto = peticion.query.FotoPerfil;
+    
+    console.log(" * el usuario que se va a ctualizar" +id);
+
+    if (id == null) {
+      respuesta.sendStatus(404).send("no puedo encontrar ese usuario");
+      return;
+    } else {
+      console.log(" * POST /actualizarUsuario ");
+      var usuario = await logica. actualizarUsuario(id,correo,nombre,contra,admin);
+      respuesta.send(JSON.stringify(usuario[0]));
+    }
+     
+      
+  }); // PUT /actualizarUsuario/?Correo=<texto>&Contraseña=<texto>
 }; //()

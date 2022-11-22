@@ -95,6 +95,42 @@ module.exports = class Logica {
       }
     })
   } //borrarUsuario()
+  async buscarUsuarioId(id) {
+    // SELECT * FROM Usuario WHERE Correo = $correo AND Contraseña = $contraseña;
+    return await modeloUsuario.findAll({
+      where: {
+        Id: id
+      },
+      raw:true
+    })
+  } //buscarUsuario()
+    
+    async actualizarUsuario(id,correo,nombre,contra,admin) {
+      
+        await modeloUsuario.update(
+          {
+            Nombre: nombre,
+            Correo: correo,
+            Contrasena: contra,
+            EsAdmin: admin,
+            //FotoPerfil: foto
+          },
+          {
+              where: { id: id }
+          }
+      );
+      return await modeloUsuario.findAll({
+        where: {
+          Correo: correo,
+          Contrasena: contra
+        },
+        raw:true
+      })
+        
+  
+    } // actualizarFoto()
+
+
   //------------------------------------------------------------------------------
   /**
    * *
