@@ -8,9 +8,9 @@
  */
 //------------------------------------------------------------------------------
 //usamos sequelize
-const sequelize = require("sequelize");
 const { DataTypes, Sequelize } = require("sequelize");
 const { OP } = require("sequelize");
+const { QueryTypes } = require('sequelize');
 //cargamos los modelos
 const modeloUsuario = require('./models').Usuario;
 const modeloCiudad = require('./models').Ciudad;
@@ -131,24 +131,20 @@ module.exports = class Logica {
     } // actualizarFoto()
 
 
-  //------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
   /**
    * *
    * @brief este método se encarga de buscar usuarios según el id de un admin
-   * @param id id del admin
+   * @param id_admin id del admin
    * Diseño: id:N --> buscarUsuariosDeAdmin() --> [{id: int, nombre: string, contraseña: string, correo:string}] | 404
    */
-  async buscarUsuariosDeAdmin(id) {
-    // SELECT * FROM Usuario WHERE Correo = $correo AND Contraseña = $contraseña;
-    return await modeloUsuario.findAll({
-      include:[
-        {
-          model: modeloCiudad,
-          require: true
-        }
-      ]
+   async buscarUsuariosDeAdmin(id_admin) {
+    return await this.conexion.query("Select usuario.Nombre, usuario.Correo FROM usuario INNER JOIN ciudad ON ciudad.Id_Admin = :id INNER JOIN dispositivo ON dispositivo.Id_Ciudad = ciudad.Id INNER JOIN usuario_dispositivo ON usuario_dispositivo.Id_Dispositivo = dispositivo.Id WHERE usuario.Id = usuario_dispositivo.Id_Usuario AND usuario.EsAdmin = 0;",
+    {
+      replacements: { id: id_admin },
+      type: QueryTypes.SELECT
     })
-  } //buscarUsuario()
+  } //buscarUsuariosDeAdmin()
   //------------------------------------------------------------------------------
   /**
    * @brief este método se encarga de comprobar que la conexión con la base de datos de phpmyadmin esté establecida

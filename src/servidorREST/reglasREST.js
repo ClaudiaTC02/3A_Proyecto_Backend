@@ -70,6 +70,23 @@ module.exports.cargar = function (servidor, logica) {
       respuesta.send(JSON.stringify(usuario[0]));
     }
   }); // GET /buscarUsuario/?Correo=<texto>&Contraseña=<texto>
+    //------------------------------------------------------------------------------
+  /**
+   * GET /buscarUsuariosDeAdmin/?id_admin=<texto>
+   */
+  //------------------------------------------------------------------------------
+  servidor.get("/buscarUsuariosDeAdmin", async function (peticion, respuesta) {
+    console.log(" * GET /buscarUsuario ");
+    var id_admin = peticion.query.id_admin;
+    console.log(id_admin);
+    if (id_admin == null) {
+      respuesta.sendStatus(404).send("no puedo encontrar ese usuario");
+      return;
+    } else {
+      var usuario = await logica.buscarUsuariosDeAdmin(id_admin);
+      respuesta.send(JSON.stringify(usuario[0]));
+    }
+  }); // GET /buscarUsuariosDeAdmin/?id_admin=<texto>
   //------------------------------------------------------------------------------
   /**
    * POST /borrarUsuario/?correo=<texto>

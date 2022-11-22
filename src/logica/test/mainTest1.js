@@ -95,6 +95,28 @@ describe("Test 1, probar insertar, ver y borrar usuarios", function () {
       }
     );
   }); //it()
+      //------------------------------------------------------------------------------
+  // probar que busca usuarios
+  //------------------------------------------------------------------------------
+  it("probando GET /buscarUsuariosDeAdmin", function (hecho) {
+    request.get(
+      {
+        url: PUERTO_IP+"/buscarUsuariosDeAdmin?id_admin=6",
+        headers: { "User-Agent": "ClaudiaTorresCruz" },
+      },
+      function (err, res, carga) {
+        assert.equal(err, null, "¿Ha fallado algo?");
+        assert.equal(res.statusCode, 200, "¿El código no es 200 (OK)");
+        var cargaJSON = JSON.parse(carga);
+        assert.equal(
+          cargaJSON.Nombre.toString(),
+          "Juan",
+          "¿El primer nombre no es Juan?"
+        );
+        hecho();
+      }
+    );
+  }); //it()
     //------------------------------------------------------------------------------
   // probar que elimina usuarios
   //------------------------------------------------------------------------------
