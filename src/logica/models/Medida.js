@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Medida.hasMany(models.Usuario,{
+      Medida.hasMany(models.Dispositivo,{
         foreignKey: 'id'
       })
     }

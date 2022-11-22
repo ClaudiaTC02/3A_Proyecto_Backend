@@ -13,6 +13,10 @@ const { DataTypes, Sequelize } = require("sequelize");
 const { OP } = require("sequelize");
 //cargamos los modelos
 const modeloUsuario = require('./models').Usuario;
+const modeloCiudad = require('./models').Ciudad;
+const modeloMedida = require('./models').Medida;
+const modeloDipositivo = require('./models').Dispositivo;
+const modeloUsuario_Dispositivo = require('./models').Usuario_Dispositivo;
 //------------------------------------------------------------------------------
 //------------------------------------------------------------------------------
 module.exports = class Logica {
@@ -91,6 +95,24 @@ module.exports = class Logica {
       }
     })
   } //borrarUsuario()
+  //------------------------------------------------------------------------------
+  /**
+   * *
+   * @brief este método se encarga de buscar usuarios según el id de un admin
+   * @param id id del admin
+   * Diseño: id:N --> buscarUsuariosDeAdmin() --> [{id: int, nombre: string, contraseña: string, correo:string}] | 404
+   */
+  async buscarUsuariosDeAdmin(id) {
+    // SELECT * FROM Usuario WHERE Correo = $correo AND Contraseña = $contraseña;
+    return await modeloUsuario.findAll({
+      include:[
+        {
+          model: modeloCiudad,
+          require: true
+        }
+      ]
+    })
+  } //buscarUsuario()
   //------------------------------------------------------------------------------
   /**
    * @brief este método se encarga de comprobar que la conexión con la base de datos de phpmyadmin esté establecida

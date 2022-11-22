@@ -14,9 +14,9 @@ module.exports = (sequelize, DataTypes) => {
       Ciudad.hasMany(models.Usuario,{
         foreignKey: 'id'
       })
-      Dispositivo.belongsTo(models.Dispositivo, {
-        foreignKey: 'Id_Ciudad',
-        targetKey: 'id'
+      Ciudad.belongsTo(models.Dispositivo, {
+        foreignKey: 'id',
+        targetKey: 'Id_Ciudad'
       })
     }
   }

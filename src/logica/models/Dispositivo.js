@@ -15,12 +15,12 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'id'
       })
       Dispositivo.belongsTo(models.Medida, {
-        foreignKey: 'Id_Dispositivo',
-        targetKey: 'id'
+        foreignKey: 'id',
+        targetKey: 'Id_Dispositivo'
       })
       Dispositivo.belongsTo(models.Usuario_Dispositivo, {
-        foreignKey: 'Id_Dispositivo',
-        targetKey: 'id'
+        foreignKey: 'id',
+        targetKey: 'Id_Dispositivo'
       })
     }
   }
