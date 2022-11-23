@@ -99,7 +99,7 @@ module.exports = class Logica {
     // SELECT * FROM Usuario WHERE Correo = $correo AND Contraseña = $contraseña;
     return await modeloUsuario.findAll({
       where: {
-        Id: id
+        id: id
       },
       raw:true
     })
@@ -145,6 +145,15 @@ module.exports = class Logica {
       type: QueryTypes.SELECT
     })
   } //buscarUsuariosDeAdmin()
+  async buscarDispositivoUsuario(id) {
+    // SELECT * FROM Usuario WHERE Correo = $correo AND Contraseña = $contraseña;
+    return await modeloUsuario_Dispositivo.findAll({
+      where: {
+        Id_Usuario: id
+      },
+      raw:true
+    })
+  } //buscarDispositivo()
   //------------------------------------------------------------------------------
   /**
    * @brief este método se encarga de comprobar que la conexión con la base de datos de phpmyadmin esté establecida
@@ -159,4 +168,6 @@ module.exports = class Logica {
       console.error("No se puede conectar con la base de datos: ", error);
     }
   }//testConexion()
+  
 }; //class()
+

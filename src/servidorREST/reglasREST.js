@@ -123,4 +123,19 @@ module.exports.cargar = function (servidor, logica) {
      
       
   }); // PUT /actualizarUsuario/?Correo=<texto>&Contraseña=<texto>
+
+    servidor.get("/buscarDispositivoUsuario", async function (peticion, respuesta) {
+    console.log(" * GET /buscarDispoitivo ");
+    var idUsuario = peticion.query.Id_Usuario;
+    
+    if (idUsuario == null) {
+      respuesta.sendStatus(404).send("no puedo encontrar ese usuario");
+      return;
+    } else {
+      var dispositivo = await logica.buscarDispositivoUsuario(idUsuario);
+      respuesta.send(JSON.stringify(dispositivo[0]));
+    }
+  }); 
+  // GET /buscarUsuario/?Correo=<texto>&Contraseña=<texto>
+  //------------------------------------------------------------------------------
 }; //()
