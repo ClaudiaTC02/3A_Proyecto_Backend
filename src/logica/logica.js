@@ -136,7 +136,7 @@ module.exports = class Logica {
    * *
    * @brief este método se encarga de buscar usuarios según el id de un admin
    * @param id_admin id del admin
-   * Diseño: id:N --> buscarUsuariosDeAdmin() --> [{id: int, nombre: string, contraseña: string, correo:string}] | 404
+   * Diseño: id_admin:N --> buscarUsuariosDeAdmin() --> [{id: int, nombre: string, contraseña: string, correo:string}] | 404
    */
    async buscarUsuariosDeAdmin(id_admin) {
     return await this.conexion.query("Select usuario.Nombre, usuario.Correo FROM usuario INNER JOIN ciudad ON ciudad.Id_Admin = :id INNER JOIN dispositivo ON dispositivo.Id_Ciudad = ciudad.Id INNER JOIN usuario_dispositivo ON usuario_dispositivo.Id_Dispositivo = dispositivo.Id WHERE usuario.Id = usuario_dispositivo.Id_Usuario AND usuario.EsAdmin = 0;",

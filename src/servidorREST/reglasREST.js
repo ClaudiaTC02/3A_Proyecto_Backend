@@ -84,7 +84,7 @@ module.exports.cargar = function (servidor, logica) {
       return;
     } else {
       var usuario = await logica.buscarUsuariosDeAdmin(id_admin);
-      respuesta.send(JSON.stringify(usuario[0]));
+      respuesta.send(JSON.stringify(usuario));
     }
   }); // GET /buscarUsuariosDeAdmin/?id_admin=<texto>
   //------------------------------------------------------------------------------

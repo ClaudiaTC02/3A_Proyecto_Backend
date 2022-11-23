@@ -109,7 +109,7 @@ describe("Test 1, probar insertar, ver y borrar usuarios", function () {
         assert.equal(res.statusCode, 200, "¿El código no es 200 (OK)");
         var cargaJSON = JSON.parse(carga);
         assert.equal(
-          cargaJSON.Nombre.toString(),
+          cargaJSON[0].Nombre.toString(),
           "Juan",
           "¿El primer nombre no es Juan?"
         );
