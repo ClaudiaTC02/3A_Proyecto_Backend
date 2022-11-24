@@ -51,7 +51,7 @@ function mostrarUsuarios(res) {
     if(res.length > 0) {
         res.forEach((usuario) => {
             listaUsuarios.innerHTML +=
-            "<li>" + "<b>Nombre: </b>"+ usuario.Nombre + "    "+ "<b>Correo: </b>" + usuario.Correo + " "+ '<input type="button" value="Eliminar" id="boton_eliminar" onclick="'+botonObtenerUsuario()+'">';
+            "<li id='texto'>" + "<b>Nombre: </b>"+ usuario.Nombre + "    "+ "<b id='texto1'>Correo: </b>" + usuario.Correo + " "+ '<input type="button" value="Eliminar" id="boton_eliminar" onclick="'+botonObtenerUsuario()+'">';
         });
     }
 }

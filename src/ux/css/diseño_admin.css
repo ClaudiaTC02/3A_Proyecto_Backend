@@ -27,3 +27,12 @@
 #boton_eliminar:hover{
     background-color: #7c0f0f;
 }
+#texto{
+    font-size: 20px;
+    font-family:'Arial';
+    
+}
+
+#texto1{
+    margin-left:20px;
+}
