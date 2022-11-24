@@ -188,15 +188,39 @@ module.exports = class Logica {
       type: QueryTypes.SELECT
     })
   } //buscarUsuariosDeAdmin()
+/**
+   * *
+   * @brief este método se encarga de buscar el dispositivo del usuario por su id
+   * @param id id del usuario
+   * Diseño: id_usuario:N --> buscarDispositivoUsuario() --> [{id_usuario: int, id_sensor:int] | 404
+   */
   async buscarDispositivoUsuario(id) {
-    // SELECT * FROM Usuario WHERE Correo = $correo AND Contraseña = $contraseña;
+    // SELECT * modeloUsuario_Dispositivo WHERE Id_usuario =$id;
     return await modeloUsuario_Dispositivo.findAll({
       where: {
         Id_Usuario: id
       },
       raw:true
     })
-  } //buscarDispositivo()
+  } //buscarDispositivoUsuario()
+/**
+   * *
+   * @brief este método se encarga de buscar el dispositivo por su id
+   * @param id id del usensor
+   * Diseño: id_senor:N --> buscarDispositivoUsuario() --> [{id_sensor: int, nombre: String, id_ciudad:int] | 404
+   */
+   //------------------------------------------------------------------------------
+   async buscarDispositivoPorId(idSensor) {
+    // SELECT * FROM UModeloDispositivo WHERE Id_Sensor = $id ;
+    return await modeloDipositivo.findAll({
+      where: {
+        Id: idSensor
+      },
+      raw:true
+    })
+  } //buscarDispositivoUsuario()
+  //------------------------------------------------------------------------------
+  /**
   //------------------------------------------------------------------------------
   /**
    * @brief este método se encarga de comprobar que la conexión con la base de datos de phpmyadmin esté establecida

@@ -159,6 +159,9 @@ module.exports.cargar = function (servidor, logica) {
      
       
   }); // PUT /actualizarUsuario/?Correo=<texto>&Contraseña=<texto>
+  //------------------------------------------------------------------------------
+   // GET /buscarDispositivoUsuario/?Id_Usuario=<texto>
+  //------------------------------------------------------------------------------
 
     servidor.get("/buscarDispositivoUsuario", async function (peticion, respuesta) {
     console.log(" * GET /buscarDispoitivo ");
@@ -173,5 +176,21 @@ module.exports.cargar = function (servidor, logica) {
     }
   }); 
   // GET /buscarUsuario/?Correo=<texto>&Contraseña=<texto>
+  //------------------------------------------------------------------------------
+   // GET /buscarDispositivoPor/?Id_Sensor=<texto>
+  //------------------------------------------------------------------------------
+  servidor.get("/buscarDispositivoPorId", async function (peticion, respuesta) {
+    console.log(" * GET /buscarDispositivoPorId");
+    var idSensor = peticion.query.Id_Dispositivo;
+    
+    if (idSensor == null) {
+      respuesta.sendStatus(404).send("no puedo encontrar este sensor");
+      return;
+    } else {
+      var dispositivo = await logica.buscarDispositivoPorId(idSensor);
+      respuesta.send(JSON.stringify(dispositivo[0]));
+    }
+  }); 
+  // GET /buscarDispositivoUsuario/?Id_Usuario=<texto>
   //------------------------------------------------------------------------------
 }; //()
