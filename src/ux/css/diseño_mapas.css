@@ -1,0 +1,13 @@
+#contenedor_imagen{
+    height: 600px;
+    width: 800px;
+    display: flex;
+    margin: 0 auto;
+}
+
+@media (max-width:900px){
+    #contenedor_imagen{
+        height: 360px;
+        width: 500px;
+    }
+}

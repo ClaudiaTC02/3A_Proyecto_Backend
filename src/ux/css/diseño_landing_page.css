@@ -12,8 +12,8 @@
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 #img_landing{
-    height: 20px;
-    width: 20px;
+    height: 2%;
+    width: 2%;
 }
 #texto_boton{
     color: white;
@@ -121,8 +121,12 @@
         margin-left: 20%;
     }
     #img_landing{
+        margin-right: 5%;
         height: 70vh;
         width: 55vw;
+    }
+    #contenedor_flex_landing{
+        margin-left: 5%;
     }
 }
 

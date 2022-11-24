@@ -1,3 +1,10 @@
+#contenedor_info{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right,#81d7d7, #a4d0d0);
+}
+
 #texto_info{
     font-size: 20px;
     margin: auto 25px auto 25px;
