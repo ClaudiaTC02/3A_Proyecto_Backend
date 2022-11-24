@@ -189,7 +189,7 @@ module.exports = class Logica {
             //FotoPerfil: foto
           },
           {
-              where: { id: id }
+              where: { id : id }
           }
       );
       return await modeloUsuario.findAll({
@@ -247,6 +247,7 @@ module.exports = class Logica {
       raw:true
     })
   } //buscarDispositivoUsuario()
+
 /**
    * *
    * @brief este método se encarga de buscar el dispositivo por su id
@@ -254,8 +255,9 @@ module.exports = class Logica {
    * Diseño: id_senor:N --> buscarDispositivoUsuario() --> [{id_sensor: int, nombre: String, id_ciudad:int] | 404
    */
    //------------------------------------------------------------------------------
-   async buscarDispositivoPorId(idSensor) {
-    // SELECT * FROM UModeloDispositivo WHERE Id_Sensor = $id ;
+  async buscarDispositivoPorId(idSensor) {
+    // SELECT * FROM Usuario WHERE Correo = $correo AND Contraseña = $contraseña;
+
     return await modeloDipositivo.findAll({
       where: {
         Id: idSensor
@@ -263,6 +265,7 @@ module.exports = class Logica {
       raw:true
     })
   } //buscarDispositivoUsuario()
+
   //------------------------------------------------------------------------------
   /**
   //------------------------------------------------------------------------------
