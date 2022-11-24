@@ -1,0 +1,29 @@
+#texto_titulo{
+    text-align: center;
+    font-size: 36px;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    
+}
+
+#fondo{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(to right,#a7d4d4, #a4d0d0);
+}
+#boton_eliminar{
+    margin-left: 20px;
+    font-size: 18px;
+    color: white;
+    height: 26px;
+    width: 140px;
+    background-color: #cf1515;
+    border: 0px;
+    border-radius: 12px; 
+    font-weight: bold;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    box-shadow: 4px 4px 4px #6c6c6b ;
+}
+#boton_eliminar:hover{
+    background-color: #7c0f0f;
+}

@@ -1,20 +1,29 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-    <title>Aplicacion Admin</title>
-    <!-- ---------------------------------------------------- -->
-    <script src="../scripts/admin.js"></script>
-    <!-- ---------------------------------------------------- -->
-</head>
+    <head>
+        <meta charset="utf-8">
+        <title>Aplicacion Admin</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="css/diseño_general_header_footer.css">
+        <link rel="stylesheet" href="css/header.css">
+        <link rel="stylesheet" href="css/diseño_admin.css">
+        <link rel="stylesheet" href="css/footer.css">
+        <script src="../scripts/admin.js"></script>
+      </head>
+          
 
 <body>
+    <iframe src="header.html" class="header"></iframe> <!--Importar archivo de header-->
     <!-- ---------------------------------------------------- -->
-    <h1>Aplicación para visualizar actividad de usuarios</h1>
+    <div id="fondo">
+    <h1 id="texto_titulo">Aplicación para visualizar actividad de usuarios</h1>
     <!-- ---------------------------------------------------- -->
 
     <ul id="lista_usuarios">
     </ul>
+    </div>
+    <iframe src="footer.html" class="footer"></iframe> <!--Importar archivo de header-->
 </body>
 
 </html>
