@@ -53,6 +53,22 @@ module.exports.cargar = function (servidor, logica) {
   }); // post /usuario
   //------------------------------------------------------------------------------
   /**
+   * POST /usuario_dispositivo
+   */
+  //------------------------------------------------------------------------------
+  servidor.post("/usuario_dispositivo", async function (peticion, respuesta) {
+    console.log(" * POST /usuario_dispositivo ");
+    const data = peticion.body;
+    console.log(data);
+    try {
+      await logica.insertarUsuario_Dispositivo(data);
+      respuesta.sendStatus(201);
+    } catch {
+      respuesta.sendStatus(400);
+    }
+  }); // post /usuario_dispositivo
+  //------------------------------------------------------------------------------
+  /**
    * GET /verificarUsuario/?Correo=<texto>&Contraseña=<texto>
    */
   //------------------------------------------------------------------------------

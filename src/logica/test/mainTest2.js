@@ -31,9 +31,9 @@ describe("Test 2, probar que busca usuarios y dispositivos", function () {
         assert.equal(res.statusCode, 200, "¿El código no es 200 (OK)");
         var cargaJSON = JSON.parse(carga);
         assert.equal(
-          cargaJSON.Nombre.toString(),
-          "Marc",
-          "¿El nombre no es Marc?"
+          cargaJSON.id.toString(),
+          "2",
+          "¿El id no es 2?"
         );
         hecho();
       }
@@ -53,13 +53,29 @@ describe("Test 2, probar que busca usuarios y dispositivos", function () {
         assert.equal(res.statusCode, 200, "¿El código no es 200 (OK)");
         var cargaJSON = JSON.parse(carga);
         assert.equal(
-          cargaJSON.Nombre.toString(),
-          "Sensorin",
-          "¿El nombre no es Sensorin?"
+          cargaJSON.id.toString(),
+          "2",
+          "¿El id no es 2?"
         );
         hecho();
       }
     );
   }); //it()
+  //------------------------------------------------------------------------------
+  // probar que añade usuario_dispositivo
+  //------------------------------------------------------------------------------
+  it("probar POST /usuario_dispositivo", function (hecho) {
+    var datos = {Correo:"david@david.com",Nombre:"Gas"}
+    request.post({ url : PUERTO_IP+"/usuario_dispositivo",
+        headers : { "User-Agent" : "ClaudiaTorresCruz" , "Content-Type" : "application/json" },
+        body : JSON.stringify( datos )
+        },
+        function( err, respuesta, carga ) {
+            assert.equal( err, null, "¿ha habido un error?" )
+            assert.equal( respuesta.statusCode, 201, "¿El código no es 201 (OK)" )
+            hecho()
+        } // callback
+    ) // .post
+}) // it
   
 }); //()

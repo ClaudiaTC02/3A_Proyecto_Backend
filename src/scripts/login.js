@@ -19,10 +19,7 @@ function login(){
     const correo= document.getElementById('correo').value;
     const contrasena = document.getElementById('contrasenya').value;
     const boton = document.getElementById('boton_login');
-    console.log(correo)
-    boton.addEventListener('click', (e)=>{
-        buscarUsuario(correo, contrasena, funcion(res))
-            console.log(res)
-        
-    })
+    console.log(correo);
+    buscarUsuario(correo, contrasena, funcion(res))
+        console.log(res);
 }

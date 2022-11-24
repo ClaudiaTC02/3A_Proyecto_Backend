@@ -71,7 +71,16 @@ module.exports = class Logica {
    */
    async insertarUsuario_Dispositivo(body) {
     // INSERT INTO Usuario_Dispositivo ('idUsuario', 'idDispositivo') VALUES ()
-    await modeloUsuario_Dispositivo.create(body);
+    //await modeloUsuario_Dispositivo.create(body);
+    var id_usuario = await this.obtenerIdUsuario(body.Correo)
+    var Id_Dispositivo = await this.obtenerIdDispositivo(body.Nombre)
+    
+    return await this.conexion.query("INSERT INTO `usuario_dispositivo` (`Id_Usuario`, `Id_Dispositivo`) VALUES (:usuario_id, :dispositivo_id)",
+    {
+      replacements: { usuario_id: id_usuario[0].id,
+      dispositivo_id:Id_Dispositivo[0].id },
+      type: QueryTypes.INSERT
+    })
   } // insertarUsuario_Dispositivo()
     //------------------------------------------------------------------------------
   /**
@@ -101,6 +110,7 @@ module.exports = class Logica {
    async obtenerIdUsuario(correo) {
     // SELECT * FROM Usuario WHERE Correo = $correo
     return await modeloUsuario.findAll({
+      attributes: ['id'],
       where: {
         Correo: correo
       },
@@ -117,6 +127,7 @@ module.exports = class Logica {
    async obtenerIdDispositivo(nombre) {
     // SELECT * FROM Dispositivo WHERE Nombre = $nombre
     return await modeloDipositivo.findAll({
+      attributes: ['id'],
       where: {
         Nombre: nombre
       },

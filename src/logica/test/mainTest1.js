@@ -101,7 +101,7 @@ describe("Test 1, probar insertar, ver y borrar usuarios", function () {
   it("probando GET /buscarUsuariosDeAdmin", function (hecho) {
     request.get(
       {
-        url: PUERTO_IP+"/buscarUsuariosDeAdmin?id_admin=6",
+        url: PUERTO_IP+"/buscarUsuariosDeAdmin?id_admin=3",
         headers: { "User-Agent": "ClaudiaTorresCruz" },
       },
       function (err, res, carga) {
@@ -110,8 +110,8 @@ describe("Test 1, probar insertar, ver y borrar usuarios", function () {
         var cargaJSON = JSON.parse(carga);
         assert.equal(
           cargaJSON[0].Nombre.toString(),
-          "Juan",
-          "¿El primer nombre no es Juan?"
+          "Marc",
+          "¿El primer nombre no es DavidAdmin?"
         );
         hecho();
       }
