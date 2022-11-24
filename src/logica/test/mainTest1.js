@@ -79,7 +79,7 @@ describe("Test 1, probar insertar, ver y borrar usuarios", function () {
   it("probando GET /buscarUsuario", function (hecho) {
     request.get(
       {
-        url: PUERTO_IP+"/buscarUsuario?Correo=prueba@prueba.com&Contrasena=1234",
+        url: PUERTO_IP+"/verificarUsuario?Correo=prueba@prueba.com&Contrasena=1234",
         headers: { "User-Agent": "ClaudiaTorresCruz" },
       },
       function (err, res, carga) {

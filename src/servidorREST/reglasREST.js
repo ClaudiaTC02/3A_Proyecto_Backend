@@ -53,11 +53,11 @@ module.exports.cargar = function (servidor, logica) {
   }); // post /usuario
   //------------------------------------------------------------------------------
   /**
-   * GET /buscarUsuario/?Correo=<texto>&Contraseña=<texto>
+   * GET /verificarUsuario/?Correo=<texto>&Contraseña=<texto>
    */
   //------------------------------------------------------------------------------
-  servidor.get("/buscarUsuario", async function (peticion, respuesta) {
-    console.log(" * GET /buscarUsuario ");
+  servidor.get("/verificarUsuario", async function (peticion, respuesta) {
+    console.log(" * GET /verificarUsuario ");
     var correo = peticion.query.Correo;
     console.log(correo);
     var contrasena = peticion.query.Contrasena;
@@ -66,10 +66,46 @@ module.exports.cargar = function (servidor, logica) {
       respuesta.sendStatus(404).send("no puedo encontrar ese usuario");
       return;
     } else {
-      var usuario = await logica.buscarUsuario(correo, contrasena);
+      var usuario = await logica.verificarUsuario(correo, contrasena);
       respuesta.send(JSON.stringify(usuario[0]));
     }
   }); // GET /buscarUsuario/?Correo=<texto>&Contraseña=<texto>
+  //------------------------------------------------------------------------------
+  /**
+   * GET /verificarUsuario/?Correo=<texto>
+   */
+  //------------------------------------------------------------------------------
+  servidor.get("/obtenerIdUsuario", async function (peticion, respuesta) {
+    console.log(" * GET /obtenerIdUsuario ");
+    var correo = peticion.query.Correo;
+    console.log(correo);
+  
+    if (correo == null) {
+      respuesta.sendStatus(404).send("no puedo encontrar ese usuario");
+      return;
+    } else {
+      var usuario = await logica.obtenerIdUsuario(correo);
+      respuesta.send(JSON.stringify(usuario[0]));
+    }
+  }); // GET /buscarUsuario/?Correo=<texto>
+    //------------------------------------------------------------------------------
+  /**
+   * GET /obtenerIdDispositivo/?Nombre=<texto>
+   */
+  //------------------------------------------------------------------------------
+  servidor.get("/obtenerIdDispositivo", async function (peticion, respuesta) {
+    console.log(" * GET /obtenerIdDispositivo ");
+    var nombre = peticion.query.Nombre;
+    console.log(nombre);
+  
+    if (nombre == null) {
+      respuesta.sendStatus(404).send("no puedo encontrar ese dispositivo");
+      return;
+    } else {
+      var dispositivo = await logica.obtenerIdDispositivo(nombre);
+      respuesta.send(JSON.stringify(dispositivo[0]));
+    }
+  }); // GET /obtenerIdDispositivo/?Nombre=<texto>
     //------------------------------------------------------------------------------
   /**
    * GET /buscarUsuariosDeAdmin/?id_admin=<texto>

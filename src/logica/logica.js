@@ -62,15 +62,26 @@ module.exports = class Logica {
     // INSERT INTO Usuario ('id', 'nombre', 'contraseña', 'correo') VALUES ()
     await modeloUsuario.create(body);
   } // insertarUsuario()
+   //------------------------------------------------------------------------------
+  /**
+   * *
+   * @brief este método se encarga de insertar la relacion disp-us
+   * @param body contenido a insertar
+   * Diseño: body: [{idUsuario: int, idDispositivo: int}] --> insertarUsuario_Dispositivo() --> 201 | 404
+   */
+   async insertarUsuario_Dispositivo(body) {
+    // INSERT INTO Usuario_Dispositivo ('idUsuario', 'idDispositivo') VALUES ()
+    await modeloUsuario_Dispositivo.create(body);
+  } // insertarUsuario_Dispositivo()
     //------------------------------------------------------------------------------
   /**
    * *
    * @brief este método se encarga de buscar si un usuario existe
    * @param correo correo a buscar
    * @param contrasena contraseña del usuario a buscar
-   * Diseño: correo:Texto, contraseña:Texto --> buscarUsuario() --> [{id: int, nombre: string, contraseña: string, correo:string}] | 404
+   * Diseño: correo:Texto, contraseña:Texto --> verificarUsuario() --> [{id: int, nombre: string, contraseña: string, correo:string}] | 404
    */
-   async buscarUsuario(correo, contrasena) {
+   async verificarUsuario(correo, contrasena) {
     // SELECT * FROM Usuario WHERE Correo = $correo AND Contraseña = $contraseña;
     return await modeloUsuario.findAll({
       where: {
@@ -79,7 +90,39 @@ module.exports = class Logica {
       },
       raw:true
     })
-  } //buscarUsuario()
+  } //verificarUsuario()
+      //------------------------------------------------------------------------------
+  /**
+   * *
+   * @brief este método se encarga de buscar un usuario dado un correo
+   * @param correo correo a buscar
+   * Diseño: correo:Texto --> obtenerIdUsuario() --> [{id: int, nombre: string, contraseña: string, correo:string}] | 404
+   */
+   async obtenerIdUsuario(correo) {
+    // SELECT * FROM Usuario WHERE Correo = $correo
+    return await modeloUsuario.findAll({
+      where: {
+        Correo: correo
+      },
+      raw:true
+    })
+  } //obtenerIdUsuario()
+  //------------------------------------------------------------------------------
+  /**
+   * *
+   * @brief este método se encarga de buscar un usuario dado un correo
+   * @param correo correo a buscar
+   * Diseño: correo:Texto --> obtenerIdUsuario() --> [{id: int, nombre: string, contraseña: string, correo:string}] | 404
+   */
+   async obtenerIdDispositivo(nombre) {
+    // SELECT * FROM Dispositivo WHERE Nombre = $nombre
+    return await modeloDipositivo.findAll({
+      where: {
+        Nombre: nombre
+      },
+      raw:true
+    })
+  } //obtenerIdUsuario()
       //------------------------------------------------------------------------------
   /**
    * *
