@@ -139,6 +139,23 @@ module.exports.cargar = function (servidor, logica) {
       respuesta.send(JSON.stringify(usuario));
     }
   }); // GET /buscarUsuariosDeAdmin/?id_admin=<texto>
+      //------------------------------------------------------------------------------
+  /**
+   * GET /obtenerUltimaMedida/?id_usuario=<texto>
+   */
+  //------------------------------------------------------------------------------
+  servidor.get("/obtenerUltimaMedida", async function (peticion, respuesta) {
+    console.log(" * GET /obtenerUltimaMedida");
+    var id = peticion.query.id_usuario;
+    console.log(id);
+    if (id == null) {
+      respuesta.sendStatus(404).send("no puedo encontrar ese usuario");
+      return;
+    } else {
+      var medida = await logica.obtenerUltimaMedida(id);
+      respuesta.send(JSON.stringify(medida));
+    }
+  }); // GET /obtenerUltimaMedida/?id_usuario=<texto>
   //------------------------------------------------------------------------------
   /**
    * POST /borrarUsuario/?correo=<texto>
@@ -147,6 +164,8 @@ module.exports.cargar = function (servidor, logica) {
   servidor.post("/borrarUsuario", async function (peticion, respuesta) {
     console.log(" * GET /borrarUsuario ");
     var correo = peticion.body.Correo;
+    console.log(peticion.body);
+    console.log(correo);
     try {
       await logica.borrarUsuario(correo);
       respuesta.sendStatus(200);

@@ -12,7 +12,7 @@ function login(){
     console.log(correo);
     verificarUsuario(correo,contrasena,function (res) {
       console.log(res.id);
-      window.location.href = "admin.html?"+ res.id;
+      window.location.href = "admin.html?a="+ res.id;
     });
    
     

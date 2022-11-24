@@ -32,8 +32,8 @@ describe("Test 2, probar que busca usuarios y dispositivos", function () {
         var cargaJSON = JSON.parse(carga);
         assert.equal(
           cargaJSON.id.toString(),
-          "2",
-          "¿El id no es 2?"
+          "21",
+          "¿El id no es 21?"
         );
         hecho();
       }
@@ -54,8 +54,8 @@ describe("Test 2, probar que busca usuarios y dispositivos", function () {
         var cargaJSON = JSON.parse(carga);
         assert.equal(
           cargaJSON.id.toString(),
-          "2",
-          "¿El id no es 2?"
+          "3",
+          "¿El id no es 3?"
         );
         hecho();
       }

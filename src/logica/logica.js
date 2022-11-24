@@ -143,10 +143,29 @@ module.exports = class Logica {
    */
    async borrarUsuario(correo) {
     // DELETE * FROM Usuario WHERE Correo = $correo
+    console.log(" * GET /borrarUsuario ");
+    var id_usuario = await this.obtenerIdUsuario(correo);
+    console.log(id_usuario);
+    await this.borrarUsuario_Dispositivo(id_usuario[0].id)
     await modeloUsuario.destroy({
       where:{
         Correo: correo
       }
+    })
+  } //borrarUsuario()
+      //------------------------------------------------------------------------------
+  /**
+   * *
+   * @brief este método se encarga de eliminar un usuario
+   * @param correo correo del usuario a eliminar
+   * Diseño: correo:Texto --> borrarUsuario() --> 200 | 404
+   */
+   async borrarUsuario_Dispositivo(id_usuario) {
+    // DELETE * FROM Usuario WHERE Correo = $correo
+    await this.conexion.query("DELETE FROM usuario_dispositivo WHERE usuario_dispositivo.Id_Usuario = :id",
+    {
+      replacements: { id: id_usuario },
+      type: QueryTypes.DELETE
     })
   } //borrarUsuario()
   async buscarUsuarioId(id) {
@@ -193,9 +212,23 @@ module.exports = class Logica {
    * Diseño: id_admin:N --> buscarUsuariosDeAdmin() --> [{id: int, nombre: string, contraseña: string, correo:string}] | 404
    */
    async buscarUsuariosDeAdmin(id_admin) {
-    return await this.conexion.query("Select usuario.Nombre, usuario.Correo FROM usuario INNER JOIN ciudad ON ciudad.Id_Admin = :id INNER JOIN dispositivo ON dispositivo.Id_Ciudad = ciudad.Id INNER JOIN usuario_dispositivo ON usuario_dispositivo.Id_Dispositivo = dispositivo.Id WHERE usuario.Id = usuario_dispositivo.Id_Usuario AND usuario.EsAdmin = 0;",
+    return await this.conexion.query("Select usuario.Nombre, usuario.Correo, usuario.id FROM usuario INNER JOIN ciudad ON ciudad.Id_Admin = :id INNER JOIN dispositivo ON dispositivo.Id_Ciudad = ciudad.Id INNER JOIN usuario_dispositivo ON usuario_dispositivo.Id_Dispositivo = dispositivo.Id WHERE usuario.Id = usuario_dispositivo.Id_Usuario AND usuario.EsAdmin = 0;",
     {
       replacements: { id: id_admin },
+      type: QueryTypes.SELECT
+    })
+  } //buscarUsuariosDeAdmin()
+  //------------------------------------------------------------------------------
+  /**
+   * *
+   * @brief este método se encarga de buscar usuarios según el id de un admin
+   * @param id_admin id del admin
+   * Diseño: id_admin:N --> buscarUsuariosDeAdmin() --> [{id: int, nombre: string, contraseña: string, correo:string}] | 404
+   */
+   async obtenerUltimaMedida(id_usuario) {
+    return await this.conexion.query("SELECT medida.Fecha FROM medida INNER JOIN usuario on usuario.id = :id INNER JOIN usuario_dispositivo on usuario_dispositivo.Id_Usuario = usuario.Id INNER JOIN dispositivo on dispositivo.id = usuario_dispositivo.Id_Dispositivo WHERE medida.Id_Dispositivo = dispositivo.Id  ORDER BY medida.Fecha DESC LIMIT 1;",
+    {
+      replacements: { id: id_usuario },
       type: QueryTypes.SELECT
     })
   } //buscarUsuariosDeAdmin()

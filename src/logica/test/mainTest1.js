@@ -101,7 +101,7 @@ describe("Test 1, probar insertar, ver y borrar usuarios", function () {
   it("probando GET /buscarUsuariosDeAdmin", function (hecho) {
     request.get(
       {
-        url: PUERTO_IP+"/buscarUsuariosDeAdmin?id_admin=3",
+        url: PUERTO_IP+"/buscarUsuariosDeAdmin?id_admin=6",
         headers: { "User-Agent": "ClaudiaTorresCruz" },
       },
       function (err, res, carga) {
@@ -110,8 +110,8 @@ describe("Test 1, probar insertar, ver y borrar usuarios", function () {
         var cargaJSON = JSON.parse(carga);
         assert.equal(
           cargaJSON[0].Nombre.toString(),
-          "Marc",
-          "¿El primer nombre no es DavidAdmin?"
+          "Juan",
+          "¿El primer nombre no es Juan?"
         );
         hecho();
       }
@@ -121,7 +121,7 @@ describe("Test 1, probar insertar, ver y borrar usuarios", function () {
   // probar que elimina usuarios
   //------------------------------------------------------------------------------
   it("probar POST /borrarUsuario", function (hecho) {
-    var datos = {id:"",Nombre:"Claudia",Contraseña:"1234",Correo:"prueba@prueba.com", EsAdmin: "0"}
+    var datos = {id:"",Nombre:"Marc",Contraseña:"1234",Correo:"marc@marc.com", EsAdmin: "0"}
     request.post({ url : PUERTO_IP+"/borrarUsuario",
         headers : { "User-Agent" : "ClaudiaTorresCruz" , "Content-Type" : "application/json" },
         body : JSON.stringify( datos )
