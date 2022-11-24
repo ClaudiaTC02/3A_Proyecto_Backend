@@ -67,7 +67,7 @@ function botonEliminarUsuario(correo) {
         mode: 'cors'
     })
         .catch((err) => console.log('Fetch failed ' + err))
-        .then((res) => console.log(res))
+        .then((res) => document.location.reload())
 } // ()
 
 function obtenerUltimaMedida(id_usuario,cb) {
@@ -86,6 +86,8 @@ function obtenerUltimaMedida(id_usuario,cb) {
 function mostrarUsuarios(res) {
     let listaUsuarios = document.getElementById("lista_usuarios");
     listaUsuarios.innerHTML = "";
+    var fechaAyer = new Date();
+    fechaAyer.setDate(fechaAyer.getDate() - 1);
     if(res.length > 0) {
         res.forEach((usuario) => {
             obtenerUltimaMedida(usuario.id, function(res){
@@ -96,8 +98,16 @@ function mostrarUsuarios(res) {
                 } else {
                     var d = new Date(res[0].Fecha)
                     var datestring = d.getDate()  + "-" + (d.getMonth()+1) + "-" + d.getFullYear();
-                    listaUsuarios.innerHTML +=
-                "<li id='texto'>" + "<b>Nombre: </b>"+ usuario.Nombre + "    "+ "<b id='texto1'>Correo: </b>" + usuario.Correo + "    "+ "<b> Fecha de la última medición: </b>" + datestring + "<input type='button' value='Eliminar' id='boton_eliminar"+"' onclick=' botonEliminarUsuario(\""+usuario.Correo+"\") '>"
+                    console.log("antes if")
+                    if(Date.parse(d) < Date.parse(fechaAyer)){
+                        console.log("dentro del if")
+                        var li = document.createElement(null);
+                        li.innerHTML = "<br><li id='texto' style='color:red'>" + "<b>Nombre: </b>"+ usuario.Nombre + "    "+ "<b id='texto1'>Correo: </b>" + usuario.Correo + "    "+ "<b> Fecha de la última medición: </b>" + datestring + "<input type='button' value='Eliminar' id='boton_eliminar"+"' onclick=' botonEliminarUsuario(\""+usuario.Correo+"\") '><br>"
+                        listaUsuarios.prepend(li)
+                    } else {
+                        listaUsuarios.innerHTML +=
+                        "<br><li id='texto'>" + "<b>Nombre: </b>"+ usuario.Nombre + "    "+ "<b id='texto1'>Correo: </b>" + usuario.Correo + "    "+ "<b> Fecha de la última medición: </b>" + datestring + "<input type='button' value='Eliminar' id='boton_eliminar"+"' onclick=' botonEliminarUsuario(\""+usuario.Correo+"\") '><br>"
+                    }
                 }
             });
         });
