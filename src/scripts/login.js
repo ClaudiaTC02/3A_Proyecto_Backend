@@ -11,8 +11,13 @@ function login(){
     const boton = document.getElementById('boton_login');
     console.log(correo);
     verificarUsuario(correo,contrasena,function (res) {
-      console.log(res.id);
-      window.location.href = "admin.html?a="+ res.id;
+        if(res.EsAdmin == true){
+            console.log(res.id);
+            window.location.href = "admin.html?a="+ res.id;   
+        }else{
+            window.location.href = "index.html?a=";
+        }
+      
     });
    
     
