@@ -173,16 +173,22 @@ module.exports.cargar = function (servidor, logica) {
       respuesta.sendStatus(400);
     }
   }); // POST /borrarUsuario/?correo=<texto>
-  servidor.get("/actualizarUsuario", async function (peticion, respuesta) {
-    var correo = peticion.query.Correo;
-    var nombre = peticion.query.Nombre;
+  //------------------------------------------------------------------------------
+  /**
+   * POST /actualizarUsuario/?correoa=<texto>
+   */
+  //------------------------------------------------------------------------------
+  servidor.post("/actualizarUsuario", async function (peticion, respuesta) {
+    var correo = peticion.body.Correo;
+    var nombre = peticion.body.Nombre;
     var correoa = peticion.query.correoa;
-    var contra = peticion.query.Contrasena;
-    var admin = peticion.query.EsAdmin;
+    var contra = peticion.body.Contrasena;
+    var admin = peticion.body.EsAdmin;
     //var foto = peticion.query.FotoPerfil;
-     id_correo= await logica.obtenerIdUsuario(correoa)
+
+    id_correo= await logica.obtenerIdUsuario(correoa)
     var id =id_correo[0].id;
-    console.log(" * el usuario que se va a ctualizar" +id);
+    console.log(" * el usuario que se va a ctualizar " +id);
 
     if (id == null) {
       respuesta.sendStatus(404).send("no puedo encontrar ese usuario");
@@ -194,7 +200,8 @@ module.exports.cargar = function (servidor, logica) {
     }
      
       
-  }); // PUT /actualizarUsuario/?Correo=<texto>&Contraseña=<texto>
+  }); // POST /actualizarUsuario/?correoa=<texto>
+  
   //------------------------------------------------------------------------------
    // GET /buscarDispositivoUsuario/?Id_Usuario=<texto>
   //------------------------------------------------------------------------------
@@ -211,7 +218,9 @@ module.exports.cargar = function (servidor, logica) {
       respuesta.send(JSON.stringify(dispositivo[0]));
     }
   }); 
-  // GET /buscarDispositivoUsuario/?Id_Usuario=<texto>
+  
+  //------------------------------------------------------------------------------
+   // GET /buscarDispositivoPorId/?Id_Dispositivo=<texto>
   //------------------------------------------------------------------------------
   servidor.get("/buscarDispositivoPorId", async function (peticion, respuesta) {
     console.log(" * GET /buscarDispositivoPorId");
@@ -225,10 +234,12 @@ module.exports.cargar = function (servidor, logica) {
       respuesta.send(JSON.stringify(dispositivo[0]));
     }
   }); 
-   // GET /buscarDispositivoUsuario/?Id_Usuario=<texto>
+
+  //------------------------------------------------------------------------------
+   // GET /buscarIdUsuarioPorCorreo/?correo=<texto>
   //------------------------------------------------------------------------------
   servidor.get("/buscarIdUsuarioPorCorreo", async function (peticion, respuesta) {
-    console.log(" * GET /buscarDispositivoPorId");
+    console.log(" * GET /buscarIdUsuarioPorCorreo");
     var correo = peticion.query.Correo;
     
     if (correo == null) {
@@ -237,6 +248,31 @@ module.exports.cargar = function (servidor, logica) {
     } else {
       var dispositivo = await logica.buscarDispositivoPorId(correo);
       respuesta.send(JSON.stringify(dispositivo[0]));
+    }
+  });
+
+  //------------------------------------------------------------------------------
+   // GET /buscarDispositivosUsuarioPorCorreo/?correo=<texto>
+  //------------------------------------------------------------------------------
+  servidor.get("/buscarDispositivosUsuarioPorCorreo", async function (peticion, respuesta) {
+    console.log(" * GET /buscarDispositivoPorId");
+    var correo = peticion.query.Correo;
+    id_correo= await logica.obtenerIdUsuario(correo);
+    var id =id_correo[0].id;
+    const nombreDisp=[];
+    if (correo == null) {
+      respuesta.sendStatus(404).send("no puedo encontrar este sensor");
+      return;
+    } else {
+      var dispositivo = await logica.buscarDispositivoUsuario(id);
+        
+        for (let i=0; i<dispositivo.length;i++ ){
+          var a=i;
+          var elid =dispositivo[a].Id_Dispositivo;
+          nombreDisp[a]=(await logica.buscarDispositivoPorId(elid)); 
+        }
+      respuesta.send(JSON.stringify(nombreDisp));
+      
     }
   }); 
 

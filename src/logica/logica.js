@@ -177,7 +177,13 @@ module.exports = class Logica {
       raw:true
     })
   } //buscarUsuario()
-    
+
+  /**
+   * *
+   * @brief este método se encarga de actualizar el usuario meidante su id
+   * @param id id del usuario
+   * Diseño: id:N --> buscarUsuariosDeAdmin() --> [{id: int, nombre: string, contraseña: string, correo:string, admin:string}] | 404
+   */
     async actualizarUsuario(id,correo,nombre,contra,admin) {
       
         await modeloUsuario.update(
@@ -201,7 +207,7 @@ module.exports = class Logica {
       })
         
   
-    } // actualizarFoto()
+    } // actualizarUsuario()
 
 
 //------------------------------------------------------------------------------
@@ -265,7 +271,6 @@ module.exports = class Logica {
       raw:true
     })
   } //buscarDispositivoUsuario()
-
   //------------------------------------------------------------------------------
   /**
   //------------------------------------------------------------------------------
