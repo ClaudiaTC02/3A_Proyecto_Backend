@@ -17,46 +17,41 @@ var assert = require("assert");
 // probar que se establece conexión
 //------------------------------------------------------------------------------
 describe("Test 2, probar que busca usuarios y dispositivos", function () {
-    //------------------------------------------------------------------------------
-    // probar que busca usuarios
-    //------------------------------------------------------------------------------
+  before(function () {
+    console.log("preparación de los test");
+  });
+  //------------------------------------------------------------------------------
+  // probar que obtieen el id de un usuario
+  //------------------------------------------------------------------------------
   it("probando GET /obtenerIdUsuario", function (hecho) {
     request.get(
       {
-        url: PUERTO_IP+"/obtenerIdUsuario?Correo=marc@marc.com",
+        url: PUERTO_IP + "/obtenerIdUsuario?Correo=marc@marc.com",
         headers: { "User-Agent": "ClaudiaTorresCruz" },
       },
       function (err, res, carga) {
         assert.equal(err, null, "¿Ha fallado algo?");
         assert.equal(res.statusCode, 200, "¿El código no es 200 (OK)");
         var cargaJSON = JSON.parse(carga);
-        assert.equal(
-          cargaJSON.id.toString(),
-          "21",
-          "¿El id no es 21?"
-        );
+        assert.equal(cargaJSON.id.toString(), "21", "¿El id no es 21?");
         hecho();
       }
     );
-  }); //it()    
+  }); //it()
   //------------------------------------------------------------------------------
-  // probar que busca dispositivos
+  // probar que obtieen el id de un dispositivo
   //------------------------------------------------------------------------------
   it("probando GET /obtenerIdDispositivo", function (hecho) {
     request.get(
       {
-        url: PUERTO_IP+"/obtenerIdDispositivo?Nombre=Sensorin",
+        url: PUERTO_IP + "/obtenerIdDispositivo?Nombre=Sensorin",
         headers: { "User-Agent": "ClaudiaTorresCruz" },
       },
       function (err, res, carga) {
         assert.equal(err, null, "¿Ha fallado algo?");
         assert.equal(res.statusCode, 200, "¿El código no es 200 (OK)");
         var cargaJSON = JSON.parse(carga);
-        assert.equal(
-          cargaJSON.id.toString(),
-          "3",
-          "¿El id no es 3?"
-        );
+        assert.equal(cargaJSON.id.toString(), "3", "¿El id no es 3?");
         hecho();
       }
     );
@@ -65,17 +60,21 @@ describe("Test 2, probar que busca usuarios y dispositivos", function () {
   // probar que añade usuario_dispositivo
   //------------------------------------------------------------------------------
   it("probar POST /usuario_dispositivo", function (hecho) {
-    var datos = {Correo:"david@david.com",Nombre:"Gas"}
-    request.post({ url : PUERTO_IP+"/usuario_dispositivo",
-        headers : { "User-Agent" : "ClaudiaTorresCruz" , "Content-Type" : "application/json" },
-        body : JSON.stringify( datos )
+    var datos = { Correo: "david@david.com", Nombre: "Gas" };
+    request.post(
+      {
+        url: PUERTO_IP + "/usuario_dispositivo",
+        headers: {
+          "User-Agent": "ClaudiaTorresCruz",
+          "Content-Type": "application/json",
         },
-        function( err, respuesta, carga ) {
-            assert.equal( err, null, "¿ha habido un error?" )
-            assert.equal( respuesta.statusCode, 201, "¿El código no es 201 (OK)" )
-            hecho()
-        } // callback
-    ) // .post
-}) // it
-  
+        body: JSON.stringify(datos),
+      },
+      function (err, respuesta, carga) {
+        assert.equal(err, null, "¿ha habido un error?");
+        assert.equal(respuesta.statusCode, 201, "¿El código no es 201 (OK)");
+        hecho();
+      } // callback
+    ); // .post
+  }); // it
 }); //()

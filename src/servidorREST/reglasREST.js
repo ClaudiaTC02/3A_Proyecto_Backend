@@ -20,7 +20,7 @@ module.exports.cargar = function (servidor, logica) {
   });
   //------------------------------------------------------------------------------
   /**
-   * GET /obtenerUsuario
+   * GET /obtenerUsuarios
    */
   //------------------------------------------------------------------------------
   servidor.get("/obtenerUsuarios", async function (peticion, res) {
@@ -34,7 +34,7 @@ module.exports.cargar = function (servidor, logica) {
       // 404: not found
       res.sendStatus(404);
     }
-  }); // get/ getMediciones
+  }); // get/ obtenerUsuarios
   //------------------------------------------------------------------------------
   /**
    * POST /usuario
@@ -85,17 +85,17 @@ module.exports.cargar = function (servidor, logica) {
       var usuario = await logica.verificarUsuario(correo, contrasena);
       respuesta.send(JSON.stringify(usuario[0]));
     }
-  }); // GET /buscarUsuario/?Correo=<texto>&Contraseña=<texto>
+  }); // GET /verificarUsuario/?Correo=<texto>&Contraseña=<texto>
   //------------------------------------------------------------------------------
   /**
-   * GET /verificarUsuario/?Correo=<texto>
+   * GET /obtenerIdUsuario/?Correo=<texto>
    */
   //------------------------------------------------------------------------------
   servidor.get("/obtenerIdUsuario", async function (peticion, respuesta) {
     console.log(" * GET /obtenerIdUsuario ");
     var correo = peticion.query.Correo;
     console.log(correo);
-  
+
     if (correo == null) {
       respuesta.sendStatus(404).send("no puedo encontrar ese usuario");
       return;
@@ -103,8 +103,8 @@ module.exports.cargar = function (servidor, logica) {
       var usuario = await logica.obtenerIdUsuario(correo);
       respuesta.send(JSON.stringify(usuario[0]));
     }
-  }); // GET /buscarUsuario/?Correo=<texto>
-    //------------------------------------------------------------------------------
+  }); // GET /obtenerIdUsuario/?Correo=<texto>
+  //------------------------------------------------------------------------------
   /**
    * GET /obtenerIdDispositivo/?Nombre=<texto>
    */
@@ -113,7 +113,7 @@ module.exports.cargar = function (servidor, logica) {
     console.log(" * GET /obtenerIdDispositivo ");
     var nombre = peticion.query.Nombre;
     console.log(nombre);
-  
+
     if (nombre == null) {
       respuesta.sendStatus(404).send("no puedo encontrar ese dispositivo");
       return;
@@ -122,7 +122,7 @@ module.exports.cargar = function (servidor, logica) {
       respuesta.send(JSON.stringify(dispositivo[0]));
     }
   }); // GET /obtenerIdDispositivo/?Nombre=<texto>
-    //------------------------------------------------------------------------------
+  //------------------------------------------------------------------------------
   /**
    * GET /buscarUsuariosDeAdmin/?id_admin=<texto>
    */
@@ -139,7 +139,7 @@ module.exports.cargar = function (servidor, logica) {
       respuesta.send(JSON.stringify(usuario));
     }
   }); // GET /buscarUsuariosDeAdmin/?id_admin=<texto>
-      //------------------------------------------------------------------------------
+  //------------------------------------------------------------------------------
   /**
    * GET /obtenerUltimaMedida/?id_usuario=<texto>
    */
@@ -186,46 +186,50 @@ module.exports.cargar = function (servidor, logica) {
     var admin = peticion.body.EsAdmin;
     //var foto = peticion.query.FotoPerfil;
 
-    id_correo= await logica.obtenerIdUsuario(correoa)
-    var id =id_correo[0].id;
-    console.log(" * el usuario que se va a ctualizar " +id);
+    id_correo = await logica.obtenerIdUsuario(correoa);
+    var id = id_correo[0].id;
+    console.log(" * el usuario que se va a ctualizar " + id);
 
     if (id == null) {
       respuesta.sendStatus(404).send("no puedo encontrar ese usuario");
       return;
     } else {
       console.log(" * POST /actualizarUsuario ");
-      var usuario = await logica. actualizarUsuario(id,correo,nombre,contra,admin);
+      var usuario = await logica.actualizarUsuario(
+        id,
+        correo,
+        nombre,
+        contra,
+        admin
+      );
       respuesta.send(JSON.stringify(usuario[0]));
     }
-     
-      
   }); // POST /actualizarUsuario/?correoa=<texto>
-  
   //------------------------------------------------------------------------------
-   // GET /buscarDispositivoUsuario/?Id_Usuario=<texto>
+  // GET /buscarDispositivoUsuario/?Id_Usuario=<texto>
   //------------------------------------------------------------------------------
+  servidor.get(
+    "/buscarDispositivoUsuario",
+    async function (peticion, respuesta) {
+      console.log(" * GET /buscarDispoitivo ");
+      var idUsuario = peticion.query.Id_Usuario;
 
-    servidor.get("/buscarDispositivoUsuario", async function (peticion, respuesta) {
-    console.log(" * GET /buscarDispoitivo ");
-    var idUsuario = peticion.query.Id_Usuario;
-    
-    if (idUsuario == null) {
-      respuesta.sendStatus(404).send("no puedo encontrar ese usuario");
-      return;
-    } else {
-      var dispositivo = await logica.buscarDispositivoUsuario(idUsuario);
-      respuesta.send(JSON.stringify(dispositivo[0]));
+      if (idUsuario == null) {
+        respuesta.sendStatus(404).send("no puedo encontrar ese usuario");
+        return;
+      } else {
+        var dispositivo = await logica.buscarDispositivoUsuario(idUsuario);
+        respuesta.send(JSON.stringify(dispositivo[0]));
+      }
     }
-  }); 
-  
+  ); //GET /buscarDispositivoUsuario/?Id_Usuario=<texto>
   //------------------------------------------------------------------------------
-   // GET /buscarDispositivoPorId/?Id_Dispositivo=<texto>
+  // GET /buscarDispositivoPorId/?Id_Dispositivo=<texto>
   //------------------------------------------------------------------------------
   servidor.get("/buscarDispositivoPorId", async function (peticion, respuesta) {
     console.log(" * GET /buscarDispositivoPorId");
     var idSensor = peticion.query.Id_Dispositivo;
-    
+
     if (idSensor == null) {
       respuesta.sendStatus(404).send("no puedo encontrar este sensor");
       return;
@@ -233,47 +237,50 @@ module.exports.cargar = function (servidor, logica) {
       var dispositivo = await logica.buscarDispositivoPorId(idSensor);
       respuesta.send(JSON.stringify(dispositivo[0]));
     }
-  }); 
-
-  //------------------------------------------------------------------------------
-   // GET /buscarIdUsuarioPorCorreo/?correo=<texto>
-  //------------------------------------------------------------------------------
-  servidor.get("/buscarIdUsuarioPorCorreo", async function (peticion, respuesta) {
-    console.log(" * GET /buscarIdUsuarioPorCorreo");
-    var correo = peticion.query.Correo;
-    
-    if (correo == null) {
-      respuesta.sendStatus(404).send("no puedo encontrar este sensor");
-      return;
-    } else {
-      var dispositivo = await logica.buscarDispositivoPorId(correo);
-      respuesta.send(JSON.stringify(dispositivo[0]));
-    }
   });
+  //------------------------------------------------------------------------------
+  // GET /buscarIdUsuarioPorCorreo/?correo=<texto>
+  //------------------------------------------------------------------------------
+  servidor.get(
+    "/buscarIdUsuarioPorCorreo",
+    async function (peticion, respuesta) {
+      console.log(" * GET /buscarIdUsuarioPorCorreo");
+      var correo = peticion.query.Correo;
 
-  //------------------------------------------------------------------------------
-   // GET /buscarDispositivosUsuarioPorCorreo/?correo=<texto>
-  //------------------------------------------------------------------------------
-  servidor.get("/buscarDispositivosUsuarioPorCorreo", async function (peticion, respuesta) {
-    console.log(" * GET /buscarDispositivoPorId");
-    var correo = peticion.query.Correo;
-    id_correo= await logica.obtenerIdUsuario(correo);
-    var id =id_correo[0].id;
-    const nombreDisp=[];
-    if (correo == null) {
-      respuesta.sendStatus(404).send("no puedo encontrar este sensor");
-      return;
-    } else {
-      var dispositivo = await logica.buscarDispositivoUsuario(id);
-        
-        for (let i=0; i<dispositivo.length;i++ ){
-          var a=i;
-          var elid =dispositivo[a].Id_Dispositivo;
-          nombreDisp[a]=(await logica.buscarDispositivoPorId(elid)); 
-        }
-      respuesta.send(JSON.stringify(nombreDisp));
-      
+      if (correo == null) {
+        respuesta.sendStatus(404).send("no puedo encontrar este sensor");
+        return;
+      } else {
+        var dispositivo = await logica.buscarDispositivoPorId(correo);
+        respuesta.send(JSON.stringify(dispositivo[0]));
+      }
     }
-  }); 
+  ); //GET /buscarIdUsuarioPorCorreo/?correo=<texto>
 
+  //------------------------------------------------------------------------------
+  // GET /buscarDispositivosUsuarioPorCorreo/?correo=<texto>
+  //------------------------------------------------------------------------------
+  servidor.get(
+    "/buscarDispositivosUsuarioPorCorreo",
+    async function (peticion, respuesta) {
+      console.log(" * GET /buscarDispositivoPorId");
+      var correo = peticion.query.Correo;
+      id_correo = await logica.obtenerIdUsuario(correo);
+      var id = id_correo[0].id;
+      const nombreDisp = [];
+      if (correo == null) {
+        respuesta.sendStatus(404).send("no puedo encontrar este sensor");
+        return;
+      } else {
+        var dispositivo = await logica.buscarDispositivoUsuario(id);
+
+        for (let i = 0; i < dispositivo.length; i++) {
+          var a = i;
+          var elid = dispositivo[a].Id_Dispositivo;
+          nombreDisp[a] = await logica.buscarDispositivoPorId(elid);
+        }
+        respuesta.send(JSON.stringify(nombreDisp));
+      }
+    }
+  ); //GET /buscarDispositivosUsuarioPorCorreo/?correo=<texto>
 }; //()

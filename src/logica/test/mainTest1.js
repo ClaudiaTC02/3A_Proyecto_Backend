@@ -17,6 +17,12 @@ var assert = require("assert");
 // probar que se establece conexión
 //------------------------------------------------------------------------------
 describe("Test 1, probar insertar, ver y borrar usuarios", function () {
+  /*before(function () {
+    console.log("preparación de los test");
+    logica.query("INSERT INTO `usuario`(`Id`, `Nombre`, `Contrasena`, `Correo`, `EsAdmin`) VALUES ('','Pepe','1234','pepe@pepe.com','0')")
+    logica.query("INSERT INTO `usuario`(`Id`, `Nombre`, `Contrasena`, `Correo`, `EsAdmin`) VALUES ('6','Manolo','1234','manolo@manolo.com','1')")
+    logica.query("INSERT INTO `usuario`(`Id`, `Nombre`, `Contrasena`, `Correo`, `EsAdmin`) VALUES ('','Marc','1234','marc@marc.com','0')")
+  });*/
   it("probando GET /test", function (hecho) {
     request.get(
       {
@@ -50,7 +56,7 @@ describe("Test 1, probar insertar, ver y borrar usuarios", function () {
             hecho()
         } // callback
     ) // .post
-}) // it
+  }) // it
   //------------------------------------------------------------------------------
   // probar que obtiene usuarios
   //------------------------------------------------------------------------------
@@ -65,7 +71,7 @@ describe("Test 1, probar insertar, ver y borrar usuarios", function () {
         assert.equal(res.statusCode, 200, "¿El código no es 200 (OK)");
         var cargaJSON = JSON.parse(carga);
         assert.equal(
-          cargaJSON[0].Nombre.toString(),
+          cargaJSON[cargaJSON.length - 1].Nombre.toString(),
           "Claudia",
           "¿El primer nombre no es Claudia?"
         );
@@ -76,7 +82,7 @@ describe("Test 1, probar insertar, ver y borrar usuarios", function () {
     //------------------------------------------------------------------------------
   // probar que busca usuarios
   //------------------------------------------------------------------------------
-  it("probando GET /buscarUsuario", function (hecho) {
+  it("probando GET /verificarUsuario", function (hecho) {
     request.get(
       {
         url: PUERTO_IP+"/verificarUsuario?Correo=prueba@prueba.com&Contrasena=1234",
@@ -95,7 +101,7 @@ describe("Test 1, probar insertar, ver y borrar usuarios", function () {
       }
     );
   }); //it()
-      //------------------------------------------------------------------------------
+  //------------------------------------------------------------------------------
   // probar que busca usuarios
   //------------------------------------------------------------------------------
   it("probando GET /buscarUsuariosDeAdmin", function (hecho) {
@@ -121,7 +127,7 @@ describe("Test 1, probar insertar, ver y borrar usuarios", function () {
   // probar que elimina usuarios
   //------------------------------------------------------------------------------
   it("probar POST /borrarUsuario", function (hecho) {
-    var datos = {id:"",Nombre:"Marc",Contraseña:"1234",Correo:"marc@marc.com", EsAdmin: "0"}
+    var datos = {id:"",Nombre:"Claudia",Contrasena:"1234",Correo:"prueba@prueba.com", EsAdmin: "0"}
     request.post({ url : PUERTO_IP+"/borrarUsuario",
         headers : { "User-Agent" : "ClaudiaTorresCruz" , "Content-Type" : "application/json" },
         body : JSON.stringify( datos )
@@ -132,5 +138,8 @@ describe("Test 1, probar insertar, ver y borrar usuarios", function () {
             hecho()
         } // callback
     ) // .post
-}) // it
+  }) // it
+  /*after(async function(){
+    console.log('Se ejecuta al final de los test')
+  })*/
 }); //()

@@ -85,9 +85,9 @@ module.exports = class Logica {
     //------------------------------------------------------------------------------
   /**
    * *
-   * @brief este método se encarga de buscar si un usuario existe
-   * @param correo correo a buscar
-   * @param contrasena contraseña del usuario a buscar
+   * @brief este método se encarga de verificar si un usuario existe
+   * @param correo correo 
+   * @param contrasena contraseña del usuario
    * Diseño: correo:Texto, contraseña:Texto --> verificarUsuario() --> [{id: int, nombre: string, contraseña: string, correo:string}] | 404
    */
    async verificarUsuario(correo, contrasena) {
@@ -103,9 +103,9 @@ module.exports = class Logica {
       //------------------------------------------------------------------------------
   /**
    * *
-   * @brief este método se encarga de buscar un usuario dado un correo
+   * @brief este método se encarga de buscar el id de un usuario dado un correo
    * @param correo correo a buscar
-   * Diseño: correo:Texto --> obtenerIdUsuario() --> [{id: int, nombre: string, contraseña: string, correo:string}] | 404
+   * Diseño: correo:Texto --> obtenerIdUsuario() --> [{id: int}] | 404
    */
    async obtenerIdUsuario(correo) {
     // SELECT * FROM Usuario WHERE Correo = $correo
@@ -120,9 +120,9 @@ module.exports = class Logica {
   //------------------------------------------------------------------------------
   /**
    * *
-   * @brief este método se encarga de buscar un usuario dado un correo
-   * @param correo correo a buscar
-   * Diseño: correo:Texto --> obtenerIdUsuario() --> [{id: int, nombre: string, contraseña: string, correo:string}] | 404
+   * @brief este método se encarga de buscar el id un dispositivo dado un nombre
+   * @param nombre nombre a buscar
+   * Diseño: nombre:Texto --> obtenerIdDispositivo() --> [{id: int}] | 404
    */
    async obtenerIdDispositivo(nombre) {
     // SELECT * FROM Dispositivo WHERE Nombre = $nombre
@@ -133,7 +133,7 @@ module.exports = class Logica {
       },
       raw:true
     })
-  } //obtenerIdUsuario()
+  } //obtenerIdDispositivo()
       //------------------------------------------------------------------------------
   /**
    * *
@@ -156,9 +156,9 @@ module.exports = class Logica {
       //------------------------------------------------------------------------------
   /**
    * *
-   * @brief este método se encarga de eliminar un usuario
-   * @param correo correo del usuario a eliminar
-   * Diseño: correo:Texto --> borrarUsuario() --> 200 | 404
+   * @brief este método se encarga de eliminar una relación dispositivo-usuario
+   * @param id_usuario id del usuario para eliminar el enlace usuario_dispositivo
+   * Diseño: id_usuario:N --> borrarUsuario_Dispositivo() --> 200 | 404
    */
    async borrarUsuario_Dispositivo(id_usuario) {
     // DELETE * FROM Usuario WHERE Correo = $correo
@@ -167,7 +167,13 @@ module.exports = class Logica {
       replacements: { id: id_usuario },
       type: QueryTypes.DELETE
     })
-  } //borrarUsuario()
+  } //borrarUsuario_Dispositivo()
+  /**
+   * *
+   * @brief este método se encarga de buscar un usuario según un id
+   * @param id id a buscar
+   * Diseño: id:N --> buscarUsuarioId() --> [{id: int, nombre: string, contraseña: string, correo:string}] | 404
+   */
   async buscarUsuarioId(id) {
     // SELECT * FROM Usuario WHERE Correo = $correo AND Contraseña = $contraseña;
     return await modeloUsuario.findAll({
@@ -176,13 +182,16 @@ module.exports = class Logica {
       },
       raw:true
     })
-  } //buscarUsuario()
-
+  } //buscarUsuarioId()
   /**
    * *
-   * @brief este método se encarga de actualizar el usuario meidante su id
+   * @brief este método se encarga de actualizar el usuario
    * @param id id del usuario
-   * Diseño: id:N --> buscarUsuariosDeAdmin() --> [{id: int, nombre: string, contraseña: string, correo:string, admin:string}] | 404
+   * @param correo correo del usuario
+   * @param nombre nombre del usuario
+   * @param contra contra del usuario
+   * @param admin admin del usuario
+   * Diseño: id:N, correo:Txt, nombre:Txt, contra:Txt, admin:N --> actualizarUsuario() --> [{id: int, nombre: string, contraseña: string, correo:string, admin:string}] | 404
    */
     async actualizarUsuario(id,correo,nombre,contra,admin) {
       
@@ -205,11 +214,7 @@ module.exports = class Logica {
         },
         raw:true
       })
-        
-  
     } // actualizarUsuario()
-
-
 //------------------------------------------------------------------------------
   /**
    * *
@@ -227,9 +232,9 @@ module.exports = class Logica {
   //------------------------------------------------------------------------------
   /**
    * *
-   * @brief este método se encarga de buscar usuarios según el id de un admin
-   * @param id_admin id del admin
-   * Diseño: id_admin:N --> buscarUsuariosDeAdmin() --> [{id: int, nombre: string, contraseña: string, correo:string}] | 404
+   * @brief este método se encarga de obtener la fecha de la ultima medida de un usuario
+   * @param id_usuario id del usuario
+   * Diseño: id_usuario:N --> obtenerUltimaMedida() --> [{fecha: Date}] | 404
    */
    async obtenerUltimaMedida(id_usuario) {
     return await this.conexion.query("SELECT medida.Fecha FROM medida INNER JOIN usuario on usuario.id = :id INNER JOIN usuario_dispositivo on usuario_dispositivo.Id_Usuario = usuario.Id INNER JOIN dispositivo on dispositivo.id = usuario_dispositivo.Id_Dispositivo WHERE medida.Id_Dispositivo = dispositivo.Id  ORDER BY medida.Fecha DESC LIMIT 1;",
@@ -253,17 +258,15 @@ module.exports = class Logica {
       raw:true
     })
   } //buscarDispositivoUsuario()
-
 /**
    * *
    * @brief este método se encarga de buscar el dispositivo por su id
-   * @param id id del usensor
-   * Diseño: id_senor:N --> buscarDispositivoUsuario() --> [{id_sensor: int, nombre: String, id_ciudad:int] | 404
+   * @param idSensor id del sensor
+   * Diseño: id_senor:N --> buscarDispositivoPorId() --> [{id_sensor: int, nombre: String, id_ciudad:int] | 404
    */
    //------------------------------------------------------------------------------
   async buscarDispositivoPorId(idSensor) {
     // SELECT * FROM Usuario WHERE Correo = $correo AND Contraseña = $contraseña;
-
     return await modeloDipositivo.findAll({
       where: {
         Id: idSensor
@@ -271,9 +274,6 @@ module.exports = class Logica {
       raw:true
     })
   } //buscarDispositivoUsuario()
-  //------------------------------------------------------------------------------
-  /**
-  //------------------------------------------------------------------------------
   /**
    * @brief este método se encarga de comprobar que la conexión con la base de datos de phpmyadmin esté establecida
    * Diseño: --> testConexion() -->
@@ -287,6 +287,5 @@ module.exports = class Logica {
       console.error("No se puede conectar con la base de datos: ", error);
     }
   }//testConexion()
-  
 }; //class()
 
