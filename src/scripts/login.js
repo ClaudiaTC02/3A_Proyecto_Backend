@@ -22,7 +22,13 @@ function login(){
    
     
 }
-
+//------------------------------------------------------------------------------
+/**
+ * @brief Esta funcion se encarga de comprobar si los credenciales son correctos y redirigir al usuario segun su nivel de acceso 
+ * @param correo, contrasena
+ * Diseño:  correo:String, contrasena:String --> verificarUsuario() -->
+ **/
+//------------------------------------------------------------------------------
 function verificarUsuario(correo,contrasena,cb) {
   fetch(PUERTO_IP + "/verificarUsuario?Correo="+correo+"&Contrasena="+contrasena, {
       method: "GET",
