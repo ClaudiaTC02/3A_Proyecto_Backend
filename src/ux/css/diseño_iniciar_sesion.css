@@ -100,10 +100,10 @@
 }
 @media (min-width:1000px) and (max-width:1260px){
     #imagen_inciar_sesion{
-        height: 380px;
-        width: 380px;
+        height: 400px;
+        width: 400px;
         margin-top: 100px;
-        margin-left: 100px;
+        margin-left: 10%;
     }
     #contenedor_formulario{
         width: 50%;
