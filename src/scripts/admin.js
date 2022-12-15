@@ -217,6 +217,8 @@ function ponerDatosEnTabla(lista){
     tr.appendChild(td3);
     tr.appendChild(td4);
     // Agregar la fila a la tabla
+    miTabla.style.fontFamily = 'Arial';
     miTabla.appendChild(tr);
+
   }
 }

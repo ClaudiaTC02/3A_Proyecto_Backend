@@ -12,7 +12,6 @@
     background: linear-gradient(to right,#a7d4d4, #a4d0d0);
 }
 #boton_eliminar{
-    margin-left: 20px;
     font-size: 18px;
     color: white;
     height: 26px;
@@ -34,5 +33,11 @@
 }
 
 #texto1{
-    margin-left:20px;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+#tabla{
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    margin:0 auto;
 }
