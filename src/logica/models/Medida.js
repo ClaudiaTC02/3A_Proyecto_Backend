@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   Medida.init({
     Dato: DataTypes.INTEGER,
-    Fecha: DataTypes.INTEGER,
+    Fecha: DataTypes.DATE,
     Latitud: DataTypes.INTEGER,
     Longitud: DataTypes.INTEGER,
     Id_Dispositivo: DataTypes.INTEGER

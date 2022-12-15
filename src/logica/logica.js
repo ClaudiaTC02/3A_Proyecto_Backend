@@ -275,6 +275,16 @@ module.exports = class Logica {
     })
   } //buscarDispositivoUsuario()
   /**
+  * Funcion que inserta en la BBDD una medicion
+  *
+  * @param Medicion tabla de la BBDD 
+  * @param body contenido a insertar
+  *
+  */
+  async insertarMedicion(body) {
+    await modeloMedida.create(body);
+  }
+  /**
    * @brief este método se encarga de comprobar que la conexión con la base de datos de phpmyadmin esté establecida
    * Diseño: --> testConexion() -->
    **/

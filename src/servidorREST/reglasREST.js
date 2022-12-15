@@ -283,4 +283,19 @@ module.exports.cargar = function (servidor, logica) {
       }
     }
   ); //GET /buscarDispositivosUsuarioPorCorreo/?correo=<texto>
+  //------------------------------------------------------------------------------
+  /**
+  * POST /medicion
+  */
+  //------------------------------------------------------------------------------
+  servidor.post("/medicion", async function (peticion, respuesta) {
+    console.log(" * POST /medicion ")
+    const data = peticion.body;
+    try {
+        await logica.insertarMedicion(Medicion, data);
+        respuesta.sendStatus(201);
+    } catch {
+        respuesta.sendStatus(400);
+    }
+  }) // post /medicion
 }; //()
