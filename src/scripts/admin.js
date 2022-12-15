@@ -31,7 +31,7 @@ function cargarEventos() {
         mostrarUsuarios(res);
     });*/
   buscarUsuariosDeAdmin(id, function (res) {
-    mostrarUsuarios(res);
+    llenarLista(res);
   });
 }
 //------------------------------------------------------------------------------
@@ -53,7 +53,7 @@ function botonObtenerUsuario() {
   //var id = document.getElementById("id_administrador").value
   // llamo a la función de la lógica (versión fake)
   buscarUsuariosDeAdmin(6, function (res) {
-    mostrarUsuarios(res);
+    llenarLista(res);
   });
 } //botonObtenerUsuario
 //------------------------------------------------------------------------------
@@ -122,6 +122,15 @@ function obtenerUltimaMedida(id_usuario, cb) {
       cb(data);
     });
 } // ()
+function compararFechas(a, b) {
+  // Convierte las fechas en objetos Date
+  const dateA = new Date(a.fecha);
+  const dateB = new Date(b.fecha);
+  console.log("hola")
+  // Compara las fechas y devuelve un número negativo si la fecha A es anterior a la fecha B,
+  // un número positivo si la fecha A es posterior a la fecha B, y 0 si son iguales
+  return dateA - dateB;
+}
 //------------------------------------------------------------------------------
 /**
  * @brief este método se encarga de mostrar todos los usuarios
@@ -129,71 +138,85 @@ function obtenerUltimaMedida(id_usuario, cb) {
  * Diseño: res:[{id: int, nombre: string, contraseña: string, correo:string}...] --> mostrarUsuarios() -->
  **/
 //------------------------------------------------------------------------------
-function mostrarUsuarios(res) {
-  let listaUsuarios = document.getElementById("lista_usuarios");
-  listaUsuarios.innerHTML = "";
-  var fechaAyer = new Date();
-  fechaAyer.setDate(fechaAyer.getDate() - 1);
+function llenarLista(res) {
+  /*let listaUsuarios = document.getElementById("lista_usuarios");
+  listaUsuarios.innerHTML = "";*/
   if (res.length > 0) {
-    res.forEach((usuario) => {
+    var listaUsuarioFecha = []
+    var listaUsuarioSinFecha = []
+    res.forEach(function(usuario, idx, array) {
       obtenerUltimaMedida(usuario.id, function (res) {
-        if (res.length < 1) {
-          //document.getElementById(divfield).innerHTML +="<input type='button' value='-'class='remove_this"+i+"' onclick=' removed("+i+",\""+s+"\") '>"
-          listaUsuarios.innerHTML +=
-            "<li id='texto'>" +
-            "<b>Nombre: </b>" +
-            usuario.Nombre +
-            "    " +
-            "<b id='texto1'>Correo: </b>" +
-            usuario.Correo +
-            "    " +
-            "<b id='texto1'> Fecha de la última medición: </b>" +
-            "-" +
-            "<input type='button' value='Eliminar' id='boton_eliminar" +
-            "' onclick=' botonEliminarUsuario(\"" +
-            usuario.Correo +
-            "\") '>";
-        } else {
+        if(res.length < 1){
+          var usuarioFecha = {
+            nombre: usuario.Nombre,
+            correo: usuario.Correo, 
+            fecha: "-"
+          }
+          listaUsuarioSinFecha.push(usuarioFecha);
+        } else{
           var d = new Date(res[0].Fecha);
           var datestring =
             d.getDate() + "-" + (d.getMonth() + 1) + "-" + d.getFullYear();
-          console.log("antes if");
-          if (Date.parse(d) < Date.parse(fechaAyer)) {
-            console.log("dentro del if");
-            var li = document.createElement(null);
-            li.innerHTML =
-              "<br><li id='texto' style='color:red'>" +
-              "<b>Nombre: </b>" +
-              usuario.Nombre +
-              "    " +
-              "<b id='texto1'>Correo: </b>" +
-              usuario.Correo +
-              "    " +
-              "<b id='texto1'> Fecha de la última medición: </b>" +
-              datestring +
-              "<input type='button' value='Eliminar' id='boton_eliminar" +
-              "' onclick=' botonEliminarUsuario(\"" +
-              usuario.Correo +
-              "\") '><br>";
-            listaUsuarios.prepend(li);
-          } else {
-            listaUsuarios.innerHTML +=
-              "<br><li id='texto'>" +
-              "<b>Nombre: </b>" +
-              usuario.Nombre +
-              "    " +
-              "<b id='texto1'>Correo: </b>" +
-              usuario.Correo +
-              "    " +
-              "<b id='texto1'> Fecha de la última medición: </b>" +
-              datestring +
-              "<input type='button' value='Eliminar' id='boton_eliminar" +
-              "' onclick=' botonEliminarUsuario(\"" +
-              usuario.Correo +
-              "\") '><br>";
+          var usuarioFecha = {
+            nombre: usuario.Nombre,
+            correo: usuario.Correo,
+            fecha: d
           }
+          listaUsuarioFecha.push(usuarioFecha)
+        }
+        console.log("acabo?")
+        if (idx === array.length - 1){ 
+          listaUsuarioFecha.sort(compararFechas);
+          console.log(listaUsuarioFecha)
+          listaUsuarioFecha.push(...listaUsuarioSinFecha);
+          ponerDatosEnTabla(listaUsuarioFecha)
         }
       });
     });
+  }
+}
+function ponerDatosEnTabla(lista){
+  var fechaAyer = new Date();
+  fechaAyer.setDate(fechaAyer.getDate() - 1);
+  console.log(lista)
+  // Obtener el elemento <table> en el que se quiere agregar los elementos
+  var miTabla = document.getElementById("tabla_usuarios");
+  // Iterar sobre el array JSON
+  for (var i = 0; i < lista.length; i++) {
+    // Crear una nueva fila
+    var tr = document.createElement("tr");
+    // Crear dos nuevas celdas
+    var td1 = document.createElement("td");
+    var td2 = document.createElement("td");
+    var td3 = document.createElement("td");
+    var td4 = document.createElement("td");
+    var button = document.createElement(null)
+    button.innerHTML = "<input type='button' value='Eliminar' id='boton_eliminar" +
+    "' onclick=' botonEliminarUsuario(\"" +
+    lista[i].correo +
+    "\") '><br>";
+    // Establecer el contenido de las celdas como la información del elemento del array JSON
+    console.log(lista[i])
+    td1.innerHTML = lista[i].nombre;
+    td2.innerHTML = lista[i].correo;
+    var datestring = "-"
+    if(lista[i].fecha != "-"){
+      var d = new Date(lista[i].fecha);
+      datestring = d.getDate() + "-" + (d.getMonth() + 1) + "-" + d.getFullYear();
+      if (Date.parse(d) < Date.parse(fechaAyer)){
+        td1.style.color = 'red'
+        td2.style.color = 'red'
+        td3.style.color = 'red'
+      }
+    }
+    td3.innerHTML = datestring;
+    td4.appendChild(button)
+    // Agregar las celdas a la fila
+    tr.appendChild(td1);
+    tr.appendChild(td2);
+    tr.appendChild(td3);
+    tr.appendChild(td4);
+    // Agregar la fila a la tabla
+    miTabla.appendChild(tr);
   }
 }
