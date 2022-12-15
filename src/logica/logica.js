@@ -18,6 +18,17 @@ const modeloMedida = require('./models').Medida;
 const modeloDipositivo = require('./models').Dispositivo;
 const modeloUsuario_Dispositivo = require('./models').Usuario_Dispositivo;
 //------------------------------------------------------------------------------
+//usamos mailtrap
+const { MailtrapClient } = require("mailtrap");
+const TOKEN = "undefined";
+const ENDPOINT = "https://send.api.mailtrap.io/";
+
+const client = new MailtrapClient({ endpoint: ENDPOINT, token: TOKEN });
+
+const sender = {
+  email: "mailtrap@techcommit00.com",
+  name: "TechCommit",
+};
 //------------------------------------------------------------------------------
 module.exports = class Logica {
   //------------------------------------------------------------------------------
@@ -61,6 +72,7 @@ module.exports = class Logica {
   async insertarUsuario(body) {
     // INSERT INTO Usuario ('id', 'nombre', 'contraseña', 'correo') VALUES ()
     await modeloUsuario.create(body);
+    
   } // insertarUsuario()
    //------------------------------------------------------------------------------
   /**
@@ -297,5 +309,20 @@ module.exports = class Logica {
       console.error("No se puede conectar con la base de datos: ", error);
     }
   }//testConexion()
+  async enviarMail(){
+    console.log("pasa por aqui")
+    Email.send({
+      Host : "send.smtp.mailtrap.io",
+      Username : "api",
+      Password : "e00291ffd3ffe3c9676e3fe1d948e9d6",
+      To : 'davidlopez.gandia@gmail.com',
+      From : "techcommit00@gmail.com",
+      Subject : "Test email",
+      Body : "<html><h2>Header</h2><strong>Bold text</strong><br></br><em>Italic</em></html>"
+  }).then(
+    message => alert(message)
+    
+  );
+  }
 }; //class()
 

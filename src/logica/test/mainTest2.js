@@ -33,7 +33,7 @@ describe("Test 2, probar que busca usuarios y dispositivos", function () {
         assert.equal(err, null, "¿Ha fallado algo?");
         assert.equal(res.statusCode, 200, "¿El código no es 200 (OK)");
         var cargaJSON = JSON.parse(carga);
-        assert.equal(cargaJSON.id.toString(), "21", "¿El id no es 21?");
+        assert.equal(cargaJSON.id.toString(), "2", "¿El id no es 2?");
         hecho();
       }
     );
@@ -44,7 +44,7 @@ describe("Test 2, probar que busca usuarios y dispositivos", function () {
   it("probando GET /obtenerIdDispositivo", function (hecho) {
     request.get(
       {
-        url: PUERTO_IP + "/obtenerIdDispositivo?Nombre=Sensorin",
+        url: PUERTO_IP + "/obtenerIdDispositivo?Nombre=Gas",
         headers: { "User-Agent": "ClaudiaTorresCruz" },
       },
       function (err, res, carga) {

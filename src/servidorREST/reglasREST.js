@@ -69,6 +69,22 @@ module.exports.cargar = function (servidor, logica) {
   }); // post /usuario_dispositivo
   //------------------------------------------------------------------------------
   /**
+   * POST /enviarMail
+   */
+  //------------------------------------------------------------------------------
+  servidor.post("/enviarMail", async function (peticion, respuesta) {
+    console.log(" * POST /enviarMail");
+    const data = peticion.body;
+    console.log(data);
+    try {
+      await logica.enviarMail();
+      respuesta.sendStatus(201);
+    } catch {
+      respuesta.sendStatus(400);
+    }
+  }); // post /enviarMail
+  //------------------------------------------------------------------------------
+  /**
    * GET /verificarUsuario/?Correo=<texto>&Contraseña=<texto>
    */
   //------------------------------------------------------------------------------
@@ -290,6 +306,8 @@ module.exports.cargar = function (servidor, logica) {
   //------------------------------------------------------------------------------
   servidor.post("/medicion", async function (peticion, respuesta) {
     console.log(" * POST /medicion ")
+    var id = await logica.obtenerIdDispositivo(peticion.body.dispositivo)
+    peticion.body.dispositivo = id;
     const data = peticion.body;
     try {
         await logica.insertarMedicion(Medicion, data);

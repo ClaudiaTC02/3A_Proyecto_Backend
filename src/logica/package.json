@@ -9,6 +9,7 @@
         "ayuda": "echo ejecuta esto: npm test"
     },
     "dependencies": {
+        "mailtrap": "^3.0.1",
         "mysql2": "*",
         "sequelize": "*"
     },
