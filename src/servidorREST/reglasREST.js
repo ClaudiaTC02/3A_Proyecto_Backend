@@ -307,10 +307,13 @@ module.exports.cargar = function (servidor, logica) {
   servidor.post("/medicion", async function (peticion, respuesta) {
     console.log(" * POST /medicion ")
     var id = await logica.obtenerIdDispositivo(peticion.body.dispositivo)
-    peticion.body.dispositivo = id;
+    
+    peticion.body.dispositivo = id[0].id;
     const data = peticion.body;
+    console.log(data);
     try {
-        await logica.insertarMedicion(Medicion, data);
+        await logica.insertarMedicion(data);
+        console.log(data);
         respuesta.sendStatus(201);
     } catch {
         respuesta.sendStatus(400);

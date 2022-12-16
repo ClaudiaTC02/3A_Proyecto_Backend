@@ -294,7 +294,20 @@ module.exports = class Logica {
   *
   */
   async insertarMedicion(body) {
-    await modeloMedida.create(body);
+    //await modeloMedida.create(body);
+    console.log(body.dispositivo)
+    var nombre = body.medida
+    var latitud_ = body.latitud
+    var longitud_ = body.longitud
+    var fecha_ = body.fecha
+    var dispositivo_id = body.dispositivo
+    console.log("aaaaa")
+    return await this.conexion.query("INSERT INTO `medida`(`Id`, `Dato`, `Fecha`, `Latitud`, `Longitud`, `Id_Dispositivo`) VALUES ('',:medida,:fecha,:latitud,:longitud,:id_disp)",
+    {
+      replacements: { medida: nombre,
+      latitud:latitud_, longitud:longitud_, fecha:fecha_, id_disp:dispositivo_id },
+      type: QueryTypes.INSERT
+    })
   }
   /**
    * @brief este método se encarga de comprobar que la conexión con la base de datos de phpmyadmin esté establecida
