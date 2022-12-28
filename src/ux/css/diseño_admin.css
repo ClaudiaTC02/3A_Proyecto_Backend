@@ -7,9 +7,9 @@
 
 #fondo{
     position: absolute;
-    height: 100%;
-    width: 100%;
-    background: linear-gradient(to right,#a7d4d4, #a4d0d0);
+    height: 90vh;
+    background: linear-gradient(to right,#59A8A8, #a4d0d0);
+    background-size: cover;
 }
 #boton_eliminar{
     font-size: 18px;
