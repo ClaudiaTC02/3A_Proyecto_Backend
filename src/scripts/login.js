@@ -2,7 +2,29 @@ const PUERTO_IP = "http://localhost:8080"
 
 
 
-
+function setCookie(name, value, expires, path, domain, secure) {
+    let cookieString = name + "=" + encodeURIComponent(value);
+  
+    if (expires) {
+      let expirationDate = new Date();
+      expirationDate.setTime(expirationDate.getTime() + expires * 1000);
+      cookieString += ", expires=" + expirationDate.toGMTString();
+    }
+  
+    if (path) {
+      cookieString += ", path=" + path;
+    }
+  
+    if (domain) {
+      cookieString += ", domain=" + domain;
+    }
+  
+    if (secure) {
+      cookieString += ", secure";
+    }
+    console.log("llego aqui")
+    document.cookie = cookieString;
+  }
 
 function login(){
     const correo= document.getElementById('correo').value;
@@ -12,9 +34,12 @@ function login(){
     verificarUsuario(correo,contrasena,function (res) {
         if(res.EsAdmin == true){
             console.log(res.id);
+            console.log(res.Nombre);
+            setCookie("login", res.Nombre);
             window.location.href = "admin.html?a="+ res.id;   
         }else{
             window.location.href = "index.html?a=";
+            alert("El nombre de usuario o la contraseña son incorrectos");
         }
       
     });
