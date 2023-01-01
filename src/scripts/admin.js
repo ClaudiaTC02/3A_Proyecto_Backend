@@ -143,7 +143,7 @@ function botonEliminarUsuario(correo) {
  **/
 //------------------------------------------------------------------------------
 function obtenerUltimaMedida(id_usuario, cb) {
-  fetch(IP_PUERTO + "/obtenerUltimaMedida?id_usuario=" + id_usuario, {
+  fetch(IP_PUERTO + "/obtenerFechaUltimaMedida?id_usuario=" + id_usuario, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",

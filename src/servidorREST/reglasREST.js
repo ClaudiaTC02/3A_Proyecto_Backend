@@ -160,7 +160,7 @@ module.exports.cargar = function (servidor, logica) {
    * GET /obtenerUltimaMedida/?id_usuario=<texto>
    */
   //------------------------------------------------------------------------------
-  servidor.get("/obtenerUltimaMedida", async function (peticion, respuesta) {
+  servidor.get("/obtenerFechaUltimaMedida", async function (peticion, respuesta) {
     console.log(" * GET /obtenerUltimaMedida");
     var id = peticion.query.id_usuario;
     console.log(id);
@@ -168,10 +168,28 @@ module.exports.cargar = function (servidor, logica) {
       respuesta.sendStatus(404).send("no puedo encontrar ese usuario");
       return;
     } else {
-      var medida = await logica.obtenerUltimaMedida(id);
+      var medida = await logica.obtenerFechaUltimaMedida(id);
       respuesta.send(JSON.stringify(medida));
     }
   }); // GET /obtenerUltimaMedida/?id_usuario=<texto>
+    //------------------------------------------------------------------------------
+  /**
+   * GET /obtenerMediaMedidas/?id_usuario=<texto>
+   */
+  //------------------------------------------------------------------------------
+  servidor.get("/obtenerMediaMedidas", async function (peticion, respuesta) {
+    console.log(" * GET /obtenerMediaMedidas");
+    var id = peticion.query.id_usuario;
+    console.log(id);
+    if (id == null) {
+      respuesta.sendStatus(404).send("no puedo encontrar ese usuario");
+      return;
+    } else {
+      var medida = await logica.obtenerMediaMedicionesDia(id);
+      let resultado = {media: medida}
+      respuesta.send(JSON.stringify(medida));
+    }
+  }); // GET /obtenerMediaMedidas/?id_usuario=<texto>
   //------------------------------------------------------------------------------
   /**
    * POST /borrarUsuario/?correo=<texto>

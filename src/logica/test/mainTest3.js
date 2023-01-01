@@ -20,10 +20,10 @@ describe("Test 3, probar que busca medidas", function () {
     //------------------------------------------------------------------------------
     // probar que obtiene medidas
     //------------------------------------------------------------------------------
-    it("probando GET /obtenerUltimaMedida", function (hecho) {
+    it("probando GET /obtenerFechaUltimaMedida", function (hecho) {
         request.get(
           {
-            url: PUERTO_IP+"/obtenerUltimaMedida?id_usuario=7",
+            url: PUERTO_IP+"/obtenerFechaUltimaMedida?id_usuario=40",
             headers: { "User-Agent": "ClaudiaTorresCruz" },
           },
           function (err, res, carga) {
@@ -31,12 +31,37 @@ describe("Test 3, probar que busca medidas", function () {
             assert.equal(res.statusCode, 200, "¿El código no es 200 (OK)");
             var cargaJSON = JSON.parse(carga);
             assert.equal(
-              cargaJSON[0].Dato.toString(),
-              "20",
-              "¿El dato no es 20?"
+              cargaJSON[0].Fecha.toString(),
+              "2023-01-01T17:19:09.000Z",
+              "La fecha no es 2023-01-01T17:19:09.000Z?"
             );
             hecho();
           }
         );
       }); //it()
+          //------------------------------------------------------------------------------
+    // probar que obtiene medidas
+    //------------------------------------------------------------------------------
+    it("probando GET /obtenerMediaMedidas", function (hecho) {
+      request.get(
+        {
+          url: PUERTO_IP+"/obtenerMediaMedidas?id_usuario=40",
+          headers: { "User-Agent": "ClaudiaTorresCruz" },
+        },
+        function (err, res, carga) {
+          console.log("hola");
+          assert.equal(err, null, "¿Ha fallado algo?");
+          console.log("hola");
+          assert.equal(res.statusCode, 200, "¿El código no es 200 (OK)");
+          var cargaJSON = JSON.parse(carga);
+          console.log(cargaJSON.toString());
+          assert.equal(
+            cargaJSON.toString(),
+            "12.5",
+            "¿El valor no es 12.5?"
+          );
+          hecho();
+        }
+      );
+    }); //it()
 }); //()
