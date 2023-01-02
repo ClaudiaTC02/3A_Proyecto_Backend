@@ -23,10 +23,11 @@ Lo que se debe instalar para hacer funcionar este proyecto es XAMPP para ello en
 [XAMPP](https://www.apachefriends.org/es/download.html).
 ```
 
-Además, deberás instalar node.js en tu ordenador, puedes hacerlo desde el siguiente enlace.
+Además, deberás instalar node.js y selenium en tu ordenador, puedes hacerlo desde el siguiente enlace.
 
 ```
 [Node.js](https://nodejs.org/en/).
+Selenium
 ```
 
 Después, deberás añadir la ruta correctamente para que la implementación de Node.js sea satisfactoria.
@@ -45,7 +46,7 @@ Deberás seguir los siguientes pasos:
 
 6. Haga clic en Editar
 
-7. Ahora, en Valor de variable, agregue la ruta de acceso donde se instaló Node.js. ( C:\Archivos de programa\nodejs\).
+7. Ahora, en Valor de variable, agregue la ruta de acceso donde se instaló Node.js. ( C:\Archivos de programa\nodejs\), realiza el mismo procedimiento para Selenium.
 
 8. Aceptar y Aplicar en las siguientes ventanas.
 
