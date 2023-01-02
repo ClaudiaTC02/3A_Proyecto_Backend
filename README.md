@@ -27,7 +27,7 @@ Además, deberás instalar node.js y selenium en tu ordenador, puedes hacerlo de
 
 ```
 [Node.js](https://nodejs.org/en/).
-Selenium
+[Selenium](https://www.npmjs.com/package/selenium-webdriver)
 ```
 
 Después, deberás añadir la ruta correctamente para que la implementación de Node.js sea satisfactoria.
