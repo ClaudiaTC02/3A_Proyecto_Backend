@@ -16,10 +16,9 @@ const chai = require("chai");
 const Logica = require("../logica");
 const conexion = new Logica("gti3a_test", "root", "localhost", 3306, "mysql");
 //------------------------------------------------------------------------------
-describe("Test, probar que obtiene usuarios", function () {
+describe("Test, probar métodos que buscan usuarios o dispositivos", function () {
   this.beforeAll(async function () {
     console.log("BEFORE ALL: Preparación de los test");
-    // PRIMERO BORRO LOS DATOS DE LA TABLA DE USUARIO POR SI HUBIERAN
     var datosUsuario = {
       id: "",
       Nombre: "Claudia",
@@ -63,10 +62,9 @@ describe("Test, probar que obtiene usuarios", function () {
     }
   });
   //------------------------------------------------------------------------------
-  // probar que obtiene usuarios
+  // probar que obtiene todos los usuarios
   //------------------------------------------------------------------------------
   it("probando GET /obtenerUsuarios", function (hecho) {
-    console.log("eey");
     request(app)
       .get("/obtenerUsuarios")
       .set("User-Agent", "ClaudiaTorresCruz")
@@ -82,17 +80,18 @@ describe("Test, probar que obtiene usuarios", function () {
       .end(hecho);
   }); //it()
   //------------------------------------------------------------------------------
-  // probar que busca usuarios
+  // probar que verifica que el usuario pertenece a la base de datos
   //------------------------------------------------------------------------------
-  it("probando GET /verificarUsuario", function (hecho) {
+  it("probando GET /verificarUsuario cuando existe", function (hecho) {
     request(app)
       .get("/verificarUsuario?Correo=prueba@prueba.com&Contrasena=1234")
       .set("User-Agent", "ClaudiaTorresCruz")
       .expect(200)
       .expect((res) => {
+        console.log(res);
         var cargaJSON = JSON.parse(res.text);
         assert.equal(
-          cargaJSON.Nombre.toString(),
+        cargaJSON.Nombre.toString(),
           "Claudia",
           "¿El nombre no es Claudia?"
         );
@@ -100,7 +99,17 @@ describe("Test, probar que obtiene usuarios", function () {
       .end(hecho);
   }); //it()
   //------------------------------------------------------------------------------
-  // probar que busca usuarios
+  // probar que si un usuario no existe lanza un 404
+  //------------------------------------------------------------------------------
+  it("probando GET /verificarUsuario cuando no existe", function (hecho) {
+    request(app)
+      .get("/verificarUsuario?Correo=prueba@prueba.com&Contrasena=1111")
+      .set("User-Agent", "ClaudiaTorresCruz")
+      .expect(404)
+      .end(hecho);
+  }); //it()
+  //------------------------------------------------------------------------------
+  // probar que la lista de usuarios que tiene un administrador es correcta
   //------------------------------------------------------------------------------
   it("probando GET /buscarUsuariosDeAdmin", function (hecho) {
     request(app)
@@ -116,6 +125,75 @@ describe("Test, probar que obtiene usuarios", function () {
         );
       })
       .end(hecho);
+  }); //it()
+  //------------------------------------------------------------------------------
+  // probar que obtieen el id de un usuario
+  //------------------------------------------------------------------------------
+  it("probando GET /obtenerIdUsuario cuando existe", function (hecho) {
+    request(app)
+      .get("/obtenerIdUsuario?Correo=prueba@prueba.com")
+      .set("User-Agent", "ClaudiaTorresCruz")
+      .expect(200)
+      .expect((res)=> {
+        var cargaJSON = JSON.parse(res.text);
+        assert.equal(cargaJSON.id.toString(), "1", "¿El id no es 1?");
+      })
+      .end(hecho);
+  });
+  //------------------------------------------------------------------------------
+  // probar que muestra una excepcion si no existe
+  //------------------------------------------------------------------------------
+  it("probando GET /obtenerIdUsuario cuando el correo no existe", function (hecho) {
+    request(app)
+      .get("/obtenerIdUsuario?Correo=pruebaaaaaa@prueba.com")
+      .set("User-Agent", "ClaudiaTorresCruz")
+      .expect(404)
+      .end(hecho);
+  });
+  //------------------------------------------------------------------------------
+  // probar que muestra una excepcion si no tiene un correo
+  //------------------------------------------------------------------------------
+  it("probando GET /obtenerIdUsuario cuando el correo está vacío", function (hecho) {
+    request(app)
+      .get("/obtenerIdUsuario?Correo=")
+      .set("User-Agent", "ClaudiaTorresCruz")
+      .expect(404)
+      .end(hecho)
+  });
+  //------------------------------------------------------------------------------
+  // probar que obtien el id de un dispositivo
+  //------------------------------------------------------------------------------
+  it("probando GET /obtenerIdDispositivo cuando existe", function (hecho) {
+    request(app)
+      .get("/obtenerIdDispositivo?Nombre=Gas")
+      .set("User-Agent", "ClaudiaTorresCruz")
+      .expect(200)
+      .expect((res)=> {
+        var cargaJSON = JSON.parse(res.text);
+        console.log(cargaJSON)
+        assert.equal(cargaJSON.id.toString(), "1", "¿El id no es 1?");
+      })
+      .end(hecho);
+  }); //it()
+  //------------------------------------------------------------------------------
+  // probar que si el dispositivo no existe muestra una excepción
+  //------------------------------------------------------------------------------
+  it("probando GET /obtenerIdDispositivo cuando el nombre no existe", function (done) {
+    request(app)
+      .get("/obtenerIdDispositivo?Nombre=Sensor")
+      .set("User-Agent", "ClaudiaTorresCruz")
+      .expect(404)
+      .end(done)
+  }); //it()
+  //------------------------------------------------------------------------------
+  // probar que si no se da un nombre de dispositivo
+  //------------------------------------------------------------------------------
+  it("probando GET /obtenerIdDispositivo cuando el nombre se da vacío", function (done) {
+    request(app)
+      .get("/obtenerIdDispositivo?Nombre=")
+      .set("User-Agent", "ClaudiaTorresCruz")
+      .expect(404)
+      .end(done)
   }); //it()
   this.afterAll(async function () {
     try {

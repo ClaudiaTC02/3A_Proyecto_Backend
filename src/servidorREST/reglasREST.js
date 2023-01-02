@@ -115,7 +115,11 @@ module.exports.cargar = function (servidor, logica) {
       return;
     } else {
       var usuario = await logica.verificarUsuario(correo, contrasena);
-      respuesta.send(JSON.stringify(usuario[0]));
+      if(usuario != "No se pudo encontrar"){
+        respuesta.send(JSON.stringify(usuario[0]));
+      } else{
+        respuesta.sendStatus(404).send("No se pudo encontrar ese usuario");
+      }
     }
   }); // GET /verificarUsuario/?Correo=<texto>&Contraseña=<texto>
   //------------------------------------------------------------------------------
@@ -133,7 +137,11 @@ module.exports.cargar = function (servidor, logica) {
       return;
     } else {
       var usuario = await logica.obtenerIdUsuario(correo);
-      respuesta.send(JSON.stringify(usuario[0]));
+      if(usuario != "No se pudo encontrar"){
+        respuesta.send(JSON.stringify(usuario[0]));
+      } else{
+        respuesta.sendStatus(404).send("No se pudo encontrar ese usuario");
+      }
     }
   }); // GET /obtenerIdUsuario/?Correo=<texto>
   //------------------------------------------------------------------------------
@@ -147,11 +155,15 @@ module.exports.cargar = function (servidor, logica) {
     console.log(nombre);
 
     if (nombre == null) {
-      respuesta.sendStatus(404).send("no puedo encontrar ese dispositivo");
+      respuesta.sendStatus(404).send("No puedo encontrar ese dispositivo");
       return;
     } else {
       var dispositivo = await logica.obtenerIdDispositivo(nombre);
-      respuesta.send(JSON.stringify(dispositivo[0]));
+      if(dispositivo != "No se pudo encontrar"){
+        respuesta.send(JSON.stringify(dispositivo[0]));
+      } else{
+        respuesta.sendStatus(404).send("No puedo encontrar ese dispositivo");
+      }
     }
   }); // GET /obtenerIdDispositivo/?Nombre=<texto>
   //------------------------------------------------------------------------------
@@ -198,12 +210,15 @@ module.exports.cargar = function (servidor, logica) {
     var id = peticion.query.id_usuario;
     console.log(id);
     if (id == null) {
-      respuesta.sendStatus(404).send("no puedo encontrar ese usuario");
+      respuesta.sendStatus(404).send("No se pudieron encontrar medidas");
       return;
     } else {
       var medida = await logica.obtenerMediaMedicionesDia(id);
-      let resultado = {media: medida}
-      respuesta.send(JSON.stringify(medida));
+      if(!Number.isNaN(medida)) {
+        respuesta.send(JSON.stringify(medida));
+      } else {
+        respuesta.sendStatus(404).send("No se pudieron encontrar medidas");
+      }
     }
   }); // GET /obtenerMediaMedidas/?id_usuario=<texto>
   //------------------------------------------------------------------------------

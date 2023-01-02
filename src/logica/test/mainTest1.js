@@ -21,7 +21,7 @@ const conexion = new Logica("gti3a_test", "root", "localhost", 3306, "mysql")
 //------------------------------------------------------------------------------
 // probar que se establece conexión
 //------------------------------------------------------------------------------
-describe("Test 1, probar conexión e insertar usuarios", function () {
+describe("Test, probar conexión e insertar usuarios", function () {
   this.beforeAll(async function () {
     console.log("BEFORE ALL: Preparación de los test");
     // PRIMERO BORRO LOS DATOS DE LA TABLA DE USUARIO POR SI HUBIERAN
@@ -56,7 +56,6 @@ describe("Test 1, probar conexión e insertar usuarios", function () {
       Correo: "prueba@prueba.com",
       EsAdmin: "0",
     };
-    console.log(process.env.NODE_ENV);
     request(app)
       .post("/usuario")
       .set("User-Agent", "ClaudiaTorresCruz")
@@ -69,14 +68,13 @@ describe("Test 1, probar conexión e insertar usuarios", function () {
   // probar que no añade usuarios que tienen el mismo correo
   //------------------------------------------------------------------------------
   it("probar POST /usuario", (done) => {
-    const datos = {
+    let datos = {
       id: "",
       Nombre: "Pepe",
       Contrasena: "1234",
       Correo: "prueba@prueba.com",
       EsAdmin: "0",
     };
-    console.log(process.env.NODE_ENV);
     request(app)
       .post("/usuario")
       .set("User-Agent", "ClaudiaTorresCruz")
@@ -88,30 +86,9 @@ describe("Test 1, probar conexión e insertar usuarios", function () {
   this.afterAll(async function () {
     try {
       await conexion.borrarRegistros({Nombre:"usuario"})
+      await conexion.borrarRegistros({Nombre:"usuario"})
     } catch (e) {
       console.log("ERROR")
     } 
   });
 }); //()
- //------------------------------------------------------------------------------
-  // probar que elimina usuarios
-  //------------------------------------------------------------------------------
-  /*it("probar POST /borrarUsuario", function (hecho) {
-    var datos = {
-      id: "",
-      Nombre: "Claudia",
-      Contrasena: "1234",
-      Correo: "prueba@prueba.com",
-      EsAdmin: "0",
-    };
-    request(app)
-      .post("/borrarUsuario")
-      .set("User-Agent", "ClaudiaTorresCruz")
-      .set("Content-Type", "application/json")
-      .send(datos)
-      .expect(200)
-      .end(hecho);
-  }); //it()
-  after(async function(){
-    console.log('Se ejecuta al final de los test')
-  })*/

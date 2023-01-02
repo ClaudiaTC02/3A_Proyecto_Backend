@@ -37,16 +37,11 @@ async function main() {
   var servidorExpress = express();
   if(isTestMode){
     //db de pruebas
-    console.log("no test")
-    console.log(process.env.NODE_ENV)
     logica = cargarLogica("gti3a_test", "root", "localhost", 3306, "mysql");
   } else{
-    console.log("normal")
-    console.log(process.env.NODE_ENV)
     logica = cargarLogica("gti3a_proyecto", "root", "localhost", 3306, "mysql");
   }
   // para poder acceder a la carga de la peticion
-  console.log(logica)
   servidorExpress.use(express.json());
   servidorExpress.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");

@@ -152,13 +152,23 @@ module.exports = class Logica {
    */
   async verificarUsuario(correo, contrasena) {
     // SELECT * FROM Usuario WHERE Correo = $correo AND Contraseña = $contraseña;
-    return await modeloUsuario.findAll({
-      where: {
-        Correo: correo,
-        Contrasena: contrasena,
-      },
-      raw: true,
-    });
+    try{
+      var usuario =  await modeloUsuario.findAll({
+        where: {
+          Correo: correo,
+          Contrasena: contrasena,
+        },
+        raw: true,
+      });
+    } catch(error){
+      return "No se pudo encontrar"
+    }
+    if(usuario.length > 0){
+      return usuario
+    } else{
+      console.log(usuario.length)
+      return "No se pudo encontrar"
+    }
   } //verificarUsuario()
   //------------------------------------------------------------------------------
   /**
@@ -169,13 +179,21 @@ module.exports = class Logica {
    */
   async obtenerIdUsuario(correo) {
     // SELECT * FROM Usuario WHERE Correo = $correo
-    return await modeloUsuario.findAll({
-      attributes: ["id"],
-      where: {
-        Correo: correo,
-      },
-      raw: true,
-    });
+    try{
+      var usuario = await modeloUsuario.findAll({
+        attributes: ["id"],
+        where: {
+          Correo: correo,
+        },
+        raw: true,
+      });
+    } catch(error){
+      return "No se pudo encontrar"
+    }
+    if(usuario.length > 0){
+      return usuario
+    }
+    return "No se pudo encontrar"
   } //obtenerIdUsuario()
   //------------------------------------------------------------------------------
   /**
@@ -186,13 +204,21 @@ module.exports = class Logica {
    */
   async obtenerIdDispositivo(nombre) {
     // SELECT * FROM Dispositivo WHERE Nombre = $nombre
-    return await modeloDipositivo.findAll({
-      attributes: ["id"],
-      where: {
-        Nombre: nombre,
-      },
-      raw: true,
-    });
+    try{
+      var dispositivo = await modeloDipositivo.findAll({
+        attributes: ["id"],
+        where: {
+          Nombre: nombre,
+        },
+        raw: true,
+      });
+    } catch(e){
+      return "No se pudo encontrar"
+    }
+    if(dispositivo.length > 0){
+      return dispositivo
+    }
+    return "No se pudo encontrar"
   } //obtenerIdDispositivo()
   //------------------------------------------------------------------------------
   /**
@@ -348,18 +374,16 @@ module.exports = class Logica {
    */
   async insertarMedicion(body) {
     //await modeloMedida.create(body);
-    console.log(body.dispositivo);
-    var nombre = body.medida;
+    var dato = body.medida;
     var latitud_ = body.latitud;
     var longitud_ = body.longitud;
     var fecha_ = body.fecha;
     var dispositivo_id = body.dispositivo;
-    console.log("aaaaa");
     return await this.conexion.query(
       "INSERT INTO `medida`(`Id`, `Dato`, `Fecha`, `Latitud`, `Longitud`, `Id_Dispositivo`) VALUES ('',:medida,:fecha,:latitud,:longitud,:id_disp)",
       {
         replacements: {
-          medida: nombre,
+          medida: dato,
           latitud: latitud_,
           longitud: longitud_,
           fecha: fecha_,
@@ -417,6 +441,7 @@ module.exports = class Logica {
     let suma = medidas.reduce((acumulador, elemento) => {
       return acumulador + elemento.Dato;
     }, 0);  // el valor inicial del acumulador es 0
+    console.log(medidas);
     return suma/tam
   } //obtenerMediaMedicionesDia()
   //------------------------------------------------------------------------------
