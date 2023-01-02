@@ -48,6 +48,9 @@ module.exports = class Logica {
       host: host,
       port: puerto,
       dialect: dialecto,
+      dialectOptions: {
+        multipleStatements: true
+      }
     });
   }
   //------------------------------------------------------------------------------
@@ -73,6 +76,48 @@ module.exports = class Logica {
     // INSERT INTO Usuario ('id', 'nombre', 'contraseña', 'correo') VALUES ()
     await modeloUsuario.create(body);
   } // insertarUsuario()
+  //------------------------------------------------------------------------------
+  /**
+   * *
+   * @brief este método se encarga de insertar un dispositivo
+   * @param body contenido a insertar
+   * Diseño: body: [{Ciudad_id: int, nombre: texto}] --> insertarDispositivo() --> 201 | 404
+   */
+  async insertarDispositivo(body) {
+    // INSERT INTO Usuario_Dispositivo ('idUsuario', 'idDispositivo') VALUES ()
+    //await modeloUsuario_Dispositivo.create(body);
+    return await this.conexion.query(
+      "INSERT INTO `dispositivo`(`Id`, `Nombre`, `Id_Ciudad`) VALUES ('', :nombre, :ciudad)",
+      {
+        replacements: {
+          ciudad: body.Ciudad_id,
+          nombre: body.Nombre,
+        },
+        type: QueryTypes.INSERT,
+      }
+    );
+  } // insertarDispositivo()
+  //------------------------------------------------------------------------------
+  /**
+   * *
+   * @brief este método se encarga de insertar una ciudad
+   * @param body contenido a insertar
+   * Diseño: body: [{Admin_id: int, nombre: texto}] --> insertarCiudad() --> 201 | 404
+   */
+  async insertarCiudad(body) {
+    // INSERT INTO Usuario_Dispositivo ('idUsuario', 'idDispositivo') VALUES ()
+    //await modeloUsuario_Dispositivo.create(body);
+    return await this.conexion.query(
+      "INSERT INTO `ciudad`(`Id`, `Nombre`, `Id_Admin`) VALUES ('', :nombre, :id)",
+      {
+        replacements: {
+          id: body.Admin_id,
+          nombre: body.Nombre,
+        },
+        type: QueryTypes.INSERT,
+      }
+    );
+  } // insertarCiudad()
   //------------------------------------------------------------------------------
   /**
    * *
@@ -374,4 +419,38 @@ module.exports = class Logica {
     }, 0);  // el valor inicial del acumulador es 0
     return suma/tam
   } //obtenerMediaMedicionesDia()
+  //------------------------------------------------------------------------------
+  /**
+   * *
+   * @brief este método se encarga de eliminar una relación dispositivo-usuario
+   * @param id_usuario id del usuario para eliminar el enlace usuario_dispositivo
+   * Diseño: id_usuario:N --> borrarRegistros() --> 200 | 404
+   */
+  async borrarRegistros(body) {
+    // DELETE * FROM Usuario WHERE Correo = $correo
+    let sentencia
+    switch(body.Nombre){
+      case "usuario":
+        sentencia = "DELETE FROM usuario; ALTER TABLE usuario AUTO_INCREMENT = 1;"
+        break
+      case "usuario_dispositivo":
+        sentencia = "DELETE FROM usuario_dispositivo; ALTER TABLE usuario_dispositivo AUTO_INCREMENT = 1;"
+        break
+      case "ciudad":
+        sentencia = "DELETE FROM ciudad; ALTER TABLE ciudad AUTO_INCREMENT = 1;"
+        break
+      case "medida":
+        sentencia = "DELETE FROM medida; ALTER TABLE medida AUTO_INCREMENT = 1;"
+        break
+      case "dispositivo":
+        sentencia = "DELETE FROM dispositivo; ALTER TABLE dispositivo AUTO_INCREMENT = 1;"
+    }
+    await this.conexion.query(
+      sentencia
+    ).then(function() {
+      console.log('La base de datos se ha vaciado correctamente');
+    }, function(err) {
+      throw err;
+    })
+  } //borrarRegistros()
 }; //class()

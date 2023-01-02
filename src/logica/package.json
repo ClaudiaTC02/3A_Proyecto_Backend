@@ -10,10 +10,12 @@
     },
     "dependencies": {
         "assert": "^2.0.0",
+        "chai": "^4.3.7",
         "mailtrap": "^3.0.1",
         "mysql2": "*",
         "selenium-webdriver": "^4.7.1",
-        "sequelize": "*"
+        "sequelize": "*",
+        "supertest": "^6.3.3"
     },
     "devDependencies": {
         "mocha": "*",

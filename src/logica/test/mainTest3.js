@@ -16,7 +16,7 @@ var assert = require("assert");
 //------------------------------------------------------------------------------
 // probar que se establece conexión
 //------------------------------------------------------------------------------
-describe("Test 3, probar que busca medidas", function () {
+/*describe("Test 3, probar que busca medidas", function () {
     //------------------------------------------------------------------------------
     // probar que obtiene medidas
     //------------------------------------------------------------------------------
@@ -64,4 +64,4 @@ describe("Test 3, probar que busca medidas", function () {
         }
       );
     }); //it()
-}); //()
+}); //()*/

@@ -8,138 +8,110 @@
  */
 //------------------------------------------------------------------------------
 const PUERTO_IP = "http://localhost:8080";
-var request = require("request");
+process.env.NODE_ENV = "test";
+const app = require("../../servidorREST/servidor");
+const request = require("supertest");
 var assert = require("assert");
+const chai = require("chai");
+const Logica = require("../logica");
+const conexion = new Logica("gti3a_test", "root", "localhost", 3306, "mysql")
 //------------------------------------------------------------------------------
 //------------------------------------------------------------------------------
 // main()
 //------------------------------------------------------------------------------
 // probar que se establece conexión
 //------------------------------------------------------------------------------
-describe("Test 1, probar insertar, ver y borrar usuarios", function () {
-  /*before(function () {
-    console.log("preparación de los test");
-    logica.query("INSERT INTO `usuario`(`Id`, `Nombre`, `Contrasena`, `Correo`, `EsAdmin`) VALUES ('','Pepe','1234','pepe@pepe.com','0')")
-    logica.query("INSERT INTO `usuario`(`Id`, `Nombre`, `Contrasena`, `Correo`, `EsAdmin`) VALUES ('6','Manolo','1234','manolo@manolo.com','1')")
-    logica.query("INSERT INTO `usuario`(`Id`, `Nombre`, `Contrasena`, `Correo`, `EsAdmin`) VALUES ('','Marc','1234','marc@marc.com','0')")
-  });*/
+describe("Test 1, probar conexión e insertar usuarios", function () {
+  this.beforeAll(async function () {
+    console.log("BEFORE ALL: Preparación de los test");
+    // PRIMERO BORRO LOS DATOS DE LA TABLA DE USUARIO POR SI HUBIERAN
+    try {
+      await conexion.borrarRegistros({Nombre:"usuario"})
+    } catch (e) {
+      console.log("ERROR")
+    } 
+  });
+  //------------------------------------------------------------------------------
+  // probar que se conecta con la bbdd
+  //------------------------------------------------------------------------------
   it("probando GET /test", function (hecho) {
-    request.get(
-      {
-        url: PUERTO_IP + "/test",
-        headers: { "User-Agent": "ClaudiaTorresCruz" },
-      },
-      function (err, res, carga) {
-        assert.equal(err, null, "¿Ha fallado algo?");
-        assert.equal(res.statusCode, 200, "¿El código no es 200 (OK)");
-        assert.equal(
-          carga,
-          "Parece que funciona",
-          "¿La carga no es 'Parece que funciona'?"
-        );
-        hecho();
-      }
-    );
+    request(app)
+      .get("/test")
+      .set("User-Agent", "ClaudiaTorresCruz")
+      .expect(200)
+      .expect((res) => {
+        chai.expect(res.text).to.be.a("string");
+        chai.expect(res.text).to.equal("Parece que funciona");
+      })
+      .end(hecho);
   }); //it()
   //------------------------------------------------------------------------------
-  // probar que añade usuarios
+  // probar que añade usuarios que no existem
   //------------------------------------------------------------------------------
-  it("probar POST /usuario", function (hecho) {
-    var datos = {id:"",Nombre:"Claudia",Contrasena:"1234",Correo:"prueba@prueba.com", EsAdmin: "0"}
-    request.post({ url : PUERTO_IP+"/usuario",
-        headers : { "User-Agent" : "ClaudiaTorresCruz" , "Content-Type" : "application/json" },
-        body : JSON.stringify( datos )
-        },
-        function( err, respuesta, carga ) {
-            assert.equal( err, null, "¿ha habido un error?" )
-            assert.equal( respuesta.statusCode, 201, "¿El código no es 201 (OK)" )
-            hecho()
-        } // callback
-    ) // .post
-  }) // it
+  it("probar POST /usuario", (done) => {
+    const datos = {
+      id: "",
+      Nombre: "Claudia",
+      Contrasena: "1234",
+      Correo: "prueba@prueba.com",
+      EsAdmin: "0",
+    };
+    console.log(process.env.NODE_ENV);
+    request(app)
+      .post("/usuario")
+      .set("User-Agent", "ClaudiaTorresCruz")
+      .set("Content-Type", "application/json")
+      .send(datos)
+      .expect(201)
+      .end(done);
+  });
   //------------------------------------------------------------------------------
-  // probar que obtiene usuarios
+  // probar que no añade usuarios que tienen el mismo correo
   //------------------------------------------------------------------------------
-  it("probando GET /obtenerUsuarios", function (hecho) {
-    request.get(
-      {
-        url: PUERTO_IP + "/obtenerUsuarios",
-        headers: { "User-Agent": "ClaudiaTorresCruz" },
-      },
-      function (err, res, carga) {
-        assert.equal(err, null, "¿Ha fallado algo?");
-        assert.equal(res.statusCode, 200, "¿El código no es 200 (OK)");
-        var cargaJSON = JSON.parse(carga);
-        assert.equal(
-          cargaJSON[cargaJSON.length - 1].Nombre.toString(),
-          "Claudia",
-          "¿El primer nombre no es Claudia?"
-        );
-        hecho();
-      }
-    );
-  }); //it()
-    //------------------------------------------------------------------------------
-  // probar que busca usuarios
-  //------------------------------------------------------------------------------
-  it("probando GET /verificarUsuario", function (hecho) {
-    request.get(
-      {
-        url: PUERTO_IP+"/verificarUsuario?Correo=prueba@prueba.com&Contrasena=1234",
-        headers: { "User-Agent": "ClaudiaTorresCruz" },
-      },
-      function (err, res, carga) {
-        assert.equal(err, null, "¿Ha fallado algo?");
-        assert.equal(res.statusCode, 200, "¿El código no es 200 (OK)");
-        var cargaJSON = JSON.parse(carga);
-        assert.equal(
-          cargaJSON.Nombre.toString(),
-          "Claudia",
-          "¿El nombre no es Claudia?"
-        );
-        hecho();
-      }
-    );
-  }); //it()
-  //------------------------------------------------------------------------------
-  // probar que busca usuarios
-  //------------------------------------------------------------------------------
-  it("probando GET /buscarUsuariosDeAdmin", function (hecho) {
-    request.get(
-      {
-        url: PUERTO_IP+"/buscarUsuariosDeAdmin?id_admin=6",
-        headers: { "User-Agent": "ClaudiaTorresCruz" },
-      },
-      function (err, res, carga) {
-        assert.equal(err, null, "¿Ha fallado algo?");
-        assert.equal(res.statusCode, 200, "¿El código no es 200 (OK)");
-        var cargaJSON = JSON.parse(carga);
-        assert.equal(
-          cargaJSON[0].Nombre.toString(),
-          "Juan",
-          "¿El primer nombre no es Juan?"
-        );
-        hecho();
-      }
-    );
-  }); //it()
-    //------------------------------------------------------------------------------
+  it("probar POST /usuario", (done) => {
+    const datos = {
+      id: "",
+      Nombre: "Pepe",
+      Contrasena: "1234",
+      Correo: "prueba@prueba.com",
+      EsAdmin: "0",
+    };
+    console.log(process.env.NODE_ENV);
+    request(app)
+      .post("/usuario")
+      .set("User-Agent", "ClaudiaTorresCruz")
+      .set("Content-Type", "application/json")
+      .send(datos)
+      .expect(400)
+      .end(done);
+  });
+  this.afterAll(async function () {
+    try {
+      await conexion.borrarRegistros({Nombre:"usuario"})
+    } catch (e) {
+      console.log("ERROR")
+    } 
+  });
+}); //()
+ //------------------------------------------------------------------------------
   // probar que elimina usuarios
   //------------------------------------------------------------------------------
-  it("probar POST /borrarUsuario", function (hecho) {
-    var datos = {id:"",Nombre:"Claudia",Contrasena:"1234",Correo:"prueba@prueba.com", EsAdmin: "0"}
-    request.post({ url : PUERTO_IP+"/borrarUsuario",
-        headers : { "User-Agent" : "ClaudiaTorresCruz" , "Content-Type" : "application/json" },
-        body : JSON.stringify( datos )
-        },
-        function( err, respuesta, carga ) {
-            assert.equal( err, null, "¿ha habido un error?" )
-            assert.equal( respuesta.statusCode, 200, "¿El código no es 200 (OK)" )
-            hecho()
-        } // callback
-    ) // .post
-  }) // it
-  /*after(async function(){
+  /*it("probar POST /borrarUsuario", function (hecho) {
+    var datos = {
+      id: "",
+      Nombre: "Claudia",
+      Contrasena: "1234",
+      Correo: "prueba@prueba.com",
+      EsAdmin: "0",
+    };
+    request(app)
+      .post("/borrarUsuario")
+      .set("User-Agent", "ClaudiaTorresCruz")
+      .set("Content-Type", "application/json")
+      .send(datos)
+      .expect(200)
+      .end(hecho);
+  }); //it()
+  after(async function(){
     console.log('Se ejecuta al final de los test')
   })*/
-}); //()

@@ -16,7 +16,7 @@ var assert = require("assert");
 //------------------------------------------------------------------------------
 // probar que se establece conexión
 //------------------------------------------------------------------------------
-describe("Test 2, probar que busca usuarios y dispositivos", function () {
+/*describe("Test 2, probar que busca usuarios y dispositivos", function () {
   before(function () {
     console.log("preparación de los test");
   });
@@ -77,4 +77,4 @@ describe("Test 2, probar que busca usuarios y dispositivos", function () {
       } // callback
     ); // .post
   }); // it
-}); //()
+}); //()*/

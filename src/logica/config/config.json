@@ -9,7 +9,7 @@
   "test": {
     "username": "root",
     "password": null,
-    "database": "gti3a_proyecto",
+    "database": "gti3a_test",
     "host": "localhost",
     "dialect": "mysql"
   },

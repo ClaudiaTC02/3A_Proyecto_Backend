@@ -51,6 +51,22 @@ module.exports.cargar = function (servidor, logica) {
       respuesta.sendStatus(400);
     }
   }); // post /usuario
+    //------------------------------------------------------------------------------
+  /**
+   * POST /borrarRegistros
+   */
+  //------------------------------------------------------------------------------
+  servidor.post("/borrarRegistros", async function (peticion, respuesta) {
+    console.log(" * POST /borrarRegistros ");
+    const data = peticion.body;
+    console.log(data);
+    try {
+      await logica.borrarRegistros(data);
+      respuesta.sendStatus(201);
+    } catch {
+      respuesta.sendStatus(400);
+    }
+  }); // post /borrarRegistros
   //------------------------------------------------------------------------------
   /**
    * POST /usuario_dispositivo

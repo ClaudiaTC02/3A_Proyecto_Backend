@@ -29,12 +29,24 @@ function cargarLogica(bbdd, usuario, host, puerto, dialecto) {
  */
 //------------------------------------------------------------------------------
 async function main() {
-  var logica = cargarLogica("gti3a_proyecto", "root", "localhost", 3306, "mysql");
+  let logica
   var reglas = require("./reglasREST.js");
   //var medicion = logica.cargarModeloMedicion();
   //creo el servidor
+  const isTestMode = process.env.NODE_ENV === 'test';
   var servidorExpress = express();
+  if(isTestMode){
+    //db de pruebas
+    console.log("no test")
+    console.log(process.env.NODE_ENV)
+    logica = cargarLogica("gti3a_test", "root", "localhost", 3306, "mysql");
+  } else{
+    console.log("normal")
+    console.log(process.env.NODE_ENV)
+    logica = cargarLogica("gti3a_proyecto", "root", "localhost", 3306, "mysql");
+  }
   // para poder acceder a la carga de la peticion
+  console.log(logica)
   servidorExpress.use(express.json());
   servidorExpress.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
@@ -60,6 +72,7 @@ async function main() {
     console.log(" terminando servicio... ");
     servicio.close();
   });
+  module.exports = servicio;
 } // main()
 //------------------------------------------------------------------------------
 //------------------------------------------------------------------------------
