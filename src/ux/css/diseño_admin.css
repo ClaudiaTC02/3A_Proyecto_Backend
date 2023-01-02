@@ -6,6 +6,7 @@
 }
 
 #fondo{
+    width: 100%;
     position: absolute;
     height: 90vh;
     background: linear-gradient(to right,#59A8A8, #a4d0d0);

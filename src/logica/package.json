@@ -9,8 +9,10 @@
         "ayuda": "echo ejecuta esto: npm test"
     },
     "dependencies": {
+        "assert": "^2.0.0",
         "mailtrap": "^3.0.1",
         "mysql2": "*",
+        "selenium-webdriver": "^4.7.1",
         "sequelize": "*"
     },
     "devDependencies": {
