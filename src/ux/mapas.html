@@ -7,10 +7,16 @@
   <link rel="stylesheet" href="css/header.css">
   <link rel="stylesheet" href="css/diseño_mapas.css">
   <link rel="stylesheet" href="css/footer.css">
+  <link rel="stylesheet" href="css/MarkerCluster.css">
+  <link rel="stylesheet" href="css/MarkerCluster.Default.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+  integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
+  crossorigin=""/>
+  
+  
 </head>
 	
 <body>
-	<!--Inicio contacto-->
 	<!-- Inicio Header -->
 	<header id="contenedor_header">
 
@@ -25,11 +31,32 @@
 			</nav>
 
 	</header><!-- Fin Header -->
-	
-
-    <div ><img id="contenedor_imagen" src="images/mapa.png"></div>
-
-	
+  <button id="botonActivador">Buscar medidas por fecha</button>
+  <form id="buscadorFechas">
+    <label id="opciones">
+      <input type="radio" name="opciones" value="5"> Ozono
+    </label>
+    <br>
+    <label>
+      <input type="radio" name="opciones" value="3"> Óxido de Nitrogeno
+    </label>
+    <br>
+    <label>
+      <input type="radio" name="opciones" value="2"> Dióxido de Carbono
+    </label>
+    <br>
+    <br>
+  <label for="fecha">Selecciona una fecha:</label><br>
+  
+  <input type="date" id="fecha" name="fecha"><br>
+  <br>
+  <input type="submit" value="Buscar">
+  <button onclick="reloadPage()">Volver y cerrar</button>
+</form>
+	<div id="map">
+    
+  </div>
+  
     <footer>
       <div id="contenedor_footer">
           <p id="enlace_footer_1"><a><img src="images/instagram.png" id="img_insta" alt="Instagram"></a></p>
@@ -40,8 +67,21 @@
               </ul>
           </nav>
       </div>
-  </footer>
+    </footer>
+
 	<!--Fin landing page-->
 </body>
-
 </html>
+<!--Scripts para hacer aparecer el mapa-->
+
+<script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+  integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
+  crossorigin=""></script>
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.heat/0.2.0/leaflet-heat.js"></script>
+  <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
+  <script src="../scripts/leaflet-heat.js"></script>
+  <script src="../scripts/mapas.js"></script>
+ 
+  
+ 

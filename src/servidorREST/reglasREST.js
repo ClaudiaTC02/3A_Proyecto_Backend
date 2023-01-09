@@ -368,4 +368,58 @@ module.exports.cargar = function (servidor, logica) {
         respuesta.sendStatus(400);
     }
   }) // post /medicion
+  //------------------------------------------------------------------------------
+  /**
+  * GET /obtenerMediciones
+  */
+  //------------------------------------------------------------------------------
+  servidor.get("/obtenerMediciones", async function (peticion, res) {
+    console.log(" * GET /obtenerMediciones ")
+    //llamo a la función de la lógica adecuada
+    var mediciones = await logica.obtenerMediciones();
+    // si el array de mediciones tiene casillas todo fue bien
+    if (mediciones.length > 0) {
+      res.send(mediciones);
+    } else {
+      // 404: not found
+      res.sendStatus(404);
+    }
+  }); // get//obtenerMediciones
+
+  //------------------------------------------------------------------------------
+  /**
+  * GET /obtenerMedicionesDelDia
+  */
+  //------------------------------------------------------------------------------
+  servidor.get("/obtenerMedicionesDelDia", async function (peticion, res) {
+    console.log(" * GET /obtenerMedicionesDelDia ")
+    //llamo a la función de la lógica adecuada
+    var mediciones = await logica.obtenerMedicionesDia();
+    // si el array de mediciones tiene casillas todo fue bien
+    if (mediciones.length > 0) {
+      res.send(mediciones);
+    } else {
+      // 404: not found
+      res.sendStatus(404);
+    }
+  }); // get//obtenerMediciones
+
+  //------------------------------------------------------------------------------
+  /**
+  * GET /obtenerMedicionesDelDiaConFecha
+  */
+  //------------------------------------------------------------------------------
+  servidor.get("/obtenerMedicionesDelDiaConFecha", async function (peticion, res) {
+    console.log(" * GET /obtenerMedicionesDelDiaConFecha")
+    //llamo a la función de la lógica adecuada
+    var fecha= peticion.query.fecha
+    var mediciones = await logica.obtenerMedicionesDiaConFecha(fecha);
+    // si el array de mediciones tiene casillas todo fue bien
+    if (mediciones.length > 0) {
+      res.send(mediciones);
+    } else {
+      // 404: not found
+      res.sendStatus(404);
+    }
+  }); // get//obtenerMediciones
 }; //()

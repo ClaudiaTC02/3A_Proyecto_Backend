@@ -478,4 +478,57 @@ module.exports = class Logica {
       throw err;
     })
   } //borrarRegistros()
+  /**
+   * *
+   * @brief este método se encarga de obtener todas las mediciones
+   * Diseño: obtenerMediciones() --> [{medida: N}] | 404
+   */
+   //------------------------------------------------------------------------------
+  async obtenerMediciones() {
+    const mediciones = await modeloMedida.findAll();
+    return mediciones;
+  } //obtenerMediciones()
+
+  //------------------------------------------------------------------------------
+  /**
+   * *
+   * @brief este método se encarga de obtener las medidas de hoy
+   * Diseño: obtenerMedicionesDia() --> [{medida: N}] | 404
+   */
+   //------------------------------------------------------------------------------
+  async obtenerMedicionesDia() {
+    let fechaHoy = new Date().toISOString().substring(0, 10);
+    console.log(fechaHoy); // imprime la fecha de hoy en formato "YYYY-MM-DD"
+    let fecha_1 = fechaHoy + " " + "00:00:00";
+    let fecha_2 = fechaHoy + " " + "23:59:59";
+    var medidas =  await this.conexion.query(
+      "SELECT * FROM medida WHERE medida.Fecha BETWEEN :fecha1 AND :fecha2;",
+      {
+        replacements: {fecha1: fecha_1, fecha2: fecha_2 },
+        type: QueryTypes.SELECT,
+      }
+    );
+    return medidas
+  } //obtenerMedicionesDia()
+   //------------------------------------------------------------------------------
+  /**
+   * *
+   * @brief este método se encarga de obtener las medidas de una fecha determinada
+   * Diseño: fecha--> obtenerMedicionesDia() --> [{medida: N}] | 404
+   */
+   //------------------------------------------------------------------------------
+  async obtenerMedicionesDiaConFecha(fecha) {
+    let fechaHoy = fecha;
+    console.log(fechaHoy); // imprime la fecha de hoy en formato "YYYY-MM-DD"
+    let fecha_1 = fechaHoy + " " + "00:00:00";
+    let fecha_2 = fechaHoy + " " + "23:59:59";
+    var medidas =  await this.conexion.query(
+      "SELECT * FROM medida WHERE medida.Fecha BETWEEN :fecha1 AND :fecha2;",
+      {
+        replacements: {fecha1: fecha_1, fecha2: fecha_2 },
+        type: QueryTypes.SELECT,
+      }
+    );
+    return medidas
+  } //obtenerMedicionesDia()
 }; //class()
