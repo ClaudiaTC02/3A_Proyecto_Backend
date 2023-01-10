@@ -32,6 +32,7 @@
 
 	</header><!-- Fin Header -->
   <button id="botonActivador">Buscar medidas por fecha</button>
+  
   <form id="buscadorFechas">
     <label id="opciones">
       <input type="radio" name="opciones" value="5"> Ozono
@@ -44,6 +45,10 @@
     <label>
       <input type="radio" name="opciones" value="2"> Dióxido de Carbono
     </label>
+    <br>
+    <br>
+    <label for="checkbox-1">Interpolación</label>
+    <input type="checkbox" id="checkbox-1" name="checkbox-1" value="option-1">
     <br>
     <br>
   <label for="fecha">Selecciona una fecha:</label><br>
@@ -81,7 +86,11 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.heat/0.2.0/leaflet-heat.js"></script>
   <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
   <script src="../scripts/leaflet-heat.js"></script>
+  <script src="../scripts/leaflet-idw.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@turf/turf@5/turf.min.js"></script>
   <script src="../scripts/mapas.js"></script>
+  
+  
  
   
  

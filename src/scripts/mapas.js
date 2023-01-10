@@ -27,6 +27,24 @@ var dioxidoInd= L.layerGroup().addTo(map);
 var groupedLayerGroupOzono = L.layerGroup([points, medidasind]);
 var groupedLayerGroupNitrogeno = L.layerGroup([GroupNitrogeno, nitrogenoInd]);
 var groupedLayerGroupDioxido = L.layerGroup([ grupoDioxido, dioxidoInd]);
+//layer para visualizar el mapa de interpolacion
+var interpolacion= L.layerGroup().addTo(map);
+//ahora para las fechas-----------------------------------------------------------------------------
+//esta es la variable que almacena la capa de puntos que anyadiremos al mapa
+var pointsfecha = L.layerGroup().addTo(map);
+var medidasindfecha = L.layerGroup().addTo(map);
+//grupo de capas para almacenar el nitrogeno
+var GroupNitrogenofecha = L.layerGroup().addTo(map);
+var nitrogenoIndfecha  =L.layerGroup().addTo(map);
+//grupo de capas para almacenar las capas de dioxido de carbono
+var grupoDioxidofecha = L.layerGroup().addTo(map);
+var dioxidoIndfecha= L.layerGroup().addTo(map);
+//layer controler para visualizar los contaminantes
+var groupedLayerGroupOzonofecha = L.layerGroup([pointsfecha, medidasindfecha]);
+var groupedLayerGroupNitrogenofecha = L.layerGroup([GroupNitrogenofecha, nitrogenoIndfecha]);
+var groupedLayerGroupDioxidofecha = L.layerGroup([ grupoDioxidofecha, dioxidoIndfecha]);
+var interpolacionFecha= L.layerGroup().addTo(map);
+var clusterFecha= L.layerGroup().addTo(map);
 //anyadimos un mapa base de open streetmaps
 var osm= L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 17,
@@ -72,31 +90,29 @@ async function buscarMedidas() {
  **/
 //------------------------------------------------------------------------------
 async function mostrarMedidasOzono(){
+  interpolacion.clearLayers();
   var listaDentro =[]
   listaDentro.splice(0,  listaDentro.length)
   listaDentro= await buscarMedidas();
-  
   var listaPortipoOzono= ordenarPortipo(listaDentro,5)
   var listaOrdenadaOzono= ordenarGrupos(listaPortipoOzono)
   var listasolocoordenadasOzono= ordenarGruposCoord(listaPortipoOzono)
-  creadordecluster(listaOrdenadaOzono,points)
+  creadordecluster(listaOrdenadaOzono,groupedLayerGroupOzono)
   hacermapaDeCalorInd(listasolocoordenadasOzono,listaOrdenadaOzono,medidasind)
   hacermapaDeCalor(listasolocoordenadasOzono,listaOrdenadaOzono,points)
+  hacermapaDeInterpolacion(listaPortipoOzono,interpolacion)
   
-  map.on('zoomend', function() {
-    if (map.getZoom() <= 17 && map.hasLayer(groupedLayerGroupOzono)) {
-      points.addTo(map);
-    } else {
-      map.removeLayer(points);
+  map.on("zoomend", function() {
+    var currentZoom = map.getZoom();
+    if (currentZoom >= 15) {
+      groupedLayerGroupOzono.removeLayer(points);
+      groupedLayerGroupOzono.addLayer(medidasind);
+    } else if (currentZoom == 14) {
+      groupedLayerGroupOzono.addLayer(points);
+      groupedLayerGroupOzono.removeLayer(medidasind);
     }
   });
-  map.on('zoomend', function() {
-    if (map.getZoom() >= 15) {
-      medidasind.addTo(map)&& map.hasLayer(groupedLayerGroupOzono);
-    } else {
-      map.removeLayer(medidasind);
-    }
-  });
+  
 
 }// fin mostrarMedidasOzono
 //------------------------------------------------------------------------------
@@ -106,25 +122,23 @@ async function mostrarMedidasOzono(){
  **/
 //------------------------------------------------------------------------------
 async function mostrarMedidasNitrogeno(){
+  interpolacion.clearLayers();
   var listaDentro = await buscarMedidas();
   var listaPortipoNitrogeno= ordenarPortipo(listaDentro,3)
   var listaOrdenadaNitrogeno= ordenarGrupos(listaPortipoNitrogeno)
   var listasolocoordenadasNitrogeno= ordenarGruposCoord(listaPortipoNitrogeno)
-  creadordecluster(listaOrdenadaNitrogeno,GroupNitrogeno)
+  creadordecluster(listaOrdenadaNitrogeno,groupedLayerGroupNitrogeno)
   hacermapaDeCalorInd(listasolocoordenadasNitrogeno,listaOrdenadaNitrogeno, nitrogenoInd)
   hacermapaDeCalor(listasolocoordenadasNitrogeno,listaOrdenadaNitrogeno,GroupNitrogeno)
-  map.on('zoomend', function() {
-    if (map.getZoom() <= 17 && map.hasLayer(groupedLayerGroupNitrogeno)) {
-      GroupNitrogeno.addTo(map);
-    } else {
-      map.removeLayer(GroupNitrogeno)&& map.hasLayer(GroupNitrogeno);
-    }
-  });
-  map.on('zoomend', function() {
-    if (map.getZoom() >= 15 && map.hasLayer(groupedLayerGroupNitrogeno)) {
-      nitrogenoInd.addTo(map);
-    } else {
-      map.removeLayer(nitrogenoInd);
+  hacermapaDeInterpolacion(listaPortipoNitrogeno,interpolacion)
+  map.on("zoomend", function() {
+    var currentZoom = map.getZoom();
+    if (currentZoom >= 15) {
+      groupedLayerGroupNitrogeno.removeLayer(GroupNitrogeno);
+      groupedLayerGroupNitrogeno.addLayer(nitrogenoInd);
+    } else if (currentZoom == 14) {
+      groupedLayerGroupNitrogeno.addLayer(GroupNitrogeno);
+      groupedLayerGroupNitrogeno.removeLayer(nitrogenoInd);
     }
   });
     //--Fin Gas Nitrogeno()---------------------------------------
@@ -137,14 +151,25 @@ async function mostrarMedidasNitrogeno(){
  **/
 //------------------------------------------------------------------------------
 async function mostrarMedidasDioxidoCarbono(){
+  interpolacion.clearLayers();
   var listaDentro = await buscarMedidas();
   var listaPortipoDioxido= ordenarPortipo(listaDentro,2)
   var listaOrdenadaDioxido= ordenarGrupos(listaPortipoDioxido)
   var listasolocoordenadasDioxido= ordenarGruposCoord(listaPortipoDioxido)
-  creadordecluster(listaOrdenadaDioxido,grupoDioxido)
+  creadordecluster(listaOrdenadaDioxido,groupedLayerGroupDioxido)
   hacermapaDeCalorInd( listasolocoordenadasDioxido,listaOrdenadaDioxido, dioxidoInd)
   hacermapaDeCalor( listasolocoordenadasDioxido,listaOrdenadaDioxido,grupoDioxido)
- 
+  hacermapaDeInterpolacion(listaPortipoDioxido,interpolacion)
+  map.on("zoomend", function() {
+    var currentZoom = map.getZoom();
+    if (currentZoom >= 15) {
+      groupedLayerGroupDioxido.removeLayer(grupoDioxido);
+      groupedLayerGroupDioxido.addLayer(dioxidoInd);
+    } else if (currentZoom == 14) {
+      groupedLayerGroupDioxido.addLayer(grupoDioxido);
+      groupedLayerGroupDioxido.removeLayer(dioxidoInd);
+    }
+  });
 }// fin mostrarMedidasdioxido de carbono
 
 //le atribuimos al conjunto de capas de puntos globales e individuales llamar a la funcion
@@ -162,7 +187,10 @@ var baseMaps ={
   "Óxido de nitrógeno": groupedLayerGroupNitrogeno,
   "Dióxido de carbono": groupedLayerGroupDioxido,
 }
-
+var overlayMaps = {
+  "Interpolación": interpolacion,
+};
+map.removeLayer(interpolacion);
 //le atribuimos al conjunto de capas de puntos globales e individuales llamar a la funcion
 //que muestre sus medidas cuando las seleccionemos
 groupedLayerGroupOzono.addEventListener('add', function() {
@@ -187,6 +215,7 @@ function ordenarPortipo(lista,tipo){
       listaIgual.push(lista[i])
     }
   }
+  
   return listaIgual
 }
 
@@ -339,6 +368,7 @@ function creadordecluster(lista,tipo){
       // add the cluster group to the array
       clusterGroups.push(clusterGroup);
       clusterGroup.addTo(tipo)
+      
      
     }
     //limpliamos todas las listas
@@ -379,8 +409,8 @@ function hacermapaDeCalor(listacoord,listamed,tipo){
    //se las pasamos al mapa de calor
     heatLayers[i]= L.heatLayer(listacoord[i], {
       radius: 60,
-      blur: 15,
-      minOpacity:0.5,
+      blur: 25,
+      minOpacity:0.3,
     });
     //ahora asignamos sus colores
     var suma=0
@@ -391,9 +421,11 @@ function hacermapaDeCalor(listacoord,listamed,tipo){
     }
     //obtenemos la media
     media=suma/listamed[i].length
+    
     //le asignamos los colores al mapa de calor
     nivelMapadeCalor(heatLayers[i],media)
-    //anyadimos el mapa de calor a la lista de mapas de calor 
+    //anyadimos el mapa de calor a la lista de mapas de calor
+    
     heatLayers[i].addTo(tipo)
     //limpliamos la lista para la siguiente pasada del for
     listapuntosExtra.splice(0,listapuntosExtra.length)
@@ -427,29 +459,24 @@ function hacermapaDeCalorInd(listacoordind,listamedind,tipo){
    
   }
   //anyadimos puntos extra a sus lados
+
   for(var i=0;i<listaIndCoord.length;i++){
-    
-    listaIndPuntosExtra.splice(0,listaIndPuntosExtra.length)
-    listaIndPuntosExtra.push([listaIndCoord[i][0],listaIndCoord[i][1]])
-    listaIndPuntosExtra.push([listaIndCoord[i][0]+0.000269,listaIndCoord[i][1]+0.000200])
-    listaIndPuntosExtra.push([listaIndCoord[i][0]-0.000231,listaIndCoord[i][1]+0.000272])
-    listaIndPuntosExtra.push([listaIndCoord[i][0]-0.000327,listaIndCoord[i][1]-0.000308])
-    
-    //se las pasamos al mapa de calor
-    
-    listaHeadlayersInd[i]= L.heatLayer([], {
-     radius: 50,
-     blur: 30,
-     minOpacity:0.2,
+    var extraPoints = []
+    extraPoints.push([listaIndCoord[i][0],listaIndCoord[i][1]])
+    extraPoints.push([listaIndCoord[i][0]+0.000269,listaIndCoord[i][1]+0.000200])
+    extraPoints.push([listaIndCoord[i][0]-0.000231,listaIndCoord[i][1]+0.000272])
+    extraPoints.push([listaIndCoord[i][0]-0.000327,listaIndCoord[i][1]-0.000308])
+    var heatmap = L.heatLayer(extraPoints, {
+     radius: 35,
+     blur: 65,
+     minOpacity:0.01,
    });
-   //le pasamos los puntos al mapa de calor
-   listaHeadlayersInd[i].setLatLngs(listaIndPuntosExtra);
    //le asignamos el color a cada medida
-   nivelMapadeCalor(listaHeadlayersInd[i],listaIndMedia[i])
+   nivelMapadeCalor(heatmap,listaIndMedia[i])
    //se lo asignamos a su respectivo grupo
-   listaHeadlayersInd[i].addTo(tipo)
-  }
-   
+   heatmap.addTo(tipo)
+}
+  
 }
 
 //------------------------------------------------------------------------------
@@ -460,8 +487,18 @@ function hacermapaDeCalorInd(listacoordind,listamedind,tipo){
  **/
 //------------------------------------------------------------------------------
 function nivelMapadeCalor(mapaDeCalor,media){
+  
   //si la concentracion de gases es baja
-  if(media<=0.6){
+  if(media<=0.2){
+    mapaDeCalor.setOptions({
+      gradient: {
+        0.4: '#adcfeb',
+        0.65: '#7fb8e1',
+        1: '#0096d2'
+      }
+    });
+  }//si la concentracion de gases es mediana
+  else if(media<=0.7){
     mapaDeCalor.setOptions({
       gradient: {
         0.4: '#009645',
@@ -470,7 +507,7 @@ function nivelMapadeCalor(mapaDeCalor,media){
       }
     });
   }//si la concentracion de gases es mediana
-  else if(media>=0.6&&media<=1.2){
+  else if(media>0.7&&media<=1.2){
     mapaDeCalor.setOptions({
       gradient: {
         0.4: 'yellow',
@@ -480,7 +517,7 @@ function nivelMapadeCalor(mapaDeCalor,media){
     });
   }
   //si la concentracion de gases es alta
- else if(media>=1.2&&media<=1.8){
+ else if(media>1.2&&media<1.8){
   mapaDeCalor.setOptions({
       gradient: {
         0.4: 'yellow',
@@ -500,9 +537,42 @@ function nivelMapadeCalor(mapaDeCalor,media){
     });
   }
 }
+function hacermapaDeInterpolacion(lista,capa){
+  var puntos=[]
+  var listadef=[]
+  for(var i=0;i<lista.length;i++){
+    listadef.push([lista[i][0],lista[i][1],lista[i][2]])
+    puntos.push(turf.point([lista[i][0],lista[i][1]]))
+    
+  }
+  
+  var idwLayer = L.idwLayer(listadef, {
+    opacity: 0.1,
+    cellSize: 10,
+    exp: 10,
+    min:0,
+    max: 2,
+    colorRange: ['green','yellow', 'red'],
+    debug: true
+  })
+
+ 
+  
+  map.on('zoomend', function() {
+    var zoom = map.getZoom();
+    if (zoom < 13) {
+      idwLayer.removeFrom(capa);
+    } else {
+       idwLayer.addTo(capa);
+    }
+  });
+
+}
+
+  
 //--------------------------CONTROLADOR DEL BUSCADOR POR FECHA-----------------------------------------------------------------------------------------
 //el controlador de la derecha del mapa
-var control= L.control.layers(baseMaps)
+var control= L.control.layers(baseMaps, overlayMaps)
 control.addTo(map);
 // Obtiene el elemento contenedor del mapa donde guardaremos el form
 var container = map.getContainer();
@@ -538,19 +608,47 @@ buscador.onsubmit =  async function(evento) {
   GroupNitrogeno.clearLayers()
   dioxidoInd.clearLayers()
   grupoDioxido.clearLayers()
+  groupedLayerGroupDioxido.clearLayers()
+  groupedLayerGroupOzono.clearLayers()
+  groupedLayerGroupNitrogeno.clearLayers()
+  map.removeLayer(interpolacion);
 
   // Obtiene el valor de los campos de texto
     fecha = buscador.elements.fecha.value
       // Llamamos a la funcion para buscar las medidas pasandol las fechas
       var lista= await buscarMedidaConFecha(fecha)
+      var checkbox = document.getElementById("checkbox-1");
     if (inputSeleccionado.value=="5") {
       mostrarMedidasOzonoFecha(lista)
+      checkbox.addEventListener("change", function() {
+        if (this.checked) {
+          map.addLayer(interpolacionFecha)
+          hacermapaDeInterpolacion(lista,interpolacionFecha)
+        } else {
+           map.removeLayer(interpolacionFecha)
+        }
+    });
     }else if(inputSeleccionado.value=="3"){
       mostrarMedidasNitrogenoPorFecha(lista)
+      checkbox.addEventListener("change", function() {
+        if (this.checked) {
+          map.addLayer(interpolacionFecha)
+          hacermapaDeInterpolacion(lista,interpolacionFecha)
+        } else {
+           map.removeLayer(interpolacionFecha)
+        }
+    });
     }else if(inputSeleccionado.value=="2"){
       mostrarMedidasDioxidoCarbonoFecha(lista)
+      checkbox.addEventListener("change", function() {
+        if (this.checked) {
+          map.addLayer(interpolacionFecha)
+          hacermapaDeInterpolacion(lista,interpolacionFecha)
+        } else {
+           map.removeLayer(interpolacionFecha)
+        }
+    });
     }
-    
 }
 
 // Obtiene el elemento contenedor del mapa
@@ -596,25 +694,29 @@ async function buscarMedidaConFecha(fecha){
  **/
 //------------------------------------------------------------------------------
 function mostrarMedidasOzonoFecha(listaDentro){
+  clusterFecha.clearLayers()
+  medidasindfecha.clearLayers()
+  pointsfecha.clearLayers()
+  nitrogenoIndfecha.clearLayers()
+  GroupNitrogenofecha.clearLayers()
+  dioxidoIndfecha.clearLayers()
+  grupoDioxidofecha.clearLayers()
+
   var listaPortipoOzono= ordenarPortipo(listaDentro,5)
   var listaOrdenadaOzono= ordenarGrupos(listaPortipoOzono)
   var listasolocoordenadasOzono= ordenarGruposCoord(listaPortipoOzono)
-  creadordecluster(listaOrdenadaOzono,points)
-  hacermapaDeCalorInd(listasolocoordenadasOzono,listaOrdenadaOzono,medidasind)
-  hacermapaDeCalor(listasolocoordenadasOzono,listaOrdenadaOzono,points)
+  creadordecluster(listaOrdenadaOzono,clusterFecha)
+  hacermapaDeCalorInd(listasolocoordenadasOzono,listaOrdenadaOzono,medidasindfecha)
+  hacermapaDeCalor(listasolocoordenadasOzono,listaOrdenadaOzono,pointsfecha)
   
-  map.on('zoomend', function() {
-    if (map.getZoom() <= 17) {
-      points.addTo(map);
-    } else {
-      map.removeLayer(points);
-    }
-  });
-  map.on('zoomend', function() {
-    if (map.getZoom() >= 15) {
-      medidasind.addTo(map)
-    } else {
-      map.removeLayer(medidasind);
+  map.on("zoomend", function() {
+    var currentZoom = map.getZoom();
+    if (currentZoom >= 13) {
+      groupedLayerGroupOzonofecha.removeLayer(pointsfecha);
+      groupedLayerGroupOzonofecha.addLayer(medidasindfecha);
+    } else if (currentZoom <= 12) {
+      groupedLayerGroupOzonofecha.addLayer(pointsfecha);
+      groupedLayerGroupOzonofecha.removeLayer(medidasindfecha);
     }
   });
 
@@ -626,24 +728,29 @@ function mostrarMedidasOzonoFecha(listaDentro){
  **/
 //------------------------------------------------------------------------------
 function mostrarMedidasNitrogenoPorFecha(listaDentro){
+  clusterFecha.clearLayers()
+  medidasindfecha.clearLayers()
+  pointsfecha.clearLayers()
+  nitrogenoIndfecha.clearLayers()
+  GroupNitrogenofecha.clearLayers()
+  dioxidoIndfecha.clearLayers()
+  grupoDioxidofecha.clearLayers()
+  
+
   var listaPortipoNitrogeno= ordenarPortipo(listaDentro,3)
   var listaOrdenadaNitrogeno= ordenarGrupos(listaPortipoNitrogeno)
   var listasolocoordenadasNitrogeno= ordenarGruposCoord(listaPortipoNitrogeno)
-  creadordecluster(listaOrdenadaNitrogeno,GroupNitrogeno)
-  hacermapaDeCalorInd(listasolocoordenadasNitrogeno,listaOrdenadaNitrogeno, nitrogenoInd)
-  hacermapaDeCalor(listasolocoordenadasNitrogeno,listaOrdenadaNitrogeno,GroupNitrogeno)
-  map.on('zoomend', function() {
-    if (map.getZoom() <= 17 ) {
-      GroupNitrogeno.addTo(map);
-    } else {
-      map.removeLayer(GroupNitrogeno);
-    }
-  });
-  map.on('zoomend', function() {
-    if (map.getZoom() >= 15 ) {
-      nitrogenoInd.addTo(map);
-    } else {
-      map.removeLayer(nitrogenoInd);
+  creadordecluster(listaOrdenadaNitrogeno,clusterFecha)
+  hacermapaDeCalorInd(listasolocoordenadasNitrogeno,listaOrdenadaNitrogeno, nitrogenoIndfecha)
+  hacermapaDeCalor(listasolocoordenadasNitrogeno,listaOrdenadaNitrogeno,GroupNitrogenofecha)
+  map.on("zoomend", function() {
+    var currentZoom = map.getZoom();
+    if (currentZoom >= 15) {
+      groupedLayerGroupNitrogenofecha.removeLayer(GroupNitrogenofecha);
+      groupedLayerGroupNitrogenofecha.addLayer(nitrogenoIndfecha);
+    } else if (currentZoom == 14) {
+      groupedLayerGroupNitrogenofecha.addLayer(GroupNitrogenofecha);
+      groupedLayerGroupNitrogenofecha.removeLayer(nitrogenoIndfecha);
     }
   });
     
@@ -655,24 +762,29 @@ function mostrarMedidasNitrogenoPorFecha(listaDentro){
  **/
 //------------------------------------------------------------------------------
 function mostrarMedidasDioxidoCarbonoFecha(listaDentro){
+  clusterFecha.clearLayers()
+  medidasindfecha.clearLayers()
+  pointsfecha.clearLayers()
+  nitrogenoIndfecha.clearLayers()
+  GroupNitrogenofecha.clearLayers()
+  dioxidoIndfecha.clearLayers()
+  grupoDioxidofecha.clearLayers()
+
   var listaPortipoDioxido= ordenarPortipo(listaDentro,2)
   var listaOrdenadaDioxido= ordenarGrupos(listaPortipoDioxido)
   var listasolocoordenadasDioxido= ordenarGruposCoord(listaPortipoDioxido)
-  creadordecluster(listaOrdenadaDioxido,grupoDioxido)
-  hacermapaDeCalorInd( listasolocoordenadasDioxido,listaOrdenadaDioxido, dioxidoInd)
-  hacermapaDeCalor( listasolocoordenadasDioxido,listaOrdenadaDioxido,grupoDioxido)
-  map.on('zoomend', function() {
-    if (map.getZoom() <= 17 ) {
-      grupoDioxido.addTo(map);
-    } else {
-      map.removeLayer(grupoDioxido);
-    }
-  });
-  map.on('zoomend', function() {
-    if (map.getZoom() >= 15 ) {
-      dioxidoInd.addTo(map);
-    } else {
-      map.removeLayer(dioxidoInd);
+  creadordecluster(listaOrdenadaDioxido,clusterFecha)
+  hacermapaDeCalorInd( listasolocoordenadasDioxido,listaOrdenadaDioxido, dioxidoIndfecha)
+  hacermapaDeCalor( listasolocoordenadasDioxido,listaOrdenadaDioxido,grupoDioxidofecha)
+
+  map.on("zoomend", function() {
+    var currentZoom = map.getZoom();
+    if (currentZoom >= 15) {
+      groupedLayerGroupDioxidofecha.removeLayer(grupoDioxidofecha);
+      groupedLayerGroupDioxidofecha.addLayer(dioxidoIndfecha);
+    } else if (currentZoom == 14) {
+      groupedLayerGroupDioxidofecha.addLayer(grupoDioxidofecha);
+      groupedLayerGroupDioxidofecha.removeLayer(dioxidoIndfecha);
     }
   });
 }
