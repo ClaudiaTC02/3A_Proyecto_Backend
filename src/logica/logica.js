@@ -422,10 +422,12 @@ module.exports = class Logica {
   /**
    * *
    * @brief este método se encarga de obtener la media de las fechas
-   * @param id_usuario id del usuario
+   * @param correo del usuario
    * Diseño: id_usuario:N --> obtenerMediaMedicionesDia() --> [{medida: N}] | 404
    */
-  async obtenerMediaMedicionesDia(id_usuario) {
+  async obtenerMediaMedicionesDia(correo) {
+    let id_usuario = await this.obtenerIdUsuario(correo)
+    console.log(id_usuario[0].id)
     let fechaHoy = new Date().toISOString().substring(0, 10);
     console.log(fechaHoy); // imprime la fecha de hoy en formato "YYYY-MM-DD"
     let fecha_1 = fechaHoy + " " + "00:00:00";
@@ -433,7 +435,7 @@ module.exports = class Logica {
     var medidas =  await this.conexion.query(
       "SELECT medida.Dato FROM medida INNER JOIN usuario on usuario.id = :id INNER JOIN usuario_dispositivo on usuario_dispositivo.Id_Usuario = usuario.Id INNER JOIN dispositivo on dispositivo.id = usuario_dispositivo.Id_Dispositivo WHERE medida.Id_Dispositivo = dispositivo.Id  AND medida.Fecha BETWEEN :fecha1 AND :fecha2;",
       {
-        replacements: { id: id_usuario, fecha1: fecha_1, fecha2: fecha_2 },
+        replacements: { id: 69, fecha1: fecha_1, fecha2: fecha_2 },
         type: QueryTypes.SELECT,
       }
     );
