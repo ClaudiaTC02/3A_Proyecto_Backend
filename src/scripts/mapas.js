@@ -47,7 +47,7 @@ var interpolacionFecha= L.layerGroup().addTo(map);
 var clusterFecha= L.layerGroup().addTo(map);
 //anyadimos un mapa base de open streetmaps
 var osm= L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 17,
+    maxZoom: 16,
     attribution: 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
 })
 osm.addTo(map)
@@ -104,10 +104,10 @@ async function mostrarMedidasOzono(){
   
   map.on("zoomend", function() {
     var currentZoom = map.getZoom();
-    if (currentZoom >= 15) {
+    if (currentZoom >= 14) {
       groupedLayerGroupOzono.removeLayer(points);
       groupedLayerGroupOzono.addLayer(medidasind);
-    } else if (currentZoom == 14) {
+    } else if (currentZoom == 13) {
       groupedLayerGroupOzono.addLayer(points);
       groupedLayerGroupOzono.removeLayer(medidasind);
     }
@@ -133,10 +133,10 @@ async function mostrarMedidasNitrogeno(){
   hacermapaDeInterpolacion(listaPortipoNitrogeno,interpolacion)
   map.on("zoomend", function() {
     var currentZoom = map.getZoom();
-    if (currentZoom >= 15) {
+    if (currentZoom >= 14) {
       groupedLayerGroupNitrogeno.removeLayer(GroupNitrogeno);
       groupedLayerGroupNitrogeno.addLayer(nitrogenoInd);
-    } else if (currentZoom == 14) {
+    } else if (currentZoom == 13) {
       groupedLayerGroupNitrogeno.addLayer(GroupNitrogeno);
       groupedLayerGroupNitrogeno.removeLayer(nitrogenoInd);
     }
@@ -162,10 +162,10 @@ async function mostrarMedidasDioxidoCarbono(){
   hacermapaDeInterpolacion(listaPortipoDioxido,interpolacion)
   map.on("zoomend", function() {
     var currentZoom = map.getZoom();
-    if (currentZoom >= 15) {
+    if (currentZoom >= 14) {
       groupedLayerGroupDioxido.removeLayer(grupoDioxido);
       groupedLayerGroupDioxido.addLayer(dioxidoInd);
-    } else if (currentZoom == 14) {
+    } else if (currentZoom == 13) {
       groupedLayerGroupDioxido.addLayer(grupoDioxido);
       groupedLayerGroupDioxido.removeLayer(dioxidoInd);
     }
@@ -225,57 +225,36 @@ function ordenarPortipo(lista,tipo){
  * Diseño: <lista> --> ordenarPortipo()--> <lista>
  **/
 //------------------------------------------------------------------------------
-function ordenarGrupos(lista){
- 
-  var listaOrdenada=[]
-    
-  var elemento=[]
-    var listaFinal=[]
-  var incluido=false
-  
-  for(var i=0;i<lista.length;i++){
-    for(var j=i;j<lista.length;j++){
-      var calculodistancia= Math.sqrt(((lista[j][0]-lista[i][0])*(lista[j][0]-lista[i][0]))+((lista[j][1]-lista[i][1])*(lista[j][1]-lista[i][1])))
-      
-      if(listaOrdenada.includes(lista[j][0] && lista[j][1])){
-        
-        incluido=true
-      }else{
-        incluido=false
+function ordenarGrupos(lista) {
+  var grupos = [], grupoActual = [];
+  var distanciaMinima = 0.006; // distancia mínima para agrupar puntos
+  for (var i = 0; i < lista.length; i++) {
+    if (grupoActual.length == 0) {
+      // si no hay un grupo actual, iniciamos uno nuevo con el primer punto
+      grupoActual.push(lista[i]);
+    } else {
+      var incluido = false;
+      for (var j = 0; j < grupoActual.length; j++) {
+        // calculamos la distancia entre el punto actual y los puntos del grupo actual
+        var distancia = Math.sqrt(Math.pow(lista[i][0] - grupoActual[j][0], 2) + Math.pow(lista[i][1] - grupoActual[j][1], 2));
+        if (distancia <= distanciaMinima) {
+          // si el punto está dentro de la distancia mínima, lo agregamos al grupo actual
+          grupoActual.push(lista[i]);
+          incluido = true;
+          break;
+        }
       }
-        
-      if(calculodistancia<=0.006 && incluido==false){
-        
-        elemento.push([lista[j][0],lista[j][1],lista[j][2]])
+      if (!incluido) {
+        // si el punto no se ha incluido en ningún grupo, creamos uno nuevo
+        grupos.push(grupoActual);
+        grupoActual = [lista[i]];
       }
     }
-    if(elemento.length != 0){
-      
-      listaOrdenada[i]= [].concat(elemento)
-    }
-    
-    elemento.splice(0,  elemento.length)
-    
   }
-  var cont=0
-  for(var i=0;i<listaOrdenada.length;i++){
-    
-    if(i==0){
-      listaFinal.push(listaOrdenada[i])
-      cont=cont+listaOrdenada[i].length
-      
-    }
-    
-    if(i==cont){
-      listaFinal.push(listaOrdenada[i])
-      
-    }
-   
-  }
-  
-  return listaFinal
+  grupos.push(grupoActual);
+  // agregamos el último grupo
+  return grupos;
 }
-
 //------------------------------------------------------------------------------
 /**
  * @brief similar a la funcion anterior, pero solo devuelve una lista con lat y long 
@@ -283,52 +262,35 @@ function ordenarGrupos(lista){
  **/
 //------------------------------------------------------------------------------
 function ordenarGruposCoord(lista){
-  var listaOrdenada=[]
-    
-  var elemento=[]
-    var listaFinal=[]
-  var incluido=false
-  
-  for(var i=0;i<lista.length;i++){
-    for(var j=i;j<lista.length;j++){
-      var calculodistancia= Math.sqrt(((lista[j][0]-lista[i][0])*(lista[j][0]-lista[i][0]))+((lista[j][1]-lista[i][1])*(lista[j][1]-lista[i][1])))
-      
-      if(listaOrdenada.includes(lista[j][0] && lista[j][1])){
-        
-        incluido=true
-      }else{
-        incluido=false
+  var grupos = [], grupoActual = [];
+  var distanciaMinima = 0.006; // distancia mínima para agrupar puntos
+  for (var i = 0; i < lista.length; i++) {
+    if (grupoActual.length == 0) {
+      // si no hay un grupo actual, iniciamos uno nuevo con el primer punto
+      grupoActual.push([lista[i][0],lista[i][1]]);
+    } else {
+      var incluido = false;
+      for (var j = 0; j < grupoActual.length; j++) {
+        // calculamos la distancia entre el punto actual y los puntos del grupo actual
+        var distancia = Math.sqrt(Math.pow(lista[i][0] - grupoActual[j][0], 2) + Math.pow(lista[i][1] - grupoActual[j][1], 2));
+        if (distancia <= distanciaMinima) {
+          // si el punto está dentro de la distancia mínima, lo agregamos al grupo actual
+          grupoActual.push([lista[i][0],lista[i][1]]);
+          incluido = true;
+          break;
+        }
       }
-        
-      if(calculodistancia<=0.006 && incluido==false){
-        
-        elemento.push([lista[j][0],lista[j][1]])
+      if (!incluido) {
+        // si el punto no se ha incluido en ningún grupo, creamos uno nuevo
+        grupos.push(grupoActual);
+        grupoActual = [[lista[i][0],lista[i][1]]];
       }
     }
-    if(elemento.length != 0){
-      listaOrdenada[i]= [].concat(elemento)
-    }
-    
-    elemento.splice(0,  elemento.length)
-    
   }
-  var cont=0
-  for(var i=0;i<listaOrdenada.length;i++){
-    
-    if(i==0){
-      listaFinal.push(listaOrdenada[i])
-      cont=cont+listaOrdenada[i].length
-    }
-    
-    if(i==cont){
-      listaFinal.push(listaOrdenada[i])
-    }
-   
-  }
-  
-  return listaFinal
+  grupos.push(grupoActual);
+  // agregamos el último grupo
+  return grupos;
 }
-
 //------------------------------------------------------------------------------
 /**
  * @brief funcion que recibe una lista filtrada de puntos un mismo tipo de medida de gas
@@ -405,13 +367,6 @@ function hacermapaDeCalor(listacoord,listamed,tipo){
     }
     //cocatenamos las dos listas
      listacoord[i] = [...listacoord[i], ...listapuntosExtra];
-    
-   //se las pasamos al mapa de calor
-    heatLayers[i]= L.heatLayer(listacoord[i], {
-      radius: 60,
-      blur: 25,
-      minOpacity:0.3,
-    });
     //ahora asignamos sus colores
     var suma=0
     var media=0
@@ -422,8 +377,16 @@ function hacermapaDeCalor(listacoord,listamed,tipo){
     //obtenemos la media
     media=suma/listamed[i].length
     
+   //se las pasamos al mapa de calor
+    heatLayers[i]= L.heatLayer(listacoord[i], {
+      radius: 60,
+      blur: 25,
+      minOpacity:0.2,
+    });
+    
     //le asignamos los colores al mapa de calor
-    nivelMapadeCalor(heatLayers[i],media)
+    var configColor = nivelMapadeCalor(media)
+    heatLayers[i].setOptions({gradient: configColor.gradient});
     //anyadimos el mapa de calor a la lista de mapas de calor
     
     heatLayers[i].addTo(tipo)
@@ -441,6 +404,7 @@ function hacermapaDeCalor(listacoord,listamed,tipo){
  **/
 //------------------------------------------------------------------------------
 function hacermapaDeCalorInd(listacoordind,listamedind,tipo){
+  console.log(listacoordind)
    //ahora hacemos los mapas individuales
    listaIndCoord=[]
    listaIndMedia=[]
@@ -458,24 +422,21 @@ function hacermapaDeCalorInd(listacoordind,listamedind,tipo){
     }
    
   }
+  console.log(listaIndMedia)
   //anyadimos puntos extra a sus lados
-
+  var heatmap=[]
   for(var i=0;i<listaIndCoord.length;i++){
+    
     var extraPoints = []
     extraPoints.push([listaIndCoord[i][0],listaIndCoord[i][1]])
     extraPoints.push([listaIndCoord[i][0]+0.000269,listaIndCoord[i][1]+0.000200])
     extraPoints.push([listaIndCoord[i][0]-0.000231,listaIndCoord[i][1]+0.000272])
     extraPoints.push([listaIndCoord[i][0]-0.000327,listaIndCoord[i][1]-0.000308])
-    var heatmap = L.heatLayer(extraPoints, {
-     radius: 35,
-     blur: 65,
-     minOpacity:0.01,
-   });
+    heatmap[i] = L.heatLayer(extraPoints, nivelMapadeCalor(listaIndMedia[i]));
+    heatmap[i].setOptions({radius: 40, blur: 60, minOpacity: 0.03});
    //le asignamos el color a cada medida
-   nivelMapadeCalor(heatmap,listaIndMedia[i])
-   //se lo asignamos a su respectivo grupo
-   heatmap.addTo(tipo)
-}
+   heatmap[i].addTo(tipo)
+  }
   
 }
 
@@ -486,56 +447,20 @@ function hacermapaDeCalorInd(listacoordind,listamedind,tipo){
  * Diseño: mapa, R --> nivelMapadeCalor()
  **/
 //------------------------------------------------------------------------------
-function nivelMapadeCalor(mapaDeCalor,media){
-  
-  //si la concentracion de gases es baja
-  if(media<=0.2){
-    mapaDeCalor.setOptions({
-      gradient: {
-        0.4: '#adcfeb',
-        0.65: '#7fb8e1',
-        1: '#0096d2'
-      }
-    });
-  }//si la concentracion de gases es mediana
-  else if(media<=0.7){
-    mapaDeCalor.setOptions({
-      gradient: {
-        0.4: '#009645',
-        0.65: 'lime',
-        1: '#00BC56'
-      }
-    });
-  }//si la concentracion de gases es mediana
-  else if(media>0.7&&media<=1.2){
-    mapaDeCalor.setOptions({
-      gradient: {
-        0.4: 'yellow',
-        0.65: 'yellow',
-        1: 'orange'
-      }
-    });
+function nivelMapadeCalor(media) {
+  var gradient;
+  if (media <= 0.2) {
+    gradient = {0.4: '#adcfeb', 0.65: '#7fb8e1', 1: '#0096d2'};
+  } else if (media <= 0.7) {
+    gradient = {0.4: '#009645', 0.65: 'lime', 1: '#00BC56'};
+  } else if (media > 0.7 && media <= 1.2) {
+    gradient = {0.4: 'yellow', 0.65: 'yellow', 1: 'yellow'};
+  } else if (media > 1.2 && media < 1.8) {
+    gradient = {0.4: 'yellow', 0.65: 'orange', 1: 'red'};
+  } else if (media >= 1.8) {
+    gradient = {0.4: 'red', 0.65: '#C4342D', 1: '#990033'};
   }
-  //si la concentracion de gases es alta
- else if(media>1.2&&media<1.8){
-  mapaDeCalor.setOptions({
-      gradient: {
-        0.4: 'yellow',
-        0.65: 'orange',
-        1: 'red'
-      }
-    });
-  }
-  //si la concentracion de gases es crítica
- else if(media>=1.8){
-  mapaDeCalor.setOptions({
-      gradient: {
-       0.4: 'red',
-        0.65: '#C4342D ',
-        1: '#990033'
-      }
-    });
-  }
+  return {gradient: gradient};
 }
 function hacermapaDeInterpolacion(lista,capa){
   var puntos=[]
@@ -711,10 +636,10 @@ function mostrarMedidasOzonoFecha(listaDentro){
   
   map.on("zoomend", function() {
     var currentZoom = map.getZoom();
-    if (currentZoom >= 13) {
+    if (currentZoom >= 14) {
       groupedLayerGroupOzonofecha.removeLayer(pointsfecha);
       groupedLayerGroupOzonofecha.addLayer(medidasindfecha);
-    } else if (currentZoom <= 12) {
+    } else if (currentZoom == 13) {
       groupedLayerGroupOzonofecha.addLayer(pointsfecha);
       groupedLayerGroupOzonofecha.removeLayer(medidasindfecha);
     }
@@ -745,10 +670,10 @@ function mostrarMedidasNitrogenoPorFecha(listaDentro){
   hacermapaDeCalor(listasolocoordenadasNitrogeno,listaOrdenadaNitrogeno,GroupNitrogenofecha)
   map.on("zoomend", function() {
     var currentZoom = map.getZoom();
-    if (currentZoom >= 15) {
+    if (currentZoom >= 14) {
       groupedLayerGroupNitrogenofecha.removeLayer(GroupNitrogenofecha);
       groupedLayerGroupNitrogenofecha.addLayer(nitrogenoIndfecha);
-    } else if (currentZoom == 14) {
+    } else if (currentZoom == 13) {
       groupedLayerGroupNitrogenofecha.addLayer(GroupNitrogenofecha);
       groupedLayerGroupNitrogenofecha.removeLayer(nitrogenoIndfecha);
     }
@@ -779,10 +704,10 @@ function mostrarMedidasDioxidoCarbonoFecha(listaDentro){
 
   map.on("zoomend", function() {
     var currentZoom = map.getZoom();
-    if (currentZoom >= 15) {
+    if (currentZoom >= 14) {
       groupedLayerGroupDioxidofecha.removeLayer(grupoDioxidofecha);
       groupedLayerGroupDioxidofecha.addLayer(dioxidoIndfecha);
-    } else if (currentZoom == 14) {
+    } else if (currentZoom == 13) {
       groupedLayerGroupDioxidofecha.addLayer(grupoDioxidofecha);
       groupedLayerGroupDioxidofecha.removeLayer(dioxidoIndfecha);
     }
