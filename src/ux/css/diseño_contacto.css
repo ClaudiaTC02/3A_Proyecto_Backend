@@ -1,6 +1,7 @@
 #contenedor_contacto{
     position: absolute;
     height: 90vh;
+    width: 100%;
     background: linear-gradient(to right,#59A8A8, #a4d0d0);
     background-size: cover;
 }
