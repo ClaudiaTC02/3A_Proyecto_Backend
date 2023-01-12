@@ -37,12 +37,39 @@
     z-index: 10000000;
   }
     
-    
 }
 #map{
     height: 86vh;
     width: 100vw;
     z-index: 50;
+}
+#map-legend {
+  width: 100px;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  z-index: 1000000;
+  top: 80px;
+  margin-left: 14px;
+  background-color: white;
+  padding: 10px;
+  padding-left: 20px;
+  border: 1px solid black;
+}
+#map-legend li {
+  list-style-type: none;
+  font-size: 7px;
+  
+}
+.color-box {
+  width: 10px;
+  height: 10px;
+  border: 1px solid black;
+  border-radius: 5px;
+  display: inline-block;
+  margin-right: 10px;
+  z-index: 1000000;
 }
 #contenedor_footer{
     min-height: 50px;

@@ -58,9 +58,17 @@
   <input type="submit" value="Buscar">
   <button onclick="reloadPage()">Volver y cerrar</button>
 </form>
-	<div id="map">
-    
-  </div>
+
+<div id="map-legend">
+  <ul style="padding-left: 0px;">
+      <li><div class="color-box" style="background-color:#0096d2;"></div>Concentracion mínima</li>
+      <li><div class="color-box" style="background-color: #00BC56;"></div>Concentración Baja</li>
+      <li><div class="color-box" style="background-color: yellow;"></div>Concentración Media</li>
+      <li><div class="color-box" style="background-color: #990033;"></div>Concentración Alta</li>
+  </ul>
+</div>
+
+	<div id="map"></div>
   
     <footer>
       <div id="contenedor_footer">

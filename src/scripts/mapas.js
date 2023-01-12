@@ -48,12 +48,15 @@ var clusterFecha= L.layerGroup().addTo(map);
 //anyadimos un mapa base de open streetmaps
 var osm= L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 16,
-    attribution: 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
+    attribution: 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors',
 })
 osm.addTo(map)
 
 var todo=[]//variable que se encargará de almacenar todas las consultas
 
+//leyenda del mapa
+var legend = document.getElementById('map-legend');
+map.getContainer().appendChild(legend);
 //------------------------------------------------------------------------------
 /**
  * @brief esta funcion se encarga de obtener todas las medidas de hoy de la base de datos en una lista
@@ -382,6 +385,7 @@ function hacermapaDeCalor(listacoord,listamed,tipo){
       radius: 60,
       blur: 25,
       minOpacity:0.2,
+     
     });
     
     //le asignamos los colores al mapa de calor
@@ -422,7 +426,7 @@ function hacermapaDeCalorInd(listacoordind,listamedind,tipo){
     }
    
   }
-  console.log(listaIndMedia)
+  
   //anyadimos puntos extra a sus lados
   var heatmap=[]
   for(var i=0;i<listaIndCoord.length;i++){
