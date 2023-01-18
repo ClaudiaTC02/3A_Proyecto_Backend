@@ -44,27 +44,29 @@
     z-index: 50;
 }
 #map-legend {
-  width: 100px;
-  height: 70px;
+  width: 170px;
+  height: 120px;
   display: flex;
   align-items: center;
   position: absolute;
   z-index: 1000000;
   top: 80px;
   margin-left: 14px;
-  background-color: white;
+  font-family: Varela Round;
+  background-color: rgba(255,255,255,0.603);
   padding: 10px;
   padding-left: 20px;
   border: 1px solid black;
+  border-radius: 10px;
 }
 #map-legend li {
   list-style-type: none;
-  font-size: 7px;
+  font-size: 15px;
   
 }
 .color-box {
-  width: 10px;
-  height: 10px;
+  width: 15px;
+  height: 15px;
   border: 1px solid black;
   border-radius: 5px;
   display: inline-block;
