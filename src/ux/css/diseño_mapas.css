@@ -1,50 +1,64 @@
 
 #buscadorFechas {
-    position: fixed;
-    bottom: 90px;
-    left: 10px;
+    font-family: 'Varela Round';
+    position: absolute;
+    bottom: 150px;
+    margin-left: 14px;
     padding: 10px;
     background-color: white;
+    opacity: .7;
     border: 1px solid black;
+    border-radius: 10px;
     z-index: 10000000;
+  }
+
+  #buscadorFechas:hover{
+    opacity: 1;
   }
   #botonActivador{
-    position: fixed;
+    font-family:  Arial, sans-serif;
+    position: absolute;
     bottom: 90px;
-    left: 10px;
     padding: 10px;
     background-color: white;
+    font-weight: bold;
     border: 1px solid black;
     z-index: 10000000;
+    border: 2px solid black;
+    border-radius: 10px;
+    opacity: .7;
+    margin-left: 14px;
   }
-@media (max-width:900px){
-  #buscadorFechas {
-    position: fixed;
-    bottom: 50px;
-    left: 10px;
-    padding: 10px;
-    background-color: white;
-    border: 1px solid black;
-    z-index: 10000000;
+  #botonActivador:hover{
+    opacity: 1;
   }
-  #botonActivador{
-    position: fixed;
-    bottom: 50px;
-    left: 10px;
-    padding: 10px;
-    background-color: white;
-    border: 1px solid black;
-    z-index: 10000000;
+
+  #opciones, #opcion,#opcion1,  #boton_pop{
+    font-family:  Arial, sans-serif;
+    font-size: 13px;
+   
   }
-    
+
+#boton_pop{
+  border: 1px black solid;
+  border-radius: 4px;
+  opacity: .6;
+  background-color: #9EB4B4;
+  font-weight: bold;
 }
+
+#boton_pop:hover{
+  opacity: .8;
+}
+
+
 #map{
-    height: 86vh;
-    width: 100vw;
-    z-index: 50;
+  position: absolute;
+    height: 100%;
+    width: 100%;
 }
 #map-legend {
-  width: 170px;
+  width: 178px;
   height: 120px;
   display: flex;
   align-items: center;
@@ -52,7 +66,7 @@
   z-index: 1000000;
   top: 80px;
   margin-left: 14px;
-  font-family: Varela Round;
+  font-family:  Arial, sans-serif;
   background-color: rgba(255,255,255,0.603);
   padding: 10px;
   padding-left: 20px;
@@ -76,6 +90,5 @@
 #contenedor_footer{
     min-height: 50px;
   }
-  #map, #contenedor_footer {
-    width: 100%;
-  } 
+  
+ 

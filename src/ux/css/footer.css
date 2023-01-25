@@ -8,6 +8,7 @@ body{
     background-color: #9EB4B4;
     position: fixed;
     bottom: 0;
+    z-index: 10000;
 
 }
 #img_insta{
