@@ -54,3 +54,8 @@ body{
     font-weight: bold;
     margin-left:20px;
 }
+@media screen and (max-width: 600px) {
+    #contenedor_footer{
+        display: none;
+    }
+}

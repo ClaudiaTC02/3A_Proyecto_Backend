@@ -11,6 +11,10 @@ window.onload = mostrarMedidasOzono;
 
 //variable para las peticiones
 const IP_PUERTO = "http://localhost:8080";
+
+//Para mi servidor usar esta
+//const IP_PUERTO = "http://192.168.137.1:8080";
+
 //esta variable muestra las coordenadas y el zoom (las cooordenadas que va entre los parentesis van a ser latitud y longitud)
 let map=L.map('map').setView([38.995026, -0.164651],8)
 
@@ -57,6 +61,17 @@ var todo=[]//variable que se encargará de almacenar todas las consultas
 //leyenda del mapa
 var legend = document.getElementById('map-legend');
 map.getContainer().appendChild(legend);
+//PARA TELÉFONO
+//Poner la leyenda en la esquina inferior derecha solo para móviles
+if (window.innerWidth <= 800) {
+  legend.style.position = 'absolute';
+  legend.style.bottom = '10px';
+  legend.style.marginTop = '390px';
+  legend.style.padding = '10px';
+  legend.style.borderRadius = '5px';
+}
+
+  
 //------------------------------------------------------------------------------
 /**
  * @brief esta funcion se encarga de obtener todas las medidas de hoy de la base de datos en una lista

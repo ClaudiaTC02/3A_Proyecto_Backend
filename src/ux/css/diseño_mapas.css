@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
 
 #buscadorFechas {
     font-family: 'Varela Round';
@@ -108,4 +109,59 @@
 #boton_informacion:hover {
     background-color: #388f91;
     cursor: pointer;
+}
+
+@media (max-width:600px){
+  #map{
+    height: 100vh;
+  }
+
+  #botonActivador{
+    display: none;
+    position: fixed;
+    bottom: 110px;
+    left: 10px;
+    padding: 10px;
+    background-color: white;
+    font-family: 'Varela Round', sans-serif;
+    border: 1px solid black;
+    border-radius: 10px;
+    z-index: 10000000;
+  }
+
+  #buscadorFechas {
+    display: none;
+    position: fixed;
+    bottom: 100px;
+    left: 10px;
+    font-family: 'Varela Round', sans-serif;
+    text-align: center;
+    padding: 10px;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 10px;
+    z-index: 10000000;
+  }
+
+  #map-legend {
+    width: 150px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    font-family: 'Varela Round', sans-serif;
+    font-weight: bold;
+    background-color: rgba(255, 255, 255, 0.603);
+    border-radius: 10px;
+  }
+
+  #map-legend li {
+    font-size: 10px;
+    display: flex;
+    align-items: center;
+  }
+
+  .moviley{
+    padding: 2px;
+  }
+
 }
