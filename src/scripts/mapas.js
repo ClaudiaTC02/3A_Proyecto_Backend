@@ -66,7 +66,7 @@ map.getContainer().appendChild(legend);
 if (window.innerWidth <= 800) {
   legend.style.position = 'absolute';
   legend.style.bottom = '10px';
-  legend.style.marginTop = '390px';
+  legend.style.marginTop = '410px';
   legend.style.padding = '10px';
   legend.style.borderRadius = '5px';
 }

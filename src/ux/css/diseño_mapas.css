@@ -164,4 +164,8 @@
     padding: 2px;
   }
 
+  .infocontaminantes{
+    display: none;
+  }
+
 }
