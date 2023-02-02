@@ -50,6 +50,7 @@ var groupedLayerGroupNitrogenofecha = L.layerGroup([GroupNitrogenofecha, nitroge
 var groupedLayerGroupDioxidofecha = L.layerGroup([ grupoDioxidofecha, dioxidoIndfecha]);
 var interpolacionFecha= L.layerGroup().addTo(map);
 var clusterFecha= L.layerGroup().addTo(map);
+var estacionesOficiales = L.layerGroup().addTo(map);
 //anyadimos un mapa base de open streetmaps
 var osm= L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
@@ -67,7 +68,7 @@ map.getContainer().appendChild(legend);
 if (window.innerWidth <= 800) {
   legend.style.position = 'absolute';
   legend.style.bottom = '10px';
-  legend.style.marginTop = '390px';
+  legend.style.marginTop = '410px';
   legend.style.padding = '10px';
   legend.style.borderRadius = '5px';
 }
@@ -543,6 +544,7 @@ buscador.onsubmit =  async function(evento) {
   groupedLayerGroupDioxido.clearLayers()
   groupedLayerGroupOzono.clearLayers()
   groupedLayerGroupNitrogeno.clearLayers()
+  estacionesOficiales.clearLayers()
   map.removeLayer(interpolacion);
 
   // Obtiene el valor de los campos de texto
@@ -730,7 +732,7 @@ function ObtenerMedidasOficiales(){
       console.log(elements[i].textContent);
       console.log(elements.length)
     }*/
-    var elements2 = doc.querySelectorAll(".value_good, .value_null");
+    var elements2 = doc.querySelectorAll(".value_good, .value_moderate, .value_null");
     for (var i = 0; i < elements2.length; i++) {
      //console.log(elements2[i].textContent);
      //console.log(elements2.length)
@@ -741,84 +743,89 @@ function ObtenerMedidasOficiales(){
     // Do something with the JSON data
     console.log(objMedidas);
 
+    var myIcon = L.icon({
+      iconUrl: 'https://cdn-icons-png.flaticon.com/512/992/992349.png',
+      iconSize: [35, 47],
+      popupAnchor: [-3, -30]
+  });
     //creamos los marcadores para las estaciones de medidas oficiales
-    var markerAlbalat = L.marker([39.703101, -0.337802]).addTo(map);
-    markerAlbalat.bindPopup(objMedidas[0] +"<br>"+ objMedidas[1]);
+    var markerAlbalat = L.marker([39.703101, -0.337802], {icon: myIcon}).addTo(estacionesOficiales);
+    markerAlbalat.bindPopup("Albalat dels Tarongers" + "<br>"+ "<b>O<sub>3</sub>:  </b>"+ objMedidas[0] + "<br>"+ "<b>NO<sub>2</sub>:  </b>"+ objMedidas[1] + "<br>"+ "<b>CO:  </b>" +objMedidas[5]);
 
-    var markerAlgar = L.marker([39.780930, -0.368191]).addTo(map);
-    markerAlgar.bindPopup(objMedidas[0] +"<br>"+ objMedidas[1]);
+    var markerAlgar = L.marker([39.780930, -0.368191], {icon: myIcon}).addTo(estacionesOficiales);
+    markerAlgar.bindPopup("Algar de Palancia" + "<br>"+ "<b>O<sub>3</sub>:  </b>"+ objMedidas[6] + "<br>"+ "<b>NO<sub>2</sub>:  </b>"+ objMedidas[7] + "<br>"+ "<b>CO:  </b>" +objMedidas[11]);
 
-    var markerAlzira = L.marker([39.154875, -0.431890]).addTo(map);
-    markerAlzira.bindPopup(objMedidas[0] +"<br>"+ objMedidas[1]);
+    var markerAlzira = L.marker([39.154875, -0.431890], {icon: myIcon}).addTo(estacionesOficiales);
+    markerAlzira.bindPopup("Alzira" + "<br>"+ "<b>O<sub>3</sub>:  </b>"+ objMedidas[12] + "<br>"+ "<b>NO<sub>2</sub>:  </b>"+ objMedidas[13] + "<br>"+ "<b>CO:  </b>" +objMedidas[17]);
 
-    var markerBenigánim = L.marker([38.943183, -0.445719]).addTo(map);
-    markerBenigánim.bindPopup(objMedidas[0] +"<br>"+ objMedidas[1]);
+    var markerBenigánim = L.marker([38.943183, -0.445719], {icon: myIcon}).addTo(estacionesOficiales);
+    markerBenigánim.bindPopup("Beniganim" + "<br>"+ "<b>O<sub>3</sub>:  </b>"+ objMedidas[18] + "<br>"+ "<b>NO<sub>2</sub>:  </b>"+ objMedidas[19] + "<br>"+ "<b>CO:  </b>" +objMedidas[23]);
 
-    var markerBuñol = L.marker([39.420255, -0.793399]).addTo(map);
-    markerBuñol.bindPopup(objMedidas[0] +"<br>"+ objMedidas[1]);
+    var markerBuñol = L.marker([39.420255, -0.793399], {icon: myIcon}).addTo(estacionesOficiales);
+    markerBuñol.bindPopup("Buñol" + "<br>"+ "<b>O<sub>3</sub>:  </b>"+ objMedidas[24] + "<br>"+ "<b>NO<sub>2</sub>:  </b>"+ objMedidas[25] + "<br>"+ "<b>CO:  </b>" +objMedidas[29]);
 
-    var markerBurjassot = L.marker([39.509729, -0.417221]).addTo(map);
-    markerBurjassot.bindPopup(objMedidas[0] +"<br>"+ objMedidas[1]);
+    var markerBurjassot = L.marker([39.509729, -0.417221], {icon: myIcon}).addTo(estacionesOficiales);
+    markerBurjassot.bindPopup("Burjassot" + "<br>"+ "<b>O<sub>3</sub>:  </b>"+ objMedidas[30] + "<br>"+ "<b>NO<sub>2</sub>:  </b>"+ objMedidas[31] + "<br>"+ "<b>CO:  </b>" +objMedidas[35]);
 
-    var markerCaudete = L.marker([39.557806, -1.280138]).addTo(map);
-    markerCaudete.bindPopup(objMedidas[0] +"<br>"+ objMedidas[1]);
+    var markerCaudete = L.marker([39.557806, -1.280138], {icon: myIcon}).addTo(estacionesOficiales);
+    markerCaudete.bindPopup("Caudete de las Fuentes" + "<br>"+ "<b>O<sub>3</sub>:  </b>"+ objMedidas[36] + "<br>"+ "<b>NO<sub>2</sub>:  </b>"+ objMedidas[37] + "<br>"+ "<b>CO:  </b>" +objMedidas[41]);
 
-    var markerCortes = L.marker([39.242268, -0.941525]).addTo(map);
-    markerCortes.bindPopup(objMedidas[0] +"<br>"+ objMedidas[1]);
+    var markerCortes = L.marker([39.242268, -0.941525], {icon: myIcon}).addTo(estacionesOficiales);
+    markerCortes.bindPopup("Cortes de Pallas" + "<br>"+ "<b>O<sub>3</sub>:  </b>"+ objMedidas[42] + "<br>"+ "<b>NO<sub>2</sub>:  </b>"+ objMedidas[43] + "<br>"+ "<b>CO:  </b>" +objMedidas[47]);
 
-    var markerCuart = L.marker([39.481061, -0.451558]).addTo(map);
-    markerCuart.bindPopup(objMedidas[0] +"<br>"+ objMedidas[1]);
+    var markerCuart = L.marker([39.481061, -0.451558], {icon: myIcon}).addTo(estacionesOficiales);
+    markerCuart.bindPopup("Cuarta de Poble" + "<br>"+ "<b>O<sub>3</sub>:  </b>"+ objMedidas[48] + "<br>"+ "<b>NO<sub>2</sub>:  </b>"+ objMedidas[49] + "<br>"+ "<b>CO:  </b>" +objMedidas[53]);
 
-    var markerGandia = L.marker([38.985748, -0.162910]).addTo(map);
-    markerGandia.bindPopup(objMedidas[0] +"<br>"+ objMedidas[1]);
+    var markerGandia = L.marker([38.985748, -0.162910], {icon: myIcon}).addTo(estacionesOficiales);
+    markerGandia.bindPopup("Gandia" + "<br>"+ "<b>O<sub>3</sub>:  </b>"+ objMedidas[54] + "<br>"+ "<b>NO<sub>2</sub>:  </b>"+ objMedidas[55] + "<br>"+ "<b>CO:  </b>" +objMedidas[59]);
 
-    var markerOntinyent = L.marker([38.822803, -0.595123]).addTo(map);
-    markerOntinyent.bindPopup(objMedidas[0] +"<br>"+ objMedidas[1]);
+    var markerOntinyent = L.marker([38.822803, -0.595123], {icon: myIcon}).addTo(estacionesOficiales);
+    markerOntinyent.bindPopup("Ontinyent" + "<br>"+ "<b>O<sub>3</sub>:  </b>"+ objMedidas[60] + "<br>"+ "<b>NO<sub>2</sub>:  </b>"+ objMedidas[61] + "<br>"+ "<b>CO:  </b>" +objMedidas[65]);
 
-    var markerPaterna = L.marker([39.504344, -0.440896]).addTo(map);
-    markerPaterna.bindPopup(objMedidas[0] +"<br>"+ objMedidas[1]);
+    var markerPaterna = L.marker([39.504344, -0.440896], {icon: myIcon}).addTo(estacionesOficiales);
+    markerPaterna.bindPopup("Paterna" + "<br>"+ "<b>O<sub>3</sub>:  </b>"+ objMedidas[66] + "<br>"+ "<b>NO<sub>2</sub>:  </b>"+ objMedidas[67] + "<br>"+ "<b>CO:  </b>" +objMedidas[71]);
 
-    var markerSaguntoCea = L.marker([39.680218, -0.278238]).addTo(map);
-    markerSaguntoCea.bindPopup(objMedidas[0] +"<br>"+ objMedidas[1]);
+    var markerSaguntoCea = L.marker([39.680218, -0.278238], {icon: myIcon}).addTo(estacionesOficiales);
+    markerSaguntoCea.bindPopup("Sagunto Cea" + "<br>"+ "<b>O<sub>3</sub>:  </b>"+ objMedidas[72] + "<br>"+ "<b>NO<sub>2</sub>:  </b>"+ objMedidas[73] + "<br>"+ "<b>CO:  </b>" +objMedidas[77]);
 
-    var markerSaguntPort = L.marker([39.681593, -0.275807]).addTo(map);
-    markerSaguntPort.bindPopup(objMedidas[0] +"<br>"+ objMedidas[1]);
+    var markerSaguntPort = L.marker([39.681593, -0.275807], {icon: myIcon}).addTo(estacionesOficiales);
+    markerSaguntPort.bindPopup("Sagunto Port" + "<br>"+ "<b>O<sub>3</sub>:  </b>"+ objMedidas[78] + "<br>"+ "<b>NO<sub>2</sub>:  </b>"+ objMedidas[79] + "<br>"+ "<b>CO:  </b>" +objMedidas[83]);
 
-    var markerSaguntNord = L.marker([39.664786, -0.221515]).addTo(map);
-    markerSaguntNord.bindPopup(objMedidas[0] +"<br>"+ objMedidas[1]);
+    var markerSaguntNord = L.marker([39.664786, -0.221515], {icon: myIcon}).addTo(estacionesOficiales);
+    markerSaguntNord.bindPopup("Sagunto Nord" + "<br>"+ "<b>O<sub>3</sub>:  </b>"+ objMedidas[84] + "<br>"+ "<b>NO<sub>2</sub>:  </b>"+ objMedidas[85] + "<br>"+ "<b>CO:  </b>" +objMedidas[89]);
 
-    var markerSedavi = L.marker([39.425734, -0.382522]).addTo(map);
-    markerSedavi.bindPopup(objMedidas[0] +"<br>"+ objMedidas[1]);
+    var markerSedavi = L.marker([39.425734, -0.382522], {icon: myIcon}).addTo(estacionesOficiales);
+    markerSedavi.bindPopup("Sedavi" + "<br>"+ "<b>O<sub>3</sub>:  </b>"+ objMedidas[90] + "<br>"+ "<b>NO<sub>2</sub>:  </b>"+ objMedidas[91] + "<br>"+ "<b>CO:  </b>" +objMedidas[95]);
 
-    var markerTorrebaja= L.marker([40.099221, -1.258338]).addTo(map);
-    markerTorrebaja.bindPopup(objMedidas[0] +"<br>"+ objMedidas[1]);
+    var markerTorrebaja= L.marker([40.099221, -1.258338], {icon: myIcon}).addTo(estacionesOficiales);
+    markerTorrebaja.bindPopup("Torrebaja" + "<br>"+ "<b>O<sub>3</sub>:  </b>"+ objMedidas[96] + "<br>"+ "<b>NO<sub>2</sub>:  </b>"+ objMedidas[97] + "<br>"+ "<b>CO:  </b>" +objMedidas[101]);
 
-    var markerTorrente = L.marker([39.423540, -0.485153]).addTo(map);
-    markerTorrente.bindPopup(objMedidas[0] +"<br>"+ objMedidas[1]);
+    var markerTorrente = L.marker([39.423540, -0.485153], {icon: myIcon}).addTo(estacionesOficiales);
+    markerTorrente.bindPopup("Torrente" + "<br>"+ "<b>O<sub>3</sub>:  </b>"+ objMedidas[102] + "<br>"+ "<b>NO<sub>2</sub>:  </b>"+ objMedidas[103] + "<br>"+ "<b>CO:  </b>" +objMedidas[107]);
 
-    var markerValenciaFrancia = L.marker([39.482846, -0.334992]).addTo(map);
-    markerValenciaFrancia.bindPopup(objMedidas[0] +"<br>"+ objMedidas[1]);
+    var markerValenciaFrancia = L.marker([39.482846, -0.334992], {icon: myIcon}).addTo(estacionesOficiales);
+    markerValenciaFrancia.bindPopup("Valencia Av.Francia" + "<br>"+ "<b>O<sub>3</sub>:  </b>"+ objMedidas[108] + "<br>"+ "<b>NO<sub>2</sub>:  </b>"+ objMedidas[109] + "<br>"+ "<b>CO:  </b>" +objMedidas[113]);
 
-    var markerValenciaSol = L.marker([39.488223, -0.384043]).addTo(map);
-    markerValenciaSol.bindPopup(objMedidas[0] +"<br>"+ objMedidas[1]);
+    var markerValenciaSol = L.marker([39.488223, -0.384043], {icon: myIcon}).addTo(estacionesOficiales);
+    markerValenciaSol.bindPopup("Valencia Moli del Sol" + "<br>"+ "<b>O<sub>3</sub>:  </b>"+ objMedidas[114] + "<br>"+ "<b>NO<sub>2</sub>:  </b>"+ objMedidas[115] + "<br>"+ "<b>CO:  </b>" +objMedidas[119]);
 
-    var markerValenciaSilla = L.marker([39.447016, -0.357838]).addTo(map);
-    markerValenciaSilla.bindPopup(objMedidas[0] +"<br>"+ objMedidas[1]);
+    var markerValenciaSilla = L.marker([39.447016, -0.357838], {icon: myIcon}).addTo(estacionesOficiales);
+    markerValenciaSilla.bindPopup("Valencia Pista de Silla" + "<br>"+ "<b>O<sub>3</sub>:  </b>"+ objMedidas[120] + "<br>"+ "<b>NO<sub>2</sub>:  </b>"+ objMedidas[121] + "<br>"+ "<b>CO:  </b>" +objMedidas[125]);
 
-    var markerValenciaPolitec = L.marker([39.419898, -0.335389]).addTo(map);
-    markerValenciaPolitec.bindPopup(objMedidas[0] +"<br>"+ objMedidas[1]);
+    var markerValenciaPolitec = L.marker([39.419898, -0.335389], {icon: myIcon}).addTo(estacionesOficiales);
+    markerValenciaPolitec.bindPopup("Valencia Politecnic" + "<br>"+ "<b>O<sub>3</sub>:  </b>"+ objMedidas[126] + "<br>"+ "<b>NO<sub>2</sub>:  </b>"+ objMedidas[127] + "<br>"+ "<b>CO:  </b>" +objMedidas[131]);
 
-    var markerValenciaVivers = L.marker([39.477280, -0.409826]).addTo(map);
-    markerValenciaVivers.bindPopup(objMedidas[0] +"<br>"+ objMedidas[1]);
+    var markerValenciaVivers = L.marker([39.477280, -0.409826], {icon: myIcon}).addTo(estacionesOficiales);
+    markerValenciaVivers.bindPopup("Valencia Vivers" + "<br>"+ "<b>O<sub>3</sub>:  </b>"+ objMedidas[132] + "<br>"+ "<b>NO<sub>2</sub>:  </b>"+ objMedidas[133] + "<br>"+ "<b>CO:  </b>" +objMedidas[137]);
 
-    var markerVilamarxant = L.marker([39.569727, -0.627513]).addTo(map);
-    markerVilamarxant.bindPopup(objMedidas[0] +"<br>"+ objMedidas[1]);
+    var markerVilamarxant = L.marker([39.569727, -0.627513], {icon: myIcon}).addTo(estacionesOficiales);
+    markerVilamarxant.bindPopup("Vilamarxant" + "<br>"+ "<b>O<sub>3</sub>:  </b>"+ objMedidas[138] + "<br>"+ "<b>NO<sub>2</sub>:  </b>"+ objMedidas[139] + "<br>"+ "<b>CO:  </b>" +objMedidas[143]);
 
-    var markerVillar = L.marker([39.735290, -0.826027]).addTo(map);
-    markerVillar.bindPopup(objMedidas[0] +"<br>"+ objMedidas[1]);
+    var markerVillar = L.marker([39.735290, -0.826027], {icon: myIcon}).addTo(estacionesOficiales);
+    markerVillar.bindPopup("Villar del Arzobispo" + "<br>"+ "<b>O<sub>3</sub>:  </b>"+ objMedidas[144] + "<br>"+ "<b>NO<sub>2</sub>:  </b>"+ objMedidas[145] + "<br>"+ "<b>CO:  </b>" +objMedidas[149]);
 
-    var markerAlzira = L.marker([39.091703, -1.073827]).addTo(map);
-    markerAlzira.bindPopup(objMedidas[0] +"<br>"+ objMedidas[1]);
+    var markerAlzira = L.marker([39.091703, -1.073827], {icon: myIcon}).addTo(estacionesOficiales);
+    markerAlzira.bindPopup("Zarra" + "<br>"+ "<b>O<sub>3</sub>:  </b>"+ objMedidas[150] + "<br>"+ "<b>NO<sub>2</sub>:  </b>"+ objMedidas[151] + "<br>"+ "<b>CO:  </b>" +objMedidas[155]);
 
 
     }
