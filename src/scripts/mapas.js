@@ -432,15 +432,15 @@ function hacermapaDeCalorInd(listacoordind,listamedind,tipo){
 //------------------------------------------------------------------------------
 function nivelMapadeCalor(media) {
   var gradient;
-  if (media <= 0.2) {
+  if (media <= 0.02) {
     gradient = {0.4: '#adcfeb', 0.65: '#7fb8e1', 1: '#0096d2'};
-  } else if (media <= 0.7) {
+  } else if (media <= 0.06) {
     gradient = {0.4: '#009645', 0.65: 'lime', 1: '#00BC56'};
-  } else if (media > 0.7 && media <= 1.2) {
+  } else if (media > 0.06 && media <= 0.1) {
     gradient = {0.4: 'yellow', 0.65: 'yellow', 1: 'yellow'};
-  } else if (media > 1.2 && media < 1.8) {
+  } else if (media > 0.1 && media < 0.2) {
     gradient = {0.4: 'yellow', 0.65: 'orange', 1: 'red'};
-  } else if (media >= 1.8) {
+  } else if (media >= 0.2) {
     gradient = {0.4: 'red', 0.65: '#C4342D', 1: '#990033'};
   }
   return {gradient: gradient};
@@ -467,8 +467,8 @@ function hacermapaDeInterpolacion(lista,capa){
     opacity: 0.3,
     cellSize: 10,
     exp: 10,
-    min:0,
-    max: 2,
+    min:0.1,
+    max: 0.24,
     colorRange: ['green','yellow', 'red'],
     debug: true
   })
