@@ -750,82 +750,82 @@ function ObtenerMedidasOficiales(){
   });
     //creamos los marcadores para las estaciones de medidas oficiales
     var markerAlbalat = L.marker([39.703101, -0.337802], {icon: myIcon}).addTo(estacionesOficiales);
-    markerAlbalat.bindPopup("Albalat dels Tarongers" + "<br>"+ "<b>O<sub>3</sub>:  </b>"+ objMedidas[0] + "<br>"+ "<b>NO<sub>2</sub>:  </b>"+ objMedidas[1] + "<br>"+ "<b>CO:  </b>" +objMedidas[5]);
+    markerAlbalat.bindPopup("Estación de medida oficial de Albalat dels Tarongers" + "<br>"+ "<b>Cantidad de O<sub>3</sub>:  </b>"+ objMedidas[0] + "<br>"+ "<b>Cantidad de NO<sub>2</sub>:  </b>"+ objMedidas[1] + "<br>"+ "<b>Cantidad de CO:  </b>" +objMedidas[5]);
 
     var markerAlgar = L.marker([39.780930, -0.368191], {icon: myIcon}).addTo(estacionesOficiales);
-    markerAlgar.bindPopup("Algar de Palancia" + "<br>"+ "<b>O<sub>3</sub>:  </b>"+ objMedidas[6] + "<br>"+ "<b>NO<sub>2</sub>:  </b>"+ objMedidas[7] + "<br>"+ "<b>CO:  </b>" +objMedidas[11]);
+    markerAlgar.bindPopup("Estación de medida oficial de Algar de Palancia" + "<br>"+ "<b>Cantidad de O<sub>3</sub>:  </b>"+ objMedidas[6] + "<br>"+ "<b>Cantidad de NO<sub>2</sub>:  </b>"+ objMedidas[7] + "<br>"+ "<b>Cantidad de CO:  </b>" +objMedidas[11]);
 
     var markerAlzira = L.marker([39.154875, -0.431890], {icon: myIcon}).addTo(estacionesOficiales);
-    markerAlzira.bindPopup("Alzira" + "<br>"+ "<b>O<sub>3</sub>:  </b>"+ objMedidas[12] + "<br>"+ "<b>NO<sub>2</sub>:  </b>"+ objMedidas[13] + "<br>"+ "<b>CO:  </b>" +objMedidas[17]);
+    markerAlzira.bindPopup("Estación de medida oficial de Alzira" + "<br>"+ "<b>Cantidad de O<sub>3</sub>:  </b>"+ objMedidas[12] + "<br>"+ "<b>Cantidad de NO<sub>2</sub>:  </b>"+ objMedidas[13] + "<br>"+ "<b>Cantidad de CO:  </b>" +objMedidas[17]);
 
     var markerBenigánim = L.marker([38.943183, -0.445719], {icon: myIcon}).addTo(estacionesOficiales);
-    markerBenigánim.bindPopup("Beniganim" + "<br>"+ "<b>O<sub>3</sub>:  </b>"+ objMedidas[18] + "<br>"+ "<b>NO<sub>2</sub>:  </b>"+ objMedidas[19] + "<br>"+ "<b>CO:  </b>" +objMedidas[23]);
+    markerBenigánim.bindPopup("Estación de medida oficial de Beniganim" + "<br>"+ "<b>Cantidad de O<sub>3</sub>:  </b>"+ objMedidas[18] + "<br>"+ "<b>Cantidad de NO<sub>2</sub>:  </b>"+ objMedidas[19] + "<br>"+ "<b>Cantidad de CO:  </b>" +objMedidas[23]);
 
     var markerBuñol = L.marker([39.420255, -0.793399], {icon: myIcon}).addTo(estacionesOficiales);
-    markerBuñol.bindPopup("Buñol" + "<br>"+ "<b>O<sub>3</sub>:  </b>"+ objMedidas[24] + "<br>"+ "<b>NO<sub>2</sub>:  </b>"+ objMedidas[25] + "<br>"+ "<b>CO:  </b>" +objMedidas[29]);
+    markerBuñol.bindPopup("Estación de medida oficial de Buñol" + "<br>"+ "<b>Cantidad de O<sub>3</sub>:  </b>"+ objMedidas[24] + "<br>"+ "<b>Cantidad de NO<sub>2</sub>:  </b>"+ objMedidas[25] + "<br>"+ "<b>Cantidad de CO:  </b>" +objMedidas[29]);
 
     var markerBurjassot = L.marker([39.509729, -0.417221], {icon: myIcon}).addTo(estacionesOficiales);
-    markerBurjassot.bindPopup("Burjassot" + "<br>"+ "<b>O<sub>3</sub>:  </b>"+ objMedidas[30] + "<br>"+ "<b>NO<sub>2</sub>:  </b>"+ objMedidas[31] + "<br>"+ "<b>CO:  </b>" +objMedidas[35]);
+    markerBurjassot.bindPopup("Estación de medida oficial de Burjassot" + "<br>"+ "<b>Cantidad de O<sub>3</sub>:  </b>"+ objMedidas[30] + "<br>"+ "<b>Cantidad de NO<sub>2</sub>:  </b>"+ objMedidas[31] + "<br>"+ "<b>Cantidad de CO:  </b>" +objMedidas[35]);
 
     var markerCaudete = L.marker([39.557806, -1.280138], {icon: myIcon}).addTo(estacionesOficiales);
-    markerCaudete.bindPopup("Caudete de las Fuentes" + "<br>"+ "<b>O<sub>3</sub>:  </b>"+ objMedidas[36] + "<br>"+ "<b>NO<sub>2</sub>:  </b>"+ objMedidas[37] + "<br>"+ "<b>CO:  </b>" +objMedidas[41]);
+    markerCaudete.bindPopup("Estación de medida oficial de Caudete de las Fuentes" + "<br>"+ "<b>Cantidad de O<sub>3</sub>:  </b>"+ objMedidas[36] + "<br>"+ "<b>Cantidad de NO<sub>2</sub>:  </b>"+ objMedidas[37] + "<br>"+ "<b>Cantidad de CO:  </b>" +objMedidas[41]);
 
     var markerCortes = L.marker([39.242268, -0.941525], {icon: myIcon}).addTo(estacionesOficiales);
-    markerCortes.bindPopup("Cortes de Pallas" + "<br>"+ "<b>O<sub>3</sub>:  </b>"+ objMedidas[42] + "<br>"+ "<b>NO<sub>2</sub>:  </b>"+ objMedidas[43] + "<br>"+ "<b>CO:  </b>" +objMedidas[47]);
+    markerCortes.bindPopup("Estación de medida oficial de Cortes de Pallas" + "<br>"+ "<b>Cantidad de O<sub>3</sub>:  </b>"+ objMedidas[42] + "<br>"+ "<b>Cantidad de NO<sub>2</sub>:  </b>"+ objMedidas[43] + "<br>"+ "<b>Cantidad de CO:  </b>" +objMedidas[47]);
 
     var markerCuart = L.marker([39.481061, -0.451558], {icon: myIcon}).addTo(estacionesOficiales);
-    markerCuart.bindPopup("Cuarta de Poble" + "<br>"+ "<b>O<sub>3</sub>:  </b>"+ objMedidas[48] + "<br>"+ "<b>NO<sub>2</sub>:  </b>"+ objMedidas[49] + "<br>"+ "<b>CO:  </b>" +objMedidas[53]);
+    markerCuart.bindPopup("Estación de medida oficial de Cuarta de Poble" + "<br>"+ "<b>Cantidad de O<sub>3</sub>:  </b>"+ objMedidas[48] + "<br>"+ "<b>Cantidad de NO<sub>2</sub>:  </b>"+ objMedidas[49] + "<br>"+ "<b>Cantidad de CO:  </b>" +objMedidas[53]);
 
     var markerGandia = L.marker([38.985748, -0.162910], {icon: myIcon}).addTo(estacionesOficiales);
-    markerGandia.bindPopup("Gandia" + "<br>"+ "<b>O<sub>3</sub>:  </b>"+ objMedidas[54] + "<br>"+ "<b>NO<sub>2</sub>:  </b>"+ objMedidas[55] + "<br>"+ "<b>CO:  </b>" +objMedidas[59]);
+    markerGandia.bindPopup("Estación de medida oficial de Gandia" + "<br>"+ "<b>Cantidad de O<sub>3</sub>:  </b>"+ objMedidas[54] + "<br>"+ "<b>Cantidad de NO<sub>2</sub>:  </b>"+ objMedidas[55] + "<br>"+ "<b>Cantidad de CO:  </b>" +objMedidas[59]);
 
     var markerOntinyent = L.marker([38.822803, -0.595123], {icon: myIcon}).addTo(estacionesOficiales);
-    markerOntinyent.bindPopup("Ontinyent" + "<br>"+ "<b>O<sub>3</sub>:  </b>"+ objMedidas[60] + "<br>"+ "<b>NO<sub>2</sub>:  </b>"+ objMedidas[61] + "<br>"+ "<b>CO:  </b>" +objMedidas[65]);
+    markerOntinyent.bindPopup("Estación de medida oficial de Ontinyent" + "<br>"+ "<b>Cantidad de O<sub>3</sub>:  </b>"+ objMedidas[60] + "<br>"+ "<b>Cantidad de NO<sub>2</sub>:  </b>"+ objMedidas[61] + "<br>"+ "<b>Cantidad de CO:  </b>" +objMedidas[65]);
 
     var markerPaterna = L.marker([39.504344, -0.440896], {icon: myIcon}).addTo(estacionesOficiales);
-    markerPaterna.bindPopup("Paterna" + "<br>"+ "<b>O<sub>3</sub>:  </b>"+ objMedidas[66] + "<br>"+ "<b>NO<sub>2</sub>:  </b>"+ objMedidas[67] + "<br>"+ "<b>CO:  </b>" +objMedidas[71]);
+    markerPaterna.bindPopup("Estación de medida oficial de Paterna" + "<br>"+ "<b>Cantidad de O<sub>3</sub>:  </b>"+ objMedidas[66] + "<br>"+ "<b>Cantidad de NO<sub>2</sub>:  </b>"+ objMedidas[67] + "<br>"+ "<b>Cantidad de CO:  </b>" +objMedidas[71]);
 
     var markerSaguntoCea = L.marker([39.680218, -0.278238], {icon: myIcon}).addTo(estacionesOficiales);
-    markerSaguntoCea.bindPopup("Sagunto Cea" + "<br>"+ "<b>O<sub>3</sub>:  </b>"+ objMedidas[72] + "<br>"+ "<b>NO<sub>2</sub>:  </b>"+ objMedidas[73] + "<br>"+ "<b>CO:  </b>" +objMedidas[77]);
+    markerSaguntoCea.bindPopup("Estación de medida oficial de Sagunto Cea" + "<br>"+ "<b>Cantidad de O<sub>3</sub>:  </b>"+ objMedidas[72] + "<br>"+ "<b>Cantidad de NO<sub>2</sub>:  </b>"+ objMedidas[73] + "<br>"+ "<b>Cantidad de CO:  </b>" +objMedidas[77]);
 
     var markerSaguntPort = L.marker([39.681593, -0.275807], {icon: myIcon}).addTo(estacionesOficiales);
-    markerSaguntPort.bindPopup("Sagunto Port" + "<br>"+ "<b>O<sub>3</sub>:  </b>"+ objMedidas[78] + "<br>"+ "<b>NO<sub>2</sub>:  </b>"+ objMedidas[79] + "<br>"+ "<b>CO:  </b>" +objMedidas[83]);
+    markerSaguntPort.bindPopup("Estación de medida oficial de Sagunto Port" + "<br>"+ "<b>Cantidad de O<sub>3</sub>:  </b>"+ objMedidas[78] + "<br>"+ "<b>Cantidad de NO<sub>2</sub>:  </b>"+ objMedidas[79] + "<br>"+ "<b>Cantidad de CO:  </b>" +objMedidas[83]);
 
     var markerSaguntNord = L.marker([39.664786, -0.221515], {icon: myIcon}).addTo(estacionesOficiales);
-    markerSaguntNord.bindPopup("Sagunto Nord" + "<br>"+ "<b>O<sub>3</sub>:  </b>"+ objMedidas[84] + "<br>"+ "<b>NO<sub>2</sub>:  </b>"+ objMedidas[85] + "<br>"+ "<b>CO:  </b>" +objMedidas[89]);
+    markerSaguntNord.bindPopup("Estación de medida oficial de Sagunto Nord" + "<br>"+ "<b>Cantidad de O<sub>3</sub>:  </b>"+ objMedidas[84] + "<br>"+ "<b>Cantidad de NO<sub>2</sub>:  </b>"+ objMedidas[85] + "<br>"+ "<b>Cantidad de CO:  </b>" +objMedidas[89]);
 
     var markerSedavi = L.marker([39.425734, -0.382522], {icon: myIcon}).addTo(estacionesOficiales);
-    markerSedavi.bindPopup("Sedavi" + "<br>"+ "<b>O<sub>3</sub>:  </b>"+ objMedidas[90] + "<br>"+ "<b>NO<sub>2</sub>:  </b>"+ objMedidas[91] + "<br>"+ "<b>CO:  </b>" +objMedidas[95]);
+    markerSedavi.bindPopup("Estación de medida oficial de Sedavi" + "<br>"+ "<b>Cantidad de O<sub>3</sub>:  </b>"+ objMedidas[90] + "<br>"+ "<b>Cantidad de NO<sub>2</sub>:  </b>"+ objMedidas[91] + "<br>"+ "<b>Cantidad de CO:  </b>" +objMedidas[95]);
 
     var markerTorrebaja= L.marker([40.099221, -1.258338], {icon: myIcon}).addTo(estacionesOficiales);
-    markerTorrebaja.bindPopup("Torrebaja" + "<br>"+ "<b>O<sub>3</sub>:  </b>"+ objMedidas[96] + "<br>"+ "<b>NO<sub>2</sub>:  </b>"+ objMedidas[97] + "<br>"+ "<b>CO:  </b>" +objMedidas[101]);
+    markerTorrebaja.bindPopup("Estación de medida oficial de Torrebaja" + "<br>"+ "<b>Cantidad de O<sub>3</sub>:  </b>"+ objMedidas[96] + "<br>"+ "<b>Cantidad de NO<sub>2</sub>:  </b>"+ objMedidas[97] + "<br>"+ "<b>Cantidad de CO:  </b>" +objMedidas[101]);
 
     var markerTorrente = L.marker([39.423540, -0.485153], {icon: myIcon}).addTo(estacionesOficiales);
-    markerTorrente.bindPopup("Torrente" + "<br>"+ "<b>O<sub>3</sub>:  </b>"+ objMedidas[102] + "<br>"+ "<b>NO<sub>2</sub>:  </b>"+ objMedidas[103] + "<br>"+ "<b>CO:  </b>" +objMedidas[107]);
+    markerTorrente.bindPopup("Estación de medida oficial de Torrente" + "<br>"+ "<b>Cantidad de O<sub>3</sub>:  </b>"+ objMedidas[102] + "<br>"+ "<b>Cantidad de NO<sub>2</sub>:  </b>"+ objMedidas[103] + "<br>"+ "<b>Cantidad de CO:  </b>" +objMedidas[107]);
 
     var markerValenciaFrancia = L.marker([39.482846, -0.334992], {icon: myIcon}).addTo(estacionesOficiales);
-    markerValenciaFrancia.bindPopup("Valencia Av.Francia" + "<br>"+ "<b>O<sub>3</sub>:  </b>"+ objMedidas[108] + "<br>"+ "<b>NO<sub>2</sub>:  </b>"+ objMedidas[109] + "<br>"+ "<b>CO:  </b>" +objMedidas[113]);
+    markerValenciaFrancia.bindPopup("Estación de medida oficial de Valencia Av.Francia" + "<br>"+ "<b>Cantidad de O<sub>3</sub>:  </b>"+ objMedidas[108] + "<br>"+ "<b>Cantidad de NO<sub>2</sub>:  </b>"+ objMedidas[109] + "<br>"+ "<b>Cantidad de CO:  </b>" +objMedidas[113]);
 
     var markerValenciaSol = L.marker([39.488223, -0.384043], {icon: myIcon}).addTo(estacionesOficiales);
-    markerValenciaSol.bindPopup("Valencia Moli del Sol" + "<br>"+ "<b>O<sub>3</sub>:  </b>"+ objMedidas[114] + "<br>"+ "<b>NO<sub>2</sub>:  </b>"+ objMedidas[115] + "<br>"+ "<b>CO:  </b>" +objMedidas[119]);
+    markerValenciaSol.bindPopup("Estación de medida oficial de Valencia Moli del Sol" + "<br>"+ "<b>Cantidad de O<sub>3</sub>:  </b>"+ objMedidas[114] + "<br>"+ "<b>Cantidad de NO<sub>2</sub>:  </b>"+ objMedidas[115] + "<br>"+ "<b>Cantidad de CO:  </b>" +objMedidas[119]);
 
     var markerValenciaSilla = L.marker([39.447016, -0.357838], {icon: myIcon}).addTo(estacionesOficiales);
-    markerValenciaSilla.bindPopup("Valencia Pista de Silla" + "<br>"+ "<b>O<sub>3</sub>:  </b>"+ objMedidas[120] + "<br>"+ "<b>NO<sub>2</sub>:  </b>"+ objMedidas[121] + "<br>"+ "<b>CO:  </b>" +objMedidas[125]);
+    markerValenciaSilla.bindPopup("Estación de medida oficial de Valencia Pista de Silla" + "<br>"+ "<b>Cantidad de O<sub>3</sub>:  </b>"+ objMedidas[120] + "<br>"+ "<b>Cantidad de NO<sub>2</sub>:  </b>"+ objMedidas[121] + "<br>"+ "<b>Cantidad de CO:  </b>" +objMedidas[125]);
 
     var markerValenciaPolitec = L.marker([39.419898, -0.335389], {icon: myIcon}).addTo(estacionesOficiales);
-    markerValenciaPolitec.bindPopup("Valencia Politecnic" + "<br>"+ "<b>O<sub>3</sub>:  </b>"+ objMedidas[126] + "<br>"+ "<b>NO<sub>2</sub>:  </b>"+ objMedidas[127] + "<br>"+ "<b>CO:  </b>" +objMedidas[131]);
+    markerValenciaPolitec.bindPopup("Estación de medida oficial de Valencia Politecnic" + "<br>"+ "<b>Cantidad de O<sub>3</sub>:  </b>"+ objMedidas[126] + "<br>"+ "<b>Cantidad de NO<sub>2</sub>:  </b>"+ objMedidas[127] + "<br>"+ "<b>Cantidad de CO:  </b>" +objMedidas[131]);
 
     var markerValenciaVivers = L.marker([39.477280, -0.409826], {icon: myIcon}).addTo(estacionesOficiales);
-    markerValenciaVivers.bindPopup("Valencia Vivers" + "<br>"+ "<b>O<sub>3</sub>:  </b>"+ objMedidas[132] + "<br>"+ "<b>NO<sub>2</sub>:  </b>"+ objMedidas[133] + "<br>"+ "<b>CO:  </b>" +objMedidas[137]);
+    markerValenciaVivers.bindPopup("Estación de medida oficial de Valencia Vivers" + "<br>"+ "<b>Cantidad de O<sub>3</sub>:  </b>"+ objMedidas[132] + "<br>"+ "<b>Cantidad de NO<sub>2</sub>:  </b>"+ objMedidas[133] + "<br>"+ "<b>Cantidad de CO:  </b>" +objMedidas[137]);
 
     var markerVilamarxant = L.marker([39.569727, -0.627513], {icon: myIcon}).addTo(estacionesOficiales);
-    markerVilamarxant.bindPopup("Vilamarxant" + "<br>"+ "<b>O<sub>3</sub>:  </b>"+ objMedidas[138] + "<br>"+ "<b>NO<sub>2</sub>:  </b>"+ objMedidas[139] + "<br>"+ "<b>CO:  </b>" +objMedidas[143]);
+    markerVilamarxant.bindPopup("Estación de medida oficial de Vilamarxant" + "<br>"+ "<b>Cantidad de O<sub>3</sub>:  </b>"+ objMedidas[138] + "<br>"+ "<b>Cantidad de NO<sub>2</sub>:  </b>"+ objMedidas[139] + "<br>"+ "<b>Cantidad de CO:  </b>" +objMedidas[143]);
 
     var markerVillar = L.marker([39.735290, -0.826027], {icon: myIcon}).addTo(estacionesOficiales);
-    markerVillar.bindPopup("Villar del Arzobispo" + "<br>"+ "<b>O<sub>3</sub>:  </b>"+ objMedidas[144] + "<br>"+ "<b>NO<sub>2</sub>:  </b>"+ objMedidas[145] + "<br>"+ "<b>CO:  </b>" +objMedidas[149]);
+    markerVillar.bindPopup("Estación de medida oficial de Villar del Arzobispo" + "<br>"+ "<b>Cantidad de O<sub>3</sub>:  </b>"+ objMedidas[144] + "<br>"+ "<b>Cantidad de NO<sub>2</sub>:  </b>"+ objMedidas[145] + "<br>"+ "<b>Cantidad de CO:  </b>" +objMedidas[149]);
 
     var markerAlzira = L.marker([39.091703, -1.073827], {icon: myIcon}).addTo(estacionesOficiales);
-    markerAlzira.bindPopup("Zarra" + "<br>"+ "<b>O<sub>3</sub>:  </b>"+ objMedidas[150] + "<br>"+ "<b>NO<sub>2</sub>:  </b>"+ objMedidas[151] + "<br>"+ "<b>CO:  </b>" +objMedidas[155]);
+    markerAlzira.bindPopup("Estación de medida oficial de Zarra" + "<br>"+ "<b>Cantidad de O<sub>3</sub>:  </b>"+ objMedidas[150] + "<br>"+ "<b>Cantidad de NO<sub>2</sub>:  </b>"+ objMedidas[151] + "<br>"+ "<b>Cantidad de CO:  </b>" +objMedidas[155]);
 
 
     }
