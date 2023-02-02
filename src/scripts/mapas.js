@@ -8,6 +8,7 @@
 
 //muestra las medidas de hoy nada mas cargar la pagina
 window.onload = mostrarMedidasOzono;
+window.onload = ObtenerMedidasOficiales;
 
 //variable para las peticiones
 const IP_PUERTO = "http://localhost:8080";
@@ -674,4 +675,153 @@ function mostrarMedidasDioxidoCarbonoFecha(listaDentro){
   hacermapaDeInterpolacion(listaPortipoDioxido, dioxidoIndfecha)
   groupedLayerGroupDioxidofecha.addLayer(dioxidoIndfecha);
  
+}
+
+function ObtenerMedidasOficiales(){
+ 
+  // const $ = cheerio.load(url);
+  // console.log($("body").text());
+  $.ajax({
+    url: "https://cors-anywhere.herokuapp.com/https://www.eltiempo.es/calidad-aire/valencia~ROW_NUMBER_4~~TEMP_UNIT_c~~WIND_UNIT_kmh~",
+    method: "GET",
+    headers: {
+      "X-Requested-With": "XMLHttpRequest"
+    },
+    success: function(data) { 
+      // Use DOMParser to parse the HTML string into a DOM
+    var parser = new DOMParser();
+    var doc = parser.parseFromString(data, "text/html");
+    var extractedData = {};
+    
+    // Extract the data you want from the DOM and add it to the extractedData object
+    //extractedData.property1 = doc.querySelector(".svalue_good").textContent;
+    //extractedData.property2 = doc.querySelectorAll(".data").textContent;
+    /*let ciudades = '{ "ciudades" : [' +
+      '{ "Albalat dels Tarongers" , "O3":"" , "NO2":"" , "SO2":"" , "PM2.5":"" , "PM10":"" , "CO":""},' +
+      '{ "ciudad":"Algar de Palancia" , "O3":"" , "NO2":"" , "SO2":"" , "PM2.5":"" , "PM10":"" , "CO":""},' +
+      '{ "ciudad":"Alzira" , "O3":"" , "NO2":"" , "SO2":"" , "PM2.5":"" , "PM10":"" , "CO":""},' +
+      '{ "ciudad":"Benigánim" , "O3":"" , "NO2":"" , "SO2":"" , "PM2.5":"" , "PM10":"" , "CO":""},' +
+      '{ "ciudad":"Buñol" , "O3":"" , "NO2":"" , "SO2":"" , "PM2.5":"" , "PM10":"" , "CO":""},' +
+      '{ "ciudad":"Burjassot" , "O3":"" , "NO2":"" , "SO2":"" , "PM2.5":"" , "PM10":"" , "CO":""},' +
+      '{ "ciudad":"Caudete de las Fuentes" , "O3":"" , "NO2":"" , "SO2":"" , "PM2.5":"" , "PM10":"" , "CO":""},' +
+      '{ "ciudad":"Cortes de Pallás" , "O3":"" , "NO2":"" , "SO2":"" , "PM2.5":"" , "PM10":"" , "CO":""},' +
+      '{ "ciudad":"Cuart de Poblet" , "O3":"" , "NO2":"" , "SO2":"" , "PM2.5":"" , "PM10":"" , "CO":""},' +
+      '{ "ciudad":"Gandía" , "O3":"" , "NO2":"" , "SO2":"" , "PM2.5":"" , "PM10":"" , "CO":""},' +
+      '{ "ciudad":"Ontinyent" , "O3":"" , "NO2":"" , "SO2":"" , "PM2.5":"" , "PM10":"" , "CO":""},' +
+      '{ "ciudad":"Paterna" , "O3":"" , "NO2":"" , "SO2":"" , "PM2.5":"" , "PM10":"" , "CO":""},' +
+      '{ "ciudad":"Sagunt Cea" , "O3":"" , "NO2":"" , "SO2":"" , "PM2.5":"" , "PM10":"" , "CO":""},' +
+      '{ "ciudad":"Sagunt Port" , "O3":"" , "NO2":"" , "SO2":"" , "PM2.5":"" , "PM10":"" , "CO":""},' +
+      '{ "ciudad":"Sagunt-Nord" , "O3":"" , "NO2":"" , "SO2":"" , "PM2.5":"" , "PM10":"" , "CO":""},' +
+      '{ "ciudad":"Sedaví" , "O3":"" , "NO2":"" , "SO2":"" , "PM2.5":"" , "PM10":"" , "CO":""},' +
+      '{ "ciudad":"Torrebaja" , "O3":"" , "NO2":"" , "SO2":"" , "PM2.5":"" , "PM10":"" , "CO":""},' +
+      '{ "ciudad":"Torrente" , "O3":"" , "NO2":"" , "SO2":"" , "PM2.5":"" , "PM10":"" , "CO":""},' +
+      '{ "ciudad":"València - Avd. Francia" , "O3":"" , "NO2":"" , "SO2":"" , "PM2.5":"" , "PM10":"" , "CO":""},' +
+      '{ "ciudad":"València - Molí Del Sol" , "O3":"" , "NO2":"" , "SO2":"" , "PM2.5":"" , "PM10":"" , "CO":""},' +
+      '{ "ciudad":"València-Pista De Silla" , "O3":"" , "NO2":"" , "SO2":"" , "PM2.5":"" , "PM10":"" , "CO":""},' +
+      '{ "ciudad":"València-Politècnic" , "O3":"" , "NO2":"" , "SO2":"" , "PM2.5":"" , "PM10":"" , "CO":""},' +
+      '{ "ciudad":"València-Vivers" , "O3":"" , "NO2":"" , "SO2":"" , "PM2.5":"" , "PM10":"" , "CO":""},' +
+      '{ "ciudad":"Vilamarxant" , "O3":"" , "NO2":"" , "SO2":"" , "PM2.5":"" , "PM10":"" , "CO":""},' +
+      '{ "ciudad":"Villar del Arzobispo" , "O3":"" , "NO2":"" , "SO2":"" , "PM2.5":"" , "PM10":"" , "CO":""},' +
+      '{ "ciudad":"Zarra" , "O3":"" , "NO2":"" , "SO2":"" , "PM2.5":"" , "PM10":"" , "CO":""} ]}';
+      const objCiudades = JSON.parse(ciudades);*/
+      var objMedidas = [];
+  /*  var elements = doc.querySelectorAll(".data");
+    for (var i = 0; i < elements.length; i++) {
+      console.log(elements[i].textContent);
+      console.log(elements.length)
+    }*/
+    var elements2 = doc.querySelectorAll(".value_good, .value_null");
+    for (var i = 0; i < elements2.length; i++) {
+     //console.log(elements2[i].textContent);
+     //console.log(elements2.length)
+      objMedidas.push(elements2[i].textContent.trim()); 
+    }
+    // Convert the extractedData object into a JSON string
+    //var jsonData = JSON.stringify(extractedData);
+    // Do something with the JSON data
+    console.log(objMedidas);
+
+    //creamos los marcadores para las estaciones de medidas oficiales
+    var markerAlbalat = L.marker([39.703101, -0.337802]).addTo(map);
+    markerAlbalat.bindPopup(objMedidas[0] +"<br>"+ objMedidas[1]);
+
+    var markerAlgar = L.marker([39.780930, -0.368191]).addTo(map);
+    markerAlgar.bindPopup(objMedidas[0] +"<br>"+ objMedidas[1]);
+
+    var markerAlzira = L.marker([39.154875, -0.431890]).addTo(map);
+    markerAlzira.bindPopup(objMedidas[0] +"<br>"+ objMedidas[1]);
+
+    var markerBenigánim = L.marker([38.943183, -0.445719]).addTo(map);
+    markerBenigánim.bindPopup(objMedidas[0] +"<br>"+ objMedidas[1]);
+
+    var markerBuñol = L.marker([39.420255, -0.793399]).addTo(map);
+    markerBuñol.bindPopup(objMedidas[0] +"<br>"+ objMedidas[1]);
+
+    var markerBurjassot = L.marker([39.509729, -0.417221]).addTo(map);
+    markerBurjassot.bindPopup(objMedidas[0] +"<br>"+ objMedidas[1]);
+
+    var markerCaudete = L.marker([39.557806, -1.280138]).addTo(map);
+    markerCaudete.bindPopup(objMedidas[0] +"<br>"+ objMedidas[1]);
+
+    var markerCortes = L.marker([39.242268, -0.941525]).addTo(map);
+    markerCortes.bindPopup(objMedidas[0] +"<br>"+ objMedidas[1]);
+
+    var markerCuart = L.marker([39.481061, -0.451558]).addTo(map);
+    markerCuart.bindPopup(objMedidas[0] +"<br>"+ objMedidas[1]);
+
+    var markerGandia = L.marker([38.985748, -0.162910]).addTo(map);
+    markerGandia.bindPopup(objMedidas[0] +"<br>"+ objMedidas[1]);
+
+    var markerOntinyent = L.marker([38.822803, -0.595123]).addTo(map);
+    markerOntinyent.bindPopup(objMedidas[0] +"<br>"+ objMedidas[1]);
+
+    var markerPaterna = L.marker([39.504344, -0.440896]).addTo(map);
+    markerPaterna.bindPopup(objMedidas[0] +"<br>"+ objMedidas[1]);
+
+    var markerSaguntoCea = L.marker([39.680218, -0.278238]).addTo(map);
+    markerSaguntoCea.bindPopup(objMedidas[0] +"<br>"+ objMedidas[1]);
+
+    var markerSaguntPort = L.marker([39.681593, -0.275807]).addTo(map);
+    markerSaguntPort.bindPopup(objMedidas[0] +"<br>"+ objMedidas[1]);
+
+    var markerSaguntNord = L.marker([39.664786, -0.221515]).addTo(map);
+    markerSaguntNord.bindPopup(objMedidas[0] +"<br>"+ objMedidas[1]);
+
+    var markerSedavi = L.marker([39.425734, -0.382522]).addTo(map);
+    markerSedavi.bindPopup(objMedidas[0] +"<br>"+ objMedidas[1]);
+
+    var markerTorrebaja= L.marker([40.099221, -1.258338]).addTo(map);
+    markerTorrebaja.bindPopup(objMedidas[0] +"<br>"+ objMedidas[1]);
+
+    var markerTorrente = L.marker([39.423540, -0.485153]).addTo(map);
+    markerTorrente.bindPopup(objMedidas[0] +"<br>"+ objMedidas[1]);
+
+    var markerValenciaFrancia = L.marker([39.482846, -0.334992]).addTo(map);
+    markerValenciaFrancia.bindPopup(objMedidas[0] +"<br>"+ objMedidas[1]);
+
+    var markerValenciaSol = L.marker([39.488223, -0.384043]).addTo(map);
+    markerValenciaSol.bindPopup(objMedidas[0] +"<br>"+ objMedidas[1]);
+
+    var markerValenciaSilla = L.marker([39.447016, -0.357838]).addTo(map);
+    markerValenciaSilla.bindPopup(objMedidas[0] +"<br>"+ objMedidas[1]);
+
+    var markerValenciaPolitec = L.marker([39.419898, -0.335389]).addTo(map);
+    markerValenciaPolitec.bindPopup(objMedidas[0] +"<br>"+ objMedidas[1]);
+
+    var markerValenciaVivers = L.marker([39.477280, -0.409826]).addTo(map);
+    markerValenciaVivers.bindPopup(objMedidas[0] +"<br>"+ objMedidas[1]);
+
+    var markerVilamarxant = L.marker([39.569727, -0.627513]).addTo(map);
+    markerVilamarxant.bindPopup(objMedidas[0] +"<br>"+ objMedidas[1]);
+
+    var markerVillar = L.marker([39.735290, -0.826027]).addTo(map);
+    markerVillar.bindPopup(objMedidas[0] +"<br>"+ objMedidas[1]);
+
+    var markerAlzira = L.marker([39.091703, -1.073827]).addTo(map);
+    markerAlzira.bindPopup(objMedidas[0] +"<br>"+ objMedidas[1]);
+
+
+    }
+  });
+
 }
