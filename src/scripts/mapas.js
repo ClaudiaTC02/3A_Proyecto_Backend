@@ -497,7 +497,7 @@ function hacermapaDeInterpolacion(lista,capa){
     }
     var marker = L.marker(e.latlng).addTo(capa);//hacemos un marker con un popup en el cual mostramos el valor de la intesidad
     marker.setOpacity(0);
-    marker.bindPopup(intensidad.toString());//le pasamos el texto
+    marker.bindPopup("Medida registrada: "+intensidad.toString());//le pasamos el texto
     lastMarker = marker;
   });
 }
