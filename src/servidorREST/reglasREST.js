@@ -206,6 +206,7 @@ module.exports.cargar = function (servidor, logica) {
    */
   //------------------------------------------------------------------------------
   servidor.get("/obtenerMediaMedidas", async function (peticion, respuesta) {
+
     console.log(" * GET /obtenerMediaMedidas");
     var id = peticion.query.id_usuario;
     console.log(id);
@@ -213,12 +214,16 @@ module.exports.cargar = function (servidor, logica) {
       respuesta.sendStatus(404).send("No se pudieron encontrar medidas");
       return;
     } else {
+      try{
       var medida = await logica.obtenerMediaMedicionesDia(id);
       if(!Number.isNaN(medida)) {
         respuesta.send(JSON.stringify(medida));
       } else {
         respuesta.sendStatus(404).send("No se pudieron encontrar medidas");
       }
+    } catch {
+      respuesta.sendStatus(404).send("No se pudieron encontrar medidas");
+    }
     }
   }); // GET /obtenerMediaMedidas/?id_usuario=<texto>
   //------------------------------------------------------------------------------

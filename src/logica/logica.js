@@ -426,6 +426,7 @@ module.exports = class Logica {
    * Diseño: id_usuario:N --> obtenerMediaMedicionesDia() --> [{medida: N}] | 404
    */
   async obtenerMediaMedicionesDia(correo) {
+    try{
     let id_usuario = await this.obtenerIdUsuario(correo)
     console.log(id_usuario[0].id)
     let fechaHoy = new Date().toISOString().substring(0, 10);
@@ -435,7 +436,7 @@ module.exports = class Logica {
     var medidas =  await this.conexion.query(
       "SELECT medida.Dato FROM medida INNER JOIN usuario on usuario.id = :id INNER JOIN usuario_dispositivo on usuario_dispositivo.Id_Usuario = usuario.Id INNER JOIN dispositivo on dispositivo.id = usuario_dispositivo.Id_Dispositivo WHERE medida.Id_Dispositivo = dispositivo.Id  AND medida.Fecha BETWEEN :fecha1 AND :fecha2;",
       {
-        replacements: { id: 69, fecha1: fecha_1, fecha2: fecha_2 },
+        replacements: { id: id_usuario[0].id, fecha1: fecha_1, fecha2: fecha_2 },
         type: QueryTypes.SELECT,
       }
     );
@@ -445,6 +446,10 @@ module.exports = class Logica {
     }, 0);  // el valor inicial del acumulador es 0
     console.log(medidas);
     return suma/tam
+  }
+  catch(error){
+    console.log(error)
+  }
   } //obtenerMediaMedicionesDia()
   //------------------------------------------------------------------------------
   /**

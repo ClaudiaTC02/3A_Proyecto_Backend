@@ -11,10 +11,10 @@ window.onload = mostrarMedidasOzono;
 window.onload = ObtenerMedidasOficiales;
 
 //variable para las peticiones
-const IP_PUERTO = "http://localhost:8080";
+//const IP_PUERTO = "http://localhost:8080";
 
 //Para mi servidor usar esta
-//const IP_PUERTO = "http://192.168.137.1:8080";
+const IP_PUERTO = "http://192.168.137.1:8080";
 
 //esta variable muestra las coordenadas y el zoom (las cooordenadas que va entre los parentesis van a ser latitud y longitud)
 let map=L.map('map').setView([38.995026, -0.164651],8)
