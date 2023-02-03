@@ -727,21 +727,37 @@ function ObtenerMedidasOficiales(){
       '{ "ciudad":"Zarra" , "O3":"" , "NO2":"" , "SO2":"" , "PM2.5":"" , "PM10":"" , "CO":""} ]}';
       const objCiudades = JSON.parse(ciudades);*/
       var objMedidas = [];
-  /*  var elements = doc.querySelectorAll(".data");
+      var objICA = [];
+      var objUGM3 = [];
+      for (var i = 0; i < 156; i++){
+        objMedidas.push(0);
+      }
+    var elements = doc.querySelectorAll(".data");
     for (var i = 0; i < elements.length; i++) {
-      console.log(elements[i].textContent);
-      console.log(elements.length)
-    }*/
+
+        objUGM3.push(elements[i].textContent.trim());
+    }
     var elements2 = doc.querySelectorAll(".value_good, .value_moderate, .value_null");
+    var j = 0;
     for (var i = 0; i < elements2.length; i++) {
      //console.log(elements2[i].textContent);
      //console.log(elements2.length)
-      objMedidas.push(elements2[i].textContent.trim()); 
+      objICA.push(elements2[i].textContent.trim()); 
+
+      if (elements2[i].textContent.trim() != "--" ){
+
+        objMedidas[i] = objUGM3[j].trim();
+        j++
+      }
+      else{
+        objMedidas[i] = "--"
+      }
     }
     // Convert the extractedData object into a JSON string
     //var jsonData = JSON.stringify(extractedData);
     // Do something with the JSON data
     console.log(objMedidas);
+    console.log(objICA);
 
     var myIcon = L.icon({
       iconUrl: 'https://cdn-icons-png.flaticon.com/512/992/992349.png',
