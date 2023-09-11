@@ -1,0 +1,142 @@
+#contenedor_servicios{
+  position: absolute;
+  height: 90vh;
+  background: linear-gradient(to right,#59A8A8, #a4d0d0);
+  background-size: cover;
+}
+
+
+.titulo{
+    font-size: 50px;
+    font-weight: bold;
+    color: #000000;
+    text-align: center;
+}
+
+#texto_principal{
+  margin-top: 0px;
+  color: rgb(0, 0, 0);
+  font-weight: bold;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  padding-bottom: 1%;
+}
+
+#texto_secundario{
+  color: rgb(0, 0, 0);
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  text-align: justify;
+  font-size: 80%;
+}
+
+
+@media (min-width:960px){
+  .grid-container {
+    display: grid;
+    grid-template-columns: repeat(2, 35%);
+    padding: 0% 2% 5% 2%;
+    justify-content: space-evenly;
+    row-gap: 20px;
+    column-gap: 1px;
+  }
+  
+    .grid-item {
+      font-size: 30px;
+      text-align: center;
+    }
+  
+    #imagen_seccion{
+        height: 35%;
+        width: 35%;
+        margin-right: 2%;
+    }
+  
+    .grid-item-contenido {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      align-content: center;
+      justify-content: center;
+      align-items: center;
+  }
+}
+
+@media (min-width: 700px) and (max-width:960px) {
+
+  #contenedor_servicios{
+    margin-top: 0px;
+    position: relative;
+    height: 100%;
+    width: 100%;
+    padding-bottom: 50px;
+    background: linear-gradient(to right,#9fdddd, #a4d0d0);
+}
+
+  .grid-container {
+    display: grid;
+    grid-template-columns: repeat(1, 50%);
+    padding: 0% 2% 5% 2%;
+    justify-content: space-evenly;
+    row-gap: 20px;
+    column-gap: 1px;
+  }
+  
+    .grid-item {
+      font-size: 30px;
+      text-align: center;
+    }
+  
+    #imagen_seccion{
+        height: 35%;
+        width: 35%;
+        margin-right: 4%;
+    }
+  
+    .grid-item-contenido {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      align-content: center;
+      justify-content: center;
+      align-items: center;
+  }
+}
+
+@media (max-width: 700px){
+  #contenedor_servicios{
+    position: relative;
+    height: 100%;
+    width: 100%;
+    margin-bottom: 50px;
+    background: linear-gradient(to right,#9fdddd, #a4d0d0);
+}
+
+  .grid-container {
+    display: grid;
+    grid-template-columns: repeat(1, 60%);
+    padding: 0% 2% 5% 2%;
+    justify-content: space-evenly;
+    row-gap: 20px;
+    column-gap: 1px;
+  }
+  
+    .grid-item {
+      font-size: 30px;
+      text-align: center;
+    }
+  
+    #imagen_seccion{
+        height: 50%;
+        width: 50%;
+        margin-right: 4%;
+    }
+  
+    .grid-item-contenido {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      align-content: center;
+      justify-content: center;
+      align-items: center;
+  }
+
+}

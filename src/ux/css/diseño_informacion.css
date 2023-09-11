@@ -1,0 +1,20 @@
+#contenedor_info{
+    position: absolute;
+    height: 90vh;
+    background: linear-gradient(to right,#59A8A8, #a4d0d0);
+    background-size: cover;
+}
+
+#texto_info{
+    font-size: 20px;
+    margin: auto 25px auto 25px;
+    text-align: justify;
+    font-family:  Arial, sans-serif;
+}
+
+#titulo_info{
+    font-weight: bold;
+    font-size: 28px;
+    margin: 20px 13px 20px 13px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}

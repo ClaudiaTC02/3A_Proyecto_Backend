@@ -1,0 +1,171 @@
+@import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
+
+#buscadorFechas {
+    font-family: 'Varela Round';
+    position: absolute;
+    bottom: 150px;
+    margin-left: 14px;
+    padding: 10px;
+    background-color: white;
+    opacity: .7;
+    border: 1px solid black;
+    border-radius: 10px;
+    z-index: 10000000;
+  }
+
+  #buscadorFechas:hover{
+    opacity: 1;
+  }
+
+  #botonActivador{
+    font-family:  Arial, sans-serif;
+    position: absolute;
+    bottom: 90px;
+    padding: 10px;
+    background-color: white;
+    font-weight: bold;
+    border: 1px solid black;
+    z-index: 10000000;
+    border: 2px solid black;
+    border-radius: 10px;
+    opacity: .7;
+    margin-left: 14px;
+  }
+  #botonActivador:hover{
+    opacity: 1;
+  }
+
+  #opciones, #opcion,#opcion1,  #boton_pop{
+    font-family:  Arial, sans-serif;
+    font-size: 13px;
+   
+  }
+
+#boton_pop{
+  border: 1px black solid;
+  border-radius: 4px;
+  opacity: .6;
+  background-color: #9EB4B4;
+  font-weight: bold;
+}
+
+#boton_pop:hover{
+  opacity: .8;
+}
+
+
+#map{
+  position: absolute;
+    height: 100%;
+    width: 100%;
+}
+#map-legend {
+  width: 178px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  z-index: 1000000;
+  top: 80px;
+  margin-left: 14px;
+  font-family:  Arial, sans-serif;
+  background-color: rgba(255,255,255,0.603);
+  padding: 10px;
+  padding-left: 20px;
+  border: 1px solid black;
+  border-radius: 10px;
+}
+#map-legend li {
+  list-style-type: none;
+  font-size: 15px;
+  
+}
+.color-box {
+  width: 15px;
+  height: 15px;
+  border: 1px solid black;
+  border-radius: 5px;
+  display: inline-block;
+  margin-right: 10px;
+  z-index: 1000000;
+}
+#contenedor_footer{
+    min-height: 50px;
+  }
+  
+#boton_informacion {
+    width: 100%;
+    height: 100%;
+    background-color: #54a8a8;
+    color: white;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 18px;
+    transition: background-color 0.5s ease;
+    padding: 5px;
+    border: none;
+    outline: none;
+  }
+#boton_informacion:hover {
+    background-color: #388f91;
+    cursor: pointer;
+}
+
+@media (max-width:600px){
+  #map{
+    height: 100vh;
+  }
+
+  #botonActivador{
+    display: none;
+    position: fixed;
+    bottom: 110px;
+    left: 10px;
+    padding: 10px;
+    background-color: white;
+    font-family: 'Varela Round', sans-serif;
+    border: 1px solid black;
+    border-radius: 10px;
+    z-index: 10000000;
+  }
+
+  #buscadorFechas {
+    display: none;
+    position: fixed;
+    bottom: 100px;
+    left: 10px;
+    font-family: 'Varela Round', sans-serif;
+    text-align: center;
+    padding: 10px;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 10px;
+    z-index: 10000000;
+  }
+
+  #map-legend {
+    width: 150px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    font-family: 'Varela Round', sans-serif;
+    font-weight: bold;
+    background-color: rgba(255, 255, 255, 0.603);
+    border-radius: 10px;
+  }
+
+  #map-legend li {
+    font-size: 10px;
+    display: flex;
+    align-items: center;
+  }
+
+  .moviley{
+    padding: 2px;
+  }
+
+  .infocontaminantes{
+    display: none;
+  }
+
+}

@@ -1,0 +1,117 @@
+#contenedor_iniciar_sesion{
+    position: absolute;
+    height: 90vh;
+    width: 100%;
+    background: linear-gradient(to right,#59A8A8, #a4d0d0);
+    background-size: cover;
+}
+#contenedor_formulario{
+    margin-top: 40px;
+    width: 50%;
+    margin-left: 180px;
+}
+
+#formulario{
+    margin-top: 40px;
+    width: 60%;
+    float: left;
+    flex-direction: column;
+}
+
+#texto_iniciar{
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 35px;
+    text-align: center;
+}
+
+#texto_iniciar_sesion{
+    margin-top: 0px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+#correo{
+    margin-bottom: 30px;
+    border-radius: 8px;
+    height: 20px;
+    width:100%;
+}
+
+#contrasenya{
+    border-radius: 8px;
+    height: 20px;
+    width:100%;
+}
+
+#imagen_inciar_sesion{
+    margin-top: 22px;
+    height: 500px;
+    width: 500px;
+    margin-left: 150px;
+}
+
+
+#boton_login{
+    display: flex;
+    justify-content: center;
+    margin:0 auto;
+    margin-top: 60px;
+    width:62%;
+    height: 40px;
+    font-size: 23px;
+    color: white;
+    background-color: #C4928B;
+    border: 0px;
+    border-radius: 12px; 
+    font-weight: bold;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    box-shadow: 4px 4px 4px #6c6c6b ;
+}
+
+@media (max-width: 600px){
+    #imagen_inciar_sesion{
+        height: 0px;
+        width: 0px;
+        visibility: hidden;
+    }
+    #contenedor_formulario{
+        width: 100%;
+        display: flex;
+        margin: 60px auto;
+    }
+    #formulario{
+        margin: 0 auto;
+    }
+}
+@media (min-width: 600px) and (max-width:1000px) {
+
+    #imagen_inciar_sesion{
+        height: 0px;
+        width: 0px;
+        visibility: hidden;
+    }
+    #contenedor_formulario{
+        width: 100%;
+        display: flex;
+        margin: 60px auto;
+    }
+    #formulario{
+        margin: 0 auto;
+    }
+}
+@media (min-width:1000px) and (max-width:1260px){
+    #imagen_inciar_sesion{
+        height: 400px;
+        width: 400px;
+        margin-top: 100px;
+        margin-left: 10%;
+    }
+    #contenedor_formulario{
+        width: 50%;
+    }
+
+}
+
+
+
+

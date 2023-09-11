@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>Iniciar Sesión</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/footer.css">
+  <link rel="stylesheet" href="css/diseño_iniciar_sesion.css">
+  <script src="../scripts/login.js"></script>
+  <script src="../scripts/mail.js"></script>
+  
+</head>
+	
+<body>
+  <!-- Inicio Header -->
+	<header id="contenedor_header">
+
+		<a href="../../index.html" target="_top"><img id="logo_header" src="images/Logo_PNG.png" alt=""></a>  <!-- / #logo-header -->
+
+		  <nav id="contenedor_panel">
+			  <ul>
+				  <li id="enlace"><a id="diseño_texto_header" href="mapas.html" target="_top">Ver Mapas</a></li>
+				  <li id="enlace"><a id="diseño_texto_header" href="servicios.html" target="_top">Servicios</a></li>
+          		<li id="enlace"><button id="boton_iniciar_sesion"><a href="login.html" target="_top" id="color_texto">Iniciar sesion</a></button></li>
+			  </ul> 
+			</nav>
+
+	</header><!-- Fin Header -->
+	<!--Inicio inicio de sesión-->
+	<div id="contenedor_iniciar_sesion">
+		
+		
+		
+		<!--Componentes de inicio de sesión-->
+		
+        <div id="contenedor_formulario">
+			    <form action="" method="get" id="formulario">
+                
+                <h4 id="texto_iniciar">INICIAR SESIÓN</h5>
+                <h5 id="texto_iniciar_sesion">Correo electrónico:</h5>
+                <input name="correo" type="text" id="correo">
+              
+                <h5 id="texto_iniciar_sesion">Contraseña:</h5>
+                <input name="contraseña" type="password" id="contrasenya">
+               
+                
+                <input type="button" value="INICIAR SESIÓN" id="boton_login" onclick="login()">
+                
+                
+            </form>
+          </div>
+          
+          <div id="contenedor_imagen"><img id="imagen_inciar_sesion" src="images/login.png"></div>
+	</div>
+  <footer>
+    <div id="contenedor_footer">
+        <p id="enlace_footer_1"><a><img src="images/instagram.png" id="img_insta" alt="Instagram"></a></p>
+        <nav id=footer_final>
+            <ul>
+                <li id="enlace_footer"><a href="informacion.html" target="_top" id="texto_footer">Sobre nosotros</a></li>
+                <li id="enlace_footer"><a href="contacto.html"  target="_top" id="texto_footer">Formulario de contacto</a></li>
+            </ul>
+        </nav>
+    </div>
+</footer>
+	<!--Fin inicio sesión-->
+</body>
+
+</html>
